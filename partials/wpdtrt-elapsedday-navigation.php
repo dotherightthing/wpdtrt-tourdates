@@ -23,7 +23,7 @@
         </strong>
       </li>
       <li class="wpdtrt-elapsedday-navigation--next">
-        <?php $next; ?>
+        <?php echo $next; ?>
       </li>
     </ul>
   </nav>

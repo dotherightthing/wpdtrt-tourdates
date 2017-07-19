@@ -68,10 +68,9 @@ if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
     */
 
     // vars to pass to template partial
-    $previous = wpdtrt_elapsedday_navigation_link('previous');
-    $next = wpdtrt_elapsedday_navigation_link('next');
-    //$day = get_field('acf_daynumber');
-    $daynumber = wpdtrt_elapsedday_get_post_daynumber($post_id);
+    $previous =   wpdtrt_elapsedday_navigation_link('previous');
+    $next =       wpdtrt_elapsedday_navigation_link('next');
+    $daynumber =  wpdtrt_elapsedday_get_post_daynumber($post_id);
 
     /**
      * ob_start — Turn on output buffering

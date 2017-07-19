@@ -21,47 +21,22 @@ Creates a sequential day count from a posts publish date relative to a date rang
 1. Activate the plugin through the 'Plugins' screen in WordPress
 1. Use the Settings->Plugin Name screen to configure the plugin
 
-== Frequently Asked Questions ==
+== Shortcodes & Template Tags ==
 
-= How do I use the widget? =
+= previous/next arrow navigation =
 
-One or more widgets can be displayed within one or more sidebars:
+* Shortcode: `[wpdtrt_elapsedday_navigation]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_elapsedday_navigation]' );`
 
-1. Locate the widget: Appearance > Widgets > *WPDTRT Elapsed Day Widget*
-2. Drag and drop the widget into one of your sidebars
-3. Add a *Title*
-4. Specify *Number of blocks to display*
-5. Toggle *Link to enlargement?*
+= the elapsed day number =
 
-= How do I use the shortcode? =
+* Shortcode: `[wpdtrt_elapsedday_daynumber]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_elapsedday_daynumber]' );`
 
-One or more shortcodes can be used within the content editor:
+= the total number of days in a period =
 
-* Specify *Number of blocks to display* - `number`
-* Toggle *Link to enlargement?* - `enlargement` (`yes` | `no`)
-
-```
-[wpdtrt_elapsedday_blocks number="2" enlargement="yes"]
-
-[wpdtrt_elapsedday_blocks number="4" enlargement="no"]
-```
-
-= How do I use the template tag? =
-
-One or more template tags can be used within your `.php` templates:
-
-* Specify *Number of blocks to display* - `number`
-* Toggle *Link to enlargement?* - `enlargement` (`yes` | `no`)
-
-```
-<?php
-    do_shortcode( '[wpdtrt_elapsedday_blocks number="2" enlargement="yes"]' );
-?>
-
-<?php
-    do_shortcode( '[wpdtrt_elapsedday_blocks number="4" enlargement="no"]' );
-?>
-```
+* Shortcode: `[wpdtrt_elapsedday_daytotal]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_elapsedday_daytotal]' );`
 
 == Screenshots ==
 

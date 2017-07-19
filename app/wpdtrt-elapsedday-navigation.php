@@ -11,7 +11,30 @@
  * @subpackage  Wpdtrt_Elapsedday/app
  */
 
-if ( !function_exists( 'wpdtrt-elapsedday-navigation_link' ) ) {
+/**
+ * Create a custom field when a post is saved,
+ * which can be queried by the next/previous_post_link_plus plugin
+ * and used in the Yoast page title via %%cf_wpdtrt_elapsedday_daynumber%%,
+ *
+ * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
+ * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
+ * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
+ */
+if ( !function_exists( 'wpdtrt_elapsedday_daynumber_custom_field' ) ) {
+
+  add_action('save_post', 'wpdtrt_elapsedday_daynumber_custom_field');
+
+  function wpdtrt_elapsedday_daynumber_custom_field() {
+      global $post;
+      $post_id = $post->ID;
+
+      if( ! wp_is_post_revision($post) ) {
+        add_post_meta($post_id, 'cf_wpdtrt_elapsedday_daynumber', wpdtrt_elapsedday_get_post_daynumber($post_id), true);
+      }
+  }
+}
+
+if ( !function_exists( 'wpdtrt_elapsedday_navigation_link' ) ) {
 
   /**
    * Link to next/previous post
@@ -36,15 +59,15 @@ if ( !function_exists( 'wpdtrt-elapsedday-navigation_link' ) ) {
     }
 
     $config = array(
-      'order_by' => 'custom', // order by 'meta_key'
-      //'meta_key' => 'post_date', // ACF 'acf_daynumber' field
+      'order_by' => 'meta_key',
+      'post_type' => '"tourdiaryday"',
+      'meta_key' => 'cf_wpdtrt_elapsedday_daynumber',
       'loop' => false,
       'max_length' => 9999,
       'format' => '%link',
-      'link' => '<span class="stack--navigation--text says">' . $tooltip_prefix . ': Day %meta</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
-      'tooltip' => $tooltip_prefix . ': Day DAY_NUMBER.', // %meta = meta_key
-      'in_same_tax' => 'elapsedday',
-      //'ex_posts' => $ex_posts
+      'link' => '<span class="stack--navigation--text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
+      'tooltip' => $tooltip_prefix . ': Day DAY_NUMBER.',
+      'in_same_tax' => 'tour',
       'echo' => false
     );
 

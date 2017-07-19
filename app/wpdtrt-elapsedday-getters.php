@@ -15,30 +15,6 @@
  */
 
 /**
- * Create a cf_daynumber custom field
- * Populate it with the post's slug
- * This allows it to be used in the Yoast page title via %%cf_cf_daynumber%%,
- * Note that the daynumber section of the post slug must be set manually
- * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
- * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
- */
-add_action('save_post', 'cf_daynumber_from_slug');
-
-function cf_daynumber_from_slug() {
-    global $post;
-    $post_slug = $post->post_name;
-    $post_id = $post->ID;
-
-    wpdtrt_log( 'post_slug:' . $post_slug );
-
-    if( ! wp_is_post_revision($post) ) {
-      add_post_meta($post_id, 'cf_daynumber', ('Day ' . $post_slug . ': '), true);
-    }
-}
-
-
-
-/**
  * Get the ID of the category which controls tour dates, to ensure accurate day counts
  * Category Types:
  * 1. Category: New Zealand is a generic geographical category
