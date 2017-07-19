@@ -1,0 +1,38 @@
+{
+  "name": "wpdtrt-elapsedday",
+  "version": "0.1.0",
+  "description": "Creates a sequential day count from a posts publish date relative to a date ranged category.",
+  "main": "readme.txt",
+  "person": {
+    "name" : "Dan Smith",
+    "email" : "dev@dotherightthing.co.nz",
+    "url" : "http://dotherightthing.co.nz"
+  },
+  "devDependencies": {
+    "generator-wp-theme-boilerplate": "git+https://github.com/dotherightthing/generator-wp-theme-boilerplate.git",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-importjs": "^0.1.8",
+    "gulp-phplint": "^0.3.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dotherightthing/wpdtrt-elapsedday.git"
+  },
+  "license": "ISC",
+  "homepage": "http://dotherightthing.co.nz",
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-elapsedday"
+}

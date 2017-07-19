@@ -1,0 +1,162 @@
+/**
+ * Styles for the elapsedday components of the archive page links
+ *
+ * This file contains CSS.
+ *
+ * @link        http://dotherightthing.co.nz
+ * @since       0.1.0
+ *
+ * @package     Wpdtrt_Elapsedday
+ * @subpackage  Wpdtrt_Elapsedday/scss
+ */
+
+/**
+ * Stack banner
+ */
+.stack_banner .wpdtrt-elapsedday-day {
+	display: block; /* display on new line */
+	position: relative;
+	z-index: 4; /* stack above .entry-title */
+	font-size: .2825em;
+	/* margin-bottom: 1px; for Safari, but then 2px in Chrome */
+
+	/*width: 20%; - why? this causes premature wrapping on attachment page */
+	/* font-size: 1.125em; 18px */
+}
+
+.stack_banner .wpdtrt-elapsedday-day--title {
+	/* makes text selectable */
+	position: relative;
+	z-index: 3;
+	font-size: .7em;
+	display: inline-block; /* wrao nicely */
+}
+
+.single-attachment .stack_banner .wpdtrt-elapsedday-day--title .wpdtrt-elapsedday-day--title {
+	background-color: transparent;
+	font-weight: 500;
+	font-size: 1em;
+}
+
+.stack_banner .wpdtrt-elapsedday-day--images-title {
+	line-height: 0;
+	margin-bottom: .5em;
+
+	.wpdtrt-elapsedday-day--title {
+  		font-size: .4em;
+	}
+}
+
+.stack_banner .wpdtrt-elapsedday-day--day,
+.stack_banner .wpdtrt-elapsedday-day--number,
+.stack_banner .wpdtrt-elapsedday-day--title {
+	background: #fff;
+	color: #000;
+	padding: 0.3125rem;
+  	box-shadow: 0 0 0 4px #fff;
+}
+
+.stack_banner .wpdtrt-elapsedday-day--day,
+.stack_banner .wpdtrt-elapsedday-day--number {
+	padding-bottom: 0;
+}
+
+.stack_banner .wpdtrt-elapsedday-day--day {
+	padding-right: 0;
+}
+
+.stack_banner .wpdtrt-elapsedday-day--number:before {
+	content: "#";
+}
+
+.stack_banner .wpdtrt-elapsedday-day--period {
+	display: none;
+}
+
+/**
+* <= 710px
+*/
+
+@media screen and (max-width: 44.375em) {
+
+	.stack_banner .wpdtrt-elapsedday-day {
+		font-size: 0.45em; /* 18px */
+	}
+}
+
+/**
+* 14.1 - >= 568px
+*/
+
+@media screen and (min-width: 35.5em) {
+
+	.stack_banner .wpdtrt-elapsedday-day--title {
+		padding-bottom: 0;
+	}
+}
+
+/**
+* 14.3 - >= 910px
+* This is the breakpoint that the MENU button switches to an inline menu
+*/
+
+@media screen and (min-width: 56.875em) {
+
+	.stack_banner .wpdtrt-elapsedday-day {
+    	margin-bottom: -.55em; /* both! */
+ 	}
+}
+
+/**
+ * Stack link page
+ */
+.stack_link_page .wpdtrt-elapsedday-day {
+	display: block;
+	color: inherit;
+	font-size: 1em;
+	text-transform: uppercase;
+	padding-bottom: 0.6em;
+}
+
+.stack_link_page .stack--text h3 > .wpdtrt-elapsedday-day > *,
+.stack_link_page .wpdtrt-elapsedday-day--title,
+.stack_link_page .wpdtrt-elapsedday-day--month,
+.stack_link_page .wpdtrt-elapsedday-day--location {
+	background-color: #fff;
+	color: #000;
+	box-shadow: 0 0 0 4px #fff;
+}
+
+.stack_link_page.stack_link_category .wpdtrt-elapsedday-day--location {
+ 	color: #666;
+}
+
+.stack_link_page .wpdtrt-elapsedday-day--day-range,
+.stack_link_page .wpdtrt-elapsedday-day--number {
+	&::before {
+ 		content: "#";
+ 	}
+}
+
+.stack_link_page .wpdtrt-elapsedday-day--period {
+	/* extends .says */
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	/* many screen reader and browser combinations announce broken words as they would appear visually */
+	word-wrap: normal !important;
+}
+
+.stack_link_page .wpdtrt-elapsedday-day--title {
+	display: inline-block;
+	font-size: 2em;
+	font-weight: 600;
+	line-height: 1;
+	padding-bottom: .2em;
+}
+
+.stack_link_page a:focus .wpdtrt-elapsedday-day--title {
+ 	text-decoration: underline; /* TODO: this is a temp A11y fix */
+}

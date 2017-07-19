@@ -1,0 +1,95 @@
+/*
+* @ Stack Navigation
+* Bicyle + Arrows
+* Used in header and footer
+* TEMPLATE: template-parts/wpdtrt-elapsedday-navigation
+*/
+
+.wpdtrt-elapsedday-navigation--text,
+.site-header-main .wpdtrt-elapsedday-navigation {
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.wpdtrt-elapsedday-navigation--current {
+  font-size: 1.7em;
+}
+
+.wpdtrt-elapsedday-navigation--text {
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.wpdtrt-elapsedday-navigation {
+
+  font-size: .9em;
+  text-align: center;
+  clear: both;
+
+  .site-header & {
+    padding: 1em 0;
+  }
+
+  ul {
+    list-style: none;
+    font-size: 1.4em;
+    line-height: 1;
+    padding: 0;
+    margin-left: 0; /* TODO offset lh padding */
+    margin-bottom: 0;
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  a,
+  .a {
+    display: block;
+    font-size: 1.2em;
+    line-height: 1;
+    color: inherit;
+    padding: 0.1em; /* TODO tweak for breakpoints */
+  }
+
+  .a {
+    color: rgba(0,0,0,.1);
+  }
+
+  a {
+
+    &::after {
+      /* this isn't great but I need non-color feedback here */
+      content: "";
+      display: block;
+      border-bottom: 2px solid transparent;
+    }
+
+    &:hover,
+    &:focus {
+      color: #000;
+
+      &::after {
+        border-color: #333;
+      }
+    }
+
+    .entry-content & {
+      box-shadow: 0 0 0 0 currentColor;
+    }
+  }
+}
+
+/**
+* 14.1 - >= 710px
+* At this BP the 3 column layout is applied.
+*/
+
+@media screen and (min-width: 44.375em) {
+
+  .stack_banner .wpdtrt-elapsedday-navigation::after {
+    content: "";
+    display: table;
+    width: 100%;
+    clear: both;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "wpdtrt-elapsedday",
+  "version": "0.1.0",
+  "description": "Creates a sequential day count from a posts publish date relative to a date ranged category.",
+  "main": "readme.txt",
+  "authors": [
+    "Dan Smith <dev@dotherightthing.co.nz>"
+  ],
+  "devDependencies": {
+    "WordPress-Admin-Style": "https://github.com/bueltge/WordPress-Admin-Style.git#^1.4.1",
+    "wp-skeleton-plugin": "https://github.com/ptahdunbar/wp-skeleton-plugin.git"
+  },
+  "license": "All Rights Reserved",
+  "homepage": "http://dotherightthing.co.nz",
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "private": true
+}

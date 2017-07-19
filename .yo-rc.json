@@ -1,0 +1,24 @@
+{
+  "generator-wp-plugin-boilerplate": {
+    "name": "wpdtrt-elapsedday",
+    "nameSafe": "wpdtrt_elapsedday",
+    "nameFriendly": "WPDTRT Elapsed Day",
+    "nameFriendlySafe": "Wpdtrt_Elapsedday",
+    "nameAdminMenu": "Elapsed Day",
+    "urlAdminMenu": "wpdtrt-elapsedday",
+    "description": "Creates a sequential day count from a posts publish date relative to a date ranged category.",
+    "tags": "boilerplate, placeholder",
+    "homepage": "http://dotherightthing.co.nz",
+    "license": "GPLv2 or later",
+    "licenseUrl": "http://www.gnu.org/licenses/gpl-2.0.html",
+    "donateUrl": "http://dotherightthing.co.nz",
+    "wpVersion": "4.8",
+    "authorName": "Dan Smith",
+    "authorWordPressName": "dotherightthingnz",
+    "authorEmail": "dev@dotherightthing.co.nz",
+    "authorUrl": "http://dotherightthing.co.nz",
+    "repositoryType": "git",
+    "repositoryUrl": "git@github.com:dotherightthing/wpdtrt-elapsedday.git",
+    "version": "0.1.0"
+  }
+}
