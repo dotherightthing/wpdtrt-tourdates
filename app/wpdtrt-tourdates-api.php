@@ -7,27 +7,27 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/app
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/app
  */
 
-if ( !function_exists( 'wpdtrt_elapsedday_get_data' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_get_data' ) ) {
 
   /**
    * Request the data from the API
    *
-   * @param       string $wpdtrt_elapsedday_datatype
+   * @param       string $wpdtrt_tourdates_datatype
    *    The type of data to return.
-   * @return      object $wpdtrt_elapsedday_data
+   * @return      object $wpdtrt_tourdates_data
    *    The body of the JSON response
    *
    * @since       0.1.0
    * @uses        ../../../../wp-includes/http.php
    * @see         https://developer.wordpress.org/reference/functions/wp_remote_get/
    */
-  function wpdtrt_elapsedday_get_data( $wpdtrt_elapsedday_datatype ) {
+  function wpdtrt_tourdates_get_data( $wpdtrt_tourdates_datatype ) {
 
-    $endpoint = 'http://jsonplaceholder.typicode.com/' . $wpdtrt_elapsedday_datatype;
+    $endpoint = 'http://jsonplaceholder.typicode.com/' . $wpdtrt_tourdates_datatype;
 
     $args = array(
       'timeout' => 30 // seconds to wait for the request to complete
@@ -42,29 +42,29 @@ if ( !function_exists( 'wpdtrt_elapsedday_get_data' ) ) {
      * Return the body, not the header
      * Note: There is an optional boolean argument, which returns an associative array if TRUE
      */
-    $wpdtrt_elapsedday_data = json_decode( $response['body'] );
+    $wpdtrt_tourdates_data = json_decode( $response['body'] );
 
-    return $wpdtrt_elapsedday_data;
+    return $wpdtrt_tourdates_data;
   }
 
 }
 
-if ( !function_exists( 'wpdtrt_elapsedday_data_refresh' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_data_refresh' ) ) {
 
   /**
    * Refresh the data from the API
-   *    The 'action' key's value, 'wpdtrt_elapsedday_data_refresh',
-   *    matches the latter half of the action 'wp_ajax_wpdtrt_elapsedday_data_refresh' in our AJAX handler.
+   *    The 'action' key's value, 'wpdtrt_tourdates_data_refresh',
+   *    matches the latter half of the action 'wp_ajax_wpdtrt_tourdates_data_refresh' in our AJAX handler.
    *    This is because it is used to call the server side PHP function through admin-ajax.php.
    *    If an action is not specified, admin-ajax.php will exit, and return 0 in the process.
    *
    * @since       0.1.0
    * @see         https://codex.wordpress.org/AJAX_in_Plugins
    */
-  function wpdtrt_elapsedday_data_refresh() {
+  function wpdtrt_tourdates_data_refresh() {
 
-    $wpdtrt_elapsedday_options = get_option('wpdtrt_elapsedday');
-    $last_updated = $wpdtrt_elapsedday_options['last_updated'];
+    $wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
+    $last_updated = $wpdtrt_tourdates_options['last_updated'];
 
     $current_time = time();
     $update_difference = $current_time - $last_updated;
@@ -72,15 +72,15 @@ if ( !function_exists( 'wpdtrt_elapsedday_data_refresh' ) ) {
 
     if ( $update_difference > $one_hour ) {
 
-      $wpdtrt_elapsedday_datatype = $wpdtrt_elapsedday_options['wpdtrt_elapsedday_datatype'];
+      $wpdtrt_tourdates_datatype = $wpdtrt_tourdates_options['wpdtrt_tourdates_datatype'];
 
-      $wpdtrt_elapsedday_options['wpdtrt_elapsedday_data'] = wpdtrt_elapsedday_get_data( $wpdtrt_elapsedday_datatype );
+      $wpdtrt_tourdates_options['wpdtrt_tourdates_data'] = wpdtrt_tourdates_get_data( $wpdtrt_tourdates_datatype );
 
       // inspecting the database will allow us to check
       // whether the profile is being updated
-      $wpdtrt_elapsedday_options['last_updated'] = time();
+      $wpdtrt_tourdates_options['last_updated'] = time();
 
-      update_option('wpdtrt_elapsedday', $wpdtrt_elapsedday_options);
+      update_option('wpdtrt_tourdates', $wpdtrt_tourdates_options);
     }
 
     /**
@@ -94,7 +94,7 @@ if ( !function_exists( 'wpdtrt_elapsedday_data_refresh' ) ) {
 
   }
 
-  add_action('wp_ajax_wpdtrt_elapsedday_data_refresh', 'wpdtrt_elapsedday_data_refresh');
+  add_action('wp_ajax_wpdtrt_tourdates_data_refresh', 'wpdtrt_tourdates_data_refresh');
 
 }
 

@@ -2,7 +2,7 @@
 
 /**
  * Elapsed day
- * Creates a sequential day count from a posts publish date relative to a date ranged category.
+ * Display the relative position of content within an assigned date-range.
  * Used for:
  *  Permalinks? - no, manually set
  *  Page title
@@ -26,7 +26,7 @@
  * @see https://www.advancedcustomfields.com/resources/get_field/
  * @see https://developer.wordpress.org/reference/functions/get_the_category/
  */
-function wpdtrt_elapsedday_get_daycontroller_id($post_id, $tour_type) {
+function wpdtrt_tourdates_get_daycontroller_id($post_id, $tour_type) {
   $daycontroller_id = '';
 
   // get associated categories
@@ -72,11 +72,11 @@ function wpdtrt_elapsedday_get_daycontroller_id($post_id, $tour_type) {
  * @param number $post_id The id of the current post
  * @return number $post_day_number The day number
  */
-function wpdtrt_elapsedday_get_post_daynumber($post_id) {
+function wpdtrt_tourdates_get_post_daynumber($post_id) {
 
-  $tour_start_date = wpdtrt_elapsedday_get_tour_start_date( $post_id );
+  $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id );
   $post_date = get_the_date( "Y-n-j 00:01:00", $post_id );
-  $post_day_number = wpdtrt_elapsedday_get_tour_days_elapsed( $tour_start_date, $post_date );
+  $post_day_number = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $post_date );
 
   /*
   $post_day_number = get_post_meta($post_id, 'acf_daynumber', true);
@@ -96,10 +96,10 @@ function wpdtrt_elapsedday_get_post_daynumber($post_id) {
  * @param string $tour_leg_date The tour leg date
  * @return number $tour_leg_daynumber The day number
  */
-function wpdtrt_elapsedday_get_tour_leg_daynumber($tour_id, $tour_leg_date) {
+function wpdtrt_tourdates_get_tour_leg_daynumber($tour_id, $tour_leg_date) {
 
-  $tour_start_date = wpdtrt_elapsedday_get_tour_start_date( -1, $tour_id );
-  $tour_leg_daynumber = wpdtrt_elapsedday_get_tour_days_elapsed( $tour_start_date, $tour_leg_date );
+  $tour_start_date = wpdtrt_tourdates_get_tour_start_date( -1, $tour_id );
+  $tour_leg_daynumber = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $tour_leg_date );
 
   return $tour_leg_daynumber;
 }
@@ -111,9 +111,9 @@ function wpdtrt_elapsedday_get_tour_leg_daynumber($tour_id, $tour_leg_date) {
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_start_date($post_id=-1, $tour_id=-1) {
+function wpdtrt_tourdates_get_tour_start_date($post_id=-1, $tour_id=-1) {
   if ( $tour_id === -1 ) {
-    $tour_id = wpdtrt_elapsedday_get_daycontroller_id( $post_id, 'tour' );
+    $tour_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, 'tour' );
   }
 
   $acf_category_id = 'tour_' . $tour_id;
@@ -130,9 +130,9 @@ function wpdtrt_elapsedday_get_tour_start_date($post_id=-1, $tour_id=-1) {
  * @return string $tour_start_date The date when the tour ended (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_end_date($post_id=-1, $tour_id=-1) {
+function wpdtrt_tourdates_get_tour_end_date($post_id=-1, $tour_id=-1) {
   if ( $tour_id === -1 ) {
-    $tour_id = wpdtrt_elapsedday_get_daycontroller_id( $post_id, 'tour' );
+    $tour_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, 'tour' );
   }
 
   $acf_category_id = 'tour_' . $tour_id;
@@ -152,10 +152,10 @@ function wpdtrt_elapsedday_get_tour_end_date($post_id=-1, $tour_id=-1) {
  * @see https://www.advancedcustomfields.com/resources/get_field/
  * @todo replace with filter of legs by acf_tour_category_first_visit
  */
-function wpdtrt_elapsedday_get_tour_length($post_id=-1, $tour_id=-1, $text_before='', $text_after='') {
-  $tour_start_date = wpdtrt_elapsedday_get_tour_start_date( $post_id, $tour_id );
-  $tour_end_date = wpdtrt_elapsedday_get_tour_end_date( $post_id, $tour_id );
-  $tour_length_days = wpdtrt_elapsedday_get_tour_days_elapsed($tour_start_date, $tour_end_date);
+function wpdtrt_tourdates_get_tour_length($post_id=-1, $tour_id=-1, $text_before='', $text_after='') {
+  $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id, $tour_id );
+  $tour_end_date = wpdtrt_tourdates_get_tour_end_date( $post_id, $tour_id );
+  $tour_length_days = wpdtrt_tourdates_get_tour_days_elapsed($tour_start_date, $tour_end_date);
 
   //wpdtrt_log('$tour_length_days=' . $tour_length_days); // ok
   return $text_before . $tour_length_days . $text_after;
@@ -169,7 +169,7 @@ function wpdtrt_elapsedday_get_tour_length($post_id=-1, $tour_id=-1, $text_befor
  * @return string $tour_leg_count The number of unique tour legs
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_count($tour_id, $text_before='', $text_after='') {
+function wpdtrt_tourdates_get_tour_leg_count($tour_id, $text_before='', $text_after='') {
   $daycontroller_id = $tour_id;
   $acf_category_id = 'tour_' . $daycontroller_id;
   $tour_leg_count = get_field('acf_tour_category_leg_count', $acf_category_id);
@@ -190,8 +190,8 @@ function wpdtrt_elapsedday_get_tour_leg_count($tour_id, $text_before='', $text_a
  * @return string $tour_leg_start_date The date when the tour leg started (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_start_date($category_slug, $date_format=null) {
-  $daycontroller_id = wpdtrt_elapsedday_get_tour_leg_id( $category_slug );
+function wpdtrt_tourdates_get_tour_leg_start_date($category_slug, $date_format=null) {
+  $daycontroller_id = wpdtrt_tourdates_get_tour_leg_id( $category_slug );
   $acf_category_id = 'tour_' . $daycontroller_id;
   $tour_leg_start_date = get_field('acf_tour_category_start_date', $acf_category_id);
 
@@ -212,8 +212,8 @@ function wpdtrt_elapsedday_get_tour_leg_start_date($category_slug, $date_format=
  * @return string $tour_leg_end_date The date when the tour leg ended (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_end_date($category_slug, $date_format=null) {
-  $daycontroller_id = wpdtrt_elapsedday_get_tour_leg_id( $category_slug );
+function wpdtrt_tourdates_get_tour_leg_end_date($category_slug, $date_format=null) {
+  $daycontroller_id = wpdtrt_tourdates_get_tour_leg_id( $category_slug );
   $acf_category_id = 'tour_' . $daycontroller_id;
   $tour_leg_end_date = get_field('acf_tour_category_end_date', $acf_category_id);
 
@@ -232,8 +232,8 @@ function wpdtrt_elapsedday_get_tour_leg_end_date($category_slug, $date_format=nu
  * @param number $category_slug The slug of the tour leg category
  * @return string $tour_leg_start_month The month when the tour leg started (Month YYYY)
  */
-function wpdtrt_elapsedday_get_tour_leg_start_month($category_slug) {
-  $tour_leg_start_month = wpdtrt_elapsedday_get_tour_leg_start_date($category_slug, 'F Y');
+function wpdtrt_tourdates_get_tour_leg_start_month($category_slug) {
+  $tour_leg_start_month = wpdtrt_tourdates_get_tour_leg_start_date($category_slug, 'F Y');
 
   //wpdtrt_log('$tour_leg_start_month=' . $tour_leg_start_month); // ok
   return $tour_leg_start_month;
@@ -244,8 +244,8 @@ function wpdtrt_elapsedday_get_tour_leg_start_month($category_slug) {
  * @param number $category_slug The slug of the tour leg category
  * @return string $tour_leg_end_month The month when the tour leg ended (Month YYYY)
  */
-function wpdtrt_elapsedday_get_tour_leg_end_month($category_slug) {
-  $tour_leg_end_month = wpdtrt_elapsedday_get_tour_leg_end_date($category_slug, 'F Y');
+function wpdtrt_tourdates_get_tour_leg_end_month($category_slug) {
+  $tour_leg_end_month = wpdtrt_tourdates_get_tour_leg_end_date($category_slug, 'F Y');
 
   //wpdtrt_log('$tour_leg_end_month=' . $tour_leg_end_month); // ok
   return $tour_leg_end_month;
@@ -257,10 +257,10 @@ function wpdtrt_elapsedday_get_tour_leg_end_month($category_slug) {
  * @return number $tour_leg_start_day The day when the tour leg started
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_start_day($tour_leg_slug) {
-  $tour_id = wpdtrt_elapsedday_get_tour_id( $tour_leg_slug );
-  $tour_leg_start_date = wpdtrt_elapsedday_get_tour_leg_start_date( $tour_leg_slug );
-  $tour_leg_start_day = wpdtrt_elapsedday_get_tour_leg_daynumber( $tour_id, $tour_leg_start_date );
+function wpdtrt_tourdates_get_tour_leg_start_day($tour_leg_slug) {
+  $tour_id = wpdtrt_tourdates_get_tour_id( $tour_leg_slug );
+  $tour_leg_start_date = wpdtrt_tourdates_get_tour_leg_start_date( $tour_leg_slug );
+  $tour_leg_start_day = wpdtrt_tourdates_get_tour_leg_daynumber( $tour_id, $tour_leg_start_date );
 
   //wpdtrt_log('$tour_leg_start_day=' . $tour_leg_start_day); // ok
   return $tour_leg_start_day;
@@ -272,10 +272,10 @@ function wpdtrt_elapsedday_get_tour_leg_start_day($tour_leg_slug) {
  * @return number $tour_leg_end_day The day when the tour leg ended
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_end_day($tour_leg_slug) {
-  $tour_id = wpdtrt_elapsedday_get_tour_id( $tour_leg_slug );
-  $tour_leg_end_date = wpdtrt_elapsedday_get_tour_leg_end_date( $tour_leg_slug );
-  $tour_leg_end_day = wpdtrt_elapsedday_get_tour_leg_daynumber( $tour_id, $tour_leg_end_date );
+function wpdtrt_tourdates_get_tour_leg_end_day($tour_leg_slug) {
+  $tour_id = wpdtrt_tourdates_get_tour_id( $tour_leg_slug );
+  $tour_leg_end_date = wpdtrt_tourdates_get_tour_leg_end_date( $tour_leg_slug );
+  $tour_leg_end_day = wpdtrt_tourdates_get_tour_leg_daynumber( $tour_id, $tour_leg_end_date );
 
   // wpdtrt_log('$tour_leg_end_day=' . $tour_leg_end_day); // ok
   return $tour_leg_end_day;
@@ -287,10 +287,10 @@ function wpdtrt_elapsedday_get_tour_leg_end_day($tour_leg_slug) {
  * @return string $tour_leg_length_days The length of the tour leg
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_elapsedday_get_tour_leg_length($category_slug) {
-  $tour_leg_start_date = wpdtrt_elapsedday_get_tour_leg_start_date( $category_slug );
-  $tour_leg_end_date = wpdtrt_elapsedday_get_tour_leg_end_date( $category_slug );
-  $tour_leg_length_days = wpdtrt_elapsedday_get_tour_days_elapsed($tour_leg_start_date, $tour_leg_end_date);
+function wpdtrt_tourdates_get_tour_leg_length($category_slug) {
+  $tour_leg_start_date = wpdtrt_tourdates_get_tour_leg_start_date( $category_slug );
+  $tour_leg_end_date = wpdtrt_tourdates_get_tour_leg_end_date( $category_slug );
+  $tour_leg_length_days = wpdtrt_tourdates_get_tour_days_elapsed($tour_leg_start_date, $tour_leg_end_date);
 
   //wpdtrt_log('$tour_length_days=' . $tour_length_days); // ok
   return $tour_leg_length_days;
@@ -302,7 +302,7 @@ function wpdtrt_elapsedday_get_tour_leg_length($category_slug) {
  * @param number $end_date The end date
  * @return number $tour_days_elapsed Days elapsed
  */
-function wpdtrt_elapsedday_get_tour_days_elapsed($start_date, $end_date) {
+function wpdtrt_tourdates_get_tour_days_elapsed($start_date, $end_date) {
   // http://stackoverflow.com/a/3923228
   $date1 = new DateTime($start_date);
   $date2 = new DateTime($end_date);
@@ -323,7 +323,7 @@ function wpdtrt_elapsedday_get_tour_days_elapsed($start_date, $end_date) {
  * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
  */
-function wpdtrt_elapsedday_get_tour_leg_name($tour_leg_slug) {
+function wpdtrt_tourdates_get_tour_leg_name($tour_leg_slug) {
   $tour_leg_name = '';
 
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
@@ -342,7 +342,7 @@ function wpdtrt_elapsedday_get_tour_leg_name($tour_leg_slug) {
  * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
  */
-function wpdtrt_elapsedday_get_tour_leg_id($tour_leg_slug) {
+function wpdtrt_tourdates_get_tour_leg_id($tour_leg_slug) {
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
 
   $tour_leg_id = $tour_leg->term_id;
@@ -358,7 +358,7 @@ function wpdtrt_elapsedday_get_tour_leg_id($tour_leg_slug) {
  * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
  */
-function wpdtrt_elapsedday_get_tour_id($tour_leg_slug) {
+function wpdtrt_tourdates_get_tour_id($tour_leg_slug) {
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
   $tour_id = $tour_leg->parent;
   //wpdtrt_log( 'tour_id='.$tour_id ); // ok

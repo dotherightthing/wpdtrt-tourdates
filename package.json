@@ -1,7 +1,7 @@
 {
-  "name": "wpdtrt-elapsedday",
+  "name": "wpdtrt-tourdates",
   "version": "0.1.0",
-  "description": "Creates a sequential day count from a posts publish date relative to a date ranged category.",
+  "description": "Display the relative position of content within an assigned date-range.",
   "main": "readme.txt",
   "person": {
     "name" : "Dan Smith",
@@ -30,9 +30,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:dotherightthing/wpdtrt-elapsedday.git"
+    "url": "git@github.com:dotherightthing/wpdtrt-tourdates.git"
   },
   "license": "ISC",
   "homepage": "http://dotherightthing.co.nz",
-  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-elapsedday"
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates"
 }

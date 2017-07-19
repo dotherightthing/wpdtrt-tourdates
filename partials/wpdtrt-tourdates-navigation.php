@@ -5,24 +5,24 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/partials
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/partials
  */
 ?>
 
-<div class="wpdtrt-elapsedday-navigation">
+<div class="wpdtrt-tourdates-navigation">
   <nav>
     <ul>
-      <li class="wpdtrt-elapsedday-navigation--previous">
+      <li class="wpdtrt-tourdates-navigation--previous">
         <?php echo $previous; ?>
       </li>
-      <li class="wpdtrt-elapsedday-navigation--current">
-        <strong class="wpdtrt-elapsedday-navigation--text">
+      <li class="wpdtrt-tourdates-navigation--current">
+        <strong class="wpdtrt-tourdates-navigation--text">
           <span class="says">Current page: Day <?php echo $daynumber; ?></span>
           <span class="icon-directions_bike"></span>
         </strong>
       </li>
-      <li class="wpdtrt-elapsedday-navigation--next">
+      <li class="wpdtrt-tourdates-navigation--next">
         <?php echo $next; ?>
       </li>
     </ul>

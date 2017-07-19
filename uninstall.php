@@ -22,7 +22,7 @@
  * @link https://developer.wordpress.org/plugins/the-basics/uninstall-methods/#method-2-uninstall-php
  * @since      0.1.0
  *
- * @package    Wpdtrt_Elapsedday
+ * @package    WPDTRT_Tourdates
  */
 
 // if uninstall.php is not called by WordPress, die
@@ -30,7 +30,7 @@ if ( ! defined('WP_UNINSTALL_PLUGIN') ) {
   die;
 }
 
-$option_name = "wpdtrt-elapsedday";
+$option_name = "wpdtrt-tourdates";
 
 delete_option($option_name);
 

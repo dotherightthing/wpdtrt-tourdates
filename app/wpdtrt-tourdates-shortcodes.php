@@ -8,14 +8,14 @@
  * @link        https://generatewp.com/shortcodes/
  * @since       0.1.0
  *
- * @example     [wpdtrt_elapsedday_navigation]
- * @example     do_shortcode( '[wpdtrt_elapsedday_navigation]' );
+ * @example     [wpdtrt_tourdates_navigation]
+ * @example     do_shortcode( '[wpdtrt_tourdates_navigation]' );
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/app
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/app
  */
 
-if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_navigation_shortcode' ) ) {
 
   /**
    * add_shortcode
@@ -30,9 +30,9 @@ if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
    * @see         http://php.net/manual/en/function.ob-start.php
    * @see         http://php.net/manual/en/function.ob-get-clean.php
    */
-  add_shortcode( 'wpdtrt_elapsedday_navigation', 'wpdtrt_elapsedday_navigation_shortcode' );
+  add_shortcode( 'wpdtrt_tourdates_navigation', 'wpdtrt_tourdates_navigation_shortcode' );
 
-  function wpdtrt_elapsedday_navigation_shortcode( $atts, $content = null ) {
+  function wpdtrt_tourdates_navigation_shortcode( $atts, $content = null ) {
 
     // post object to get info about the post in which the shortcode appears
     global $post;
@@ -63,14 +63,14 @@ if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
       $enlargement = '0';
     }
 
-    $wpdtrt_elapsedday_options = get_option('wpdtrt_elapsedday');
-    $wpdtrt_elapsedday_data = $wpdtrt_elapsedday_options['wpdtrt_elapsedday_data'];
+    $wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
+    $wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
     */
 
     // vars to pass to template partial
-    $previous =   wpdtrt_elapsedday_navigation_link('previous');
-    $next =       wpdtrt_elapsedday_navigation_link('next');
-    $daynumber =  wpdtrt_elapsedday_get_post_daynumber($post_id);
+    $previous =   wpdtrt_tourdates_navigation_link('previous');
+    $next =       wpdtrt_tourdates_navigation_link('next');
+    $daynumber =  wpdtrt_tourdates_get_post_daynumber($post_id);
 
     /**
      * ob_start — Turn on output buffering
@@ -80,7 +80,7 @@ if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
      */
     ob_start();
 
-    require(WPDTRT_ELAPSEDDAY_PATH . 'partials/wpdtrt-elapsedday-navigation.php');
+    require(WPDTRT_ELAPSEDDAY_PATH . 'partials/wpdtrt-tourdates-navigation.php');
 
     /**
      * ob_get_clean — Get current buffer contents and delete current output buffer
@@ -91,7 +91,7 @@ if ( !function_exists( 'wpdtrt_elapsedday_navigation_shortcode' ) ) {
   }
 }
 
-if ( !function_exists( 'wpdtrt_elapsedday_daynumber_shortcode' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_daynumber_shortcode' ) ) {
 
   /**
    * add_shortcode
@@ -104,18 +104,18 @@ if ( !function_exists( 'wpdtrt_elapsedday_daynumber_shortcode' ) ) {
    * @uses        ../../../../wp-includes/shortcodes.php
    * @see         https://codex.wordpress.org/Function_Reference/add_shortcode
    */
-  add_shortcode( 'wpdtrt_elapsedday_daynumber', 'wpdtrt_elapsedday_daynumber_shortcode' );
+  add_shortcode( 'wpdtrt_tourdates_daynumber', 'wpdtrt_tourdates_daynumber_shortcode' );
 
-  function wpdtrt_elapsedday_daynumber_shortcode( $atts, $content = null ) {
+  function wpdtrt_tourdates_daynumber_shortcode( $atts, $content = null ) {
     global $post;
     $post_id = $post->ID;
-    $daynumber = wpdtrt_elapsedday_get_post_daynumber($post_id);
+    $daynumber = wpdtrt_tourdates_get_post_daynumber($post_id);
 
     return $daynumber;
   }
 }
 
-if ( !function_exists( 'wpdtrt_elapsedday_daytotal_shortcode' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_daytotal_shortcode' ) ) {
 
   /**
    * add_shortcode
@@ -128,14 +128,14 @@ if ( !function_exists( 'wpdtrt_elapsedday_daytotal_shortcode' ) ) {
    * @uses        ../../../../wp-includes/shortcodes.php
    * @see         https://codex.wordpress.org/Function_Reference/add_shortcode
    */
-  add_shortcode( 'wpdtrt_elapsedday_daytotal', 'wpdtrt_elapsedday_daytotal_shortcode' );
+  add_shortcode( 'wpdtrt_tourdates_daytotal', 'wpdtrt_tourdates_daytotal_shortcode' );
 
-  function wpdtrt_elapsedday_daytotal_shortcode( $atts, $content = null ) {
+  function wpdtrt_tourdates_daytotal_shortcode( $atts, $content = null ) {
     global $post;
     $post_id = $post->ID;
-    $tour_start_date = wpdtrt_elapsedday_get_tour_start_date( $post_id );
-    $tour_end_date = wpdtrt_elapsedday_get_tour_end_date( $post_id );
-    $day_total = wpdtrt_elapsedday_get_tour_days_elapsed( $tour_start_date, $tour_end_date );
+    $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id );
+    $tour_end_date = wpdtrt_tourdates_get_tour_end_date( $post_id );
+    $day_total = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $tour_end_date );
 
     return $day_total;
   }

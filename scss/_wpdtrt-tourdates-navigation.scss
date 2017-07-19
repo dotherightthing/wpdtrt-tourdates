@@ -2,24 +2,24 @@
 * @ Stack Navigation
 * Bicyle + Arrows
 * Used in header and footer
-* TEMPLATE: template-parts/wpdtrt-elapsedday-navigation
+* TEMPLATE: template-parts/wpdtrt-tourdates-navigation
 */
 
-.wpdtrt-elapsedday-navigation--text,
-.site-header-main .wpdtrt-elapsedday-navigation {
+.wpdtrt-tourdates-navigation--text,
+.site-header-main .wpdtrt-tourdates-navigation {
   font-family: "Helvetica Neue", sans-serif;
 }
 
-.wpdtrt-elapsedday-navigation--current {
+.wpdtrt-tourdates-navigation--current {
   font-size: 1.7em;
 }
 
-.wpdtrt-elapsedday-navigation--text {
+.wpdtrt-tourdates-navigation--text {
   display: inline-block;
   line-height: 1.5;
 }
 
-.wpdtrt-elapsedday-navigation {
+.wpdtrt-tourdates-navigation {
 
   font-size: .9em;
   text-align: center;
@@ -86,7 +86,7 @@
 
 @media screen and (min-width: 44.375em) {
 
-  .stack_banner .wpdtrt-elapsedday-navigation::after {
+  .stack_banner .wpdtrt-tourdates-navigation::after {
     content: "";
     display: table;
     width: 100%;

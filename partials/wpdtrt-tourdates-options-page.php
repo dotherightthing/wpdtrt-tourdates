@@ -1,7 +1,7 @@
 <?php
 /**
  * Template partial for Admin Options page
- *    WP Admin > Settings > WPDTRT Elapsed Day
+ *    WP Admin > Settings > WPDTRT Tour Dates
  *
  * This file contains PHP, and HTML from the WordPress_Admin_Style plugin.
  *
@@ -9,15 +9,15 @@
  * @link        /wp-admin/admin.php?page=WordPress_Admin_Style#twocolumnlayout2
  * @since       0.1.0
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/partials
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/partials
  */
 ?>
 
 <div class="wrap">
 
   <div id="icon-options-general" class="icon32"></div>
-  <h1><?php esc_attr_e( 'WPDTRT Elapsed Day', 'wp_admin_style' ); ?>: Placeholder blocks</h1>
+  <h1><?php esc_attr_e( 'WPDTRT Tour Dates', 'wp_admin_style' ); ?>: Placeholder blocks</h1>
 
   <div id="poststuff">
 
@@ -32,11 +32,11 @@
           /**
            * Start Scenario 1 - data selection form
            * If the user has not chosen a content type yet.
-           * then $wpdtrt_elapsedday_datatype will be set to the default of ""
+           * then $wpdtrt_tourdates_datatype will be set to the default of ""
            * The user must make a selection so that we know which page to query,
            * so we show the selection box first.
            */
-          if ( !isset( $wpdtrt_elapsedday_datatype ) || ( $wpdtrt_elapsedday_datatype === '') ) :
+          if ( !isset( $wpdtrt_tourdates_datatype ) || ( $wpdtrt_tourdates_datatype === '') ) :
           ?>
 
           <div class="postbox">
@@ -47,17 +47,17 @@
 
             <div class="inside">
 
-              <form name="wpdtrt_elapsedday_data_form" method="post" action="">
+              <form name="wpdtrt_tourdates_data_form" method="post" action="">
 
-                <input type="hidden" name="wpdtrt_elapsedday_form_submitted" value="Y" />
+                <input type="hidden" name="wpdtrt_tourdates_form_submitted" value="Y" />
 
                 <table class="form-table">
                   <tr>
                     <th>
-                      <label for="wpdtrt_elapsedday_datatype">Please select a block type:</label>
+                      <label for="wpdtrt_tourdates_datatype">Please select a block type:</label>
                     </th>
                     <td>
-                      <select name="wpdtrt_elapsedday_datatype" id="wpdtrt_elapsedday_datatype">
+                      <select name="wpdtrt_tourdates_datatype" id="wpdtrt_tourdates_datatype">
                         <option value="">None</option>
                         <option value="photos">Coloured Blocks</option>
                         <option value="users">Map Blocks</option>
@@ -73,7 +73,7 @@
                   submit_button(
                     $text = 'Go!',
                     $type = 'primary',
-                    $name = 'wpdtrt_elapsedday_submit',
+                    $name = 'wpdtrt_tourdates_submit',
                     $wrap = true,
                     $other_attributes = null
                   );
@@ -96,7 +96,7 @@
           /**
            * Start Scenario 2 - data selected
            * If the user has already chosen a content type,
-           * then $wpdtrt_elapsedday_data will contain the body of the resulting JSON.
+           * then $wpdtrt_tourdates_data will contain the body of the resulting JSON.
            */
 
           /**
@@ -115,11 +115,11 @@
 
             <div class="inside">
 
-              <p>This data set contains <?php echo count( $wpdtrt_elapsedday_data ); ?> blocks.</p>
+              <p>This data set contains <?php echo count( $wpdtrt_tourdates_data ); ?> blocks.</p>
 
               <p>The first 6 are displayed below:</p>
 
-              <div class="wpdtrt-elapsedday-blocks">
+              <div class="wpdtrt-tourdates-blocks">
                 <ul>
 
                 <?php
@@ -127,8 +127,8 @@
                   $count = 0;
                   $display_count = 1;
 
-                  foreach( $wpdtrt_elapsedday_data as $key => $val ) {
-                    echo "<li>" . wpdtrt_elapsedday_html_image( $key ) . "</li>\r\n";
+                  foreach( $wpdtrt_tourdates_data as $key => $val ) {
+                    echo "<li>" . wpdtrt_tourdates_html_image( $key ) . "</li>\r\n";
 
                     $count++;
                     $display_count++;
@@ -144,7 +144,7 @@
               </div>
 
               <?php
-                echo wpdtrt_elapsedday_html_date();
+                echo wpdtrt_tourdates_html_date();
               ?>
 
             </div>
@@ -178,13 +178,13 @@
 
               <p>The data used to generate the blocks above.</p>
 
-              <div class="wpdtrt-elapsedday-data"><pre><code><?php echo "{\r\n";
+              <div class="wpdtrt-tourdates-data"><pre><code><?php echo "{\r\n";
 
                   $count = 0;
                   $max_length = 6;
 
-                  foreach( $wpdtrt_elapsedday_data as $key => $val ) {
-                    var_dump( $wpdtrt_elapsedday_data[$key] );
+                  foreach( $wpdtrt_tourdates_data as $key => $val ) {
+                    var_dump( $wpdtrt_tourdates_data[$key] );
 
                     $count++;
 
@@ -237,7 +237,7 @@
            * But this time we'll give it secondary importance
            * by displaying it in a sidebar:
            */
-            if ( isset( $wpdtrt_elapsedday_datatype ) && ( $wpdtrt_elapsedday_datatype !== '') ) :
+            if ( isset( $wpdtrt_tourdates_datatype ) && ( $wpdtrt_tourdates_datatype !== '') ) :
           ?>
 
           <div class="postbox">
@@ -251,12 +251,12 @@
               <p>Sample data not what you were expecting?</p>
               <p>Change your selection here:</p>
 
-              <form name="wpdtrt_elapsedday_data_form" method="post" action="">
+              <form name="wpdtrt_tourdates_data_form" method="post" action="">
 
-                <input type="hidden" name="wpdtrt_elapsedday_form_submitted" value="Y" />
+                <input type="hidden" name="wpdtrt_tourdates_form_submitted" value="Y" />
 
                 <p>
-                  <label for="wpdtrt_elapsedday_datatype">Please select a block type:</label>
+                  <label for="wpdtrt_tourdates_datatype">Please select a block type:</label>
                 </p>
                 <p>
                   <?php
@@ -267,10 +267,10 @@
                    * @link https://codex.wordpress.org/Function_Reference/selected
                    */
                   ?>
-                  <select name="wpdtrt_elapsedday_datatype" id="wpdtrt_elapsedday_datatype">
+                  <select name="wpdtrt_tourdates_datatype" id="wpdtrt_tourdates_datatype">
                     <option value="">None</option>
-                    <option value="photos" <?php selected( $wpdtrt_elapsedday_datatype, "photos" ); ?>>Coloured blocks</option>
-                    <option value="users" <?php selected( $wpdtrt_elapsedday_datatype, "users" ); ?>>Maps</option>
+                    <option value="photos" <?php selected( $wpdtrt_tourdates_datatype, "photos" ); ?>>Coloured blocks</option>
+                    <option value="users" <?php selected( $wpdtrt_tourdates_datatype, "users" ); ?>>Maps</option>
                   </select>
                 </p>
                 <p>
@@ -279,7 +279,7 @@
                     submit_button(
                       $text = 'Save &amp; load new data',
                       $type = 'primary',
-                      $name = 'wpdtrt_elapsedday_submit',
+                      $name = 'wpdtrt_tourdates_submit',
                       $wrap = false, // don't wrap in paragraph
                       $other_attributes = null
                     );

@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name:  WPDTRT Elapsed Day
+Plugin Name:  WPDTRT Tour Dates
 Plugin URI:   http://dotherightthing.co.nz
-Description:  Creates a sequential day count from a posts publish date relative to a date ranged category.
+Description:  Display the relative position of content within an assigned date-range.
 Version:      0.1.0
 Author:       Dan Smith
 Author URI:   http://dotherightthing.co.nz
 License:      GPLv2 or later
 License URI:  http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  wpdtrt-elapsedday
+Text Domain:  wpdtrt-tourdates
 Domain Path:  /languages
 */
 
@@ -73,29 +73,29 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
  * WordPress automatically serializes this (into a string)
  * because MySQL does not support arrays as a data type
  */
-  $wpdtrt_elapsedday_options = array();
+  $wpdtrt_tourdates_options = array();
 
 /**
  * Include plugin logic
  */
 
   // API data
-  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-api.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-getters.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-navigation.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-taxonomies.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-titles.php');
+  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-api.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-getters.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-navigation.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-titles.php');
 
   // Views
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-options-page.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-widget.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-options-page.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-widget.php');
 
   // Theming
-  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-html.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-css.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-js.php');
+  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-html.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-css.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-js.php');
 
   // Shortcode
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-elapsedday-shortcodes.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-shortcodes.php');
 
 ?>

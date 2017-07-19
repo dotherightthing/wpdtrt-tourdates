@@ -7,11 +7,11 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/app
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/app
  */
 
-if ( !class_exists( 'Wpdtrt_Elapsedday_Widget' ) ) {
+if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
 
   /**
    * Extend WP_Widget
@@ -23,11 +23,11 @@ if ( !class_exists( 'Wpdtrt_Elapsedday_Widget' ) ) {
    * @see         https://developer.wordpress.org/reference/classes/wp_widget/
    * @see         https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/#naming-conventions
    */
-  class Wpdtrt_Elapsedday_Widget extends WP_Widget {
+  class WPDTRT_Tourdates_Widget extends WP_Widget {
 
     function __construct() {
       // Instantiate the parent object
-      parent::__construct( false, 'WPDTRT Elapsed Day Widget' );
+      parent::__construct( false, 'WPDTRT Tour Dates Widget' );
     }
 
     /**
@@ -54,8 +54,8 @@ if ( !class_exists( 'Wpdtrt_Elapsedday_Widget' ) ) {
       $number = $instance['number'];
       $enlargement = $instance['enlargement'];
 
-      $wpdtrt_elapsedday_options = get_option('wpdtrt_elapsedday');
-      $wpdtrt_elapsedday_data = $wpdtrt_elapsedday_options['wpdtrt_elapsedday_data'];
+      $wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
+      $wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
 
       /**
        * Get the unique ID
@@ -67,7 +67,7 @@ if ( !class_exists( 'Wpdtrt_Elapsedday_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'views/public/partials/wpdtrt-elapsedday-front-end.php');
+      require(WPDTRT_ELAPSEDDAY_PATH . 'views/public/partials/wpdtrt-tourdates-front-end.php');
     }
 
     /**
@@ -104,20 +104,20 @@ if ( !class_exists( 'Wpdtrt_Elapsedday_Widget' ) ) {
       $number = esc_attr( $instance['number'] );
       $enlargement = esc_attr( $instance['enlargement'] );
 
-      $wpdtrt_elapsedday_options = get_option('wpdtrt_elapsedday');
-      $wpdtrt_elapsedday_data = $wpdtrt_elapsedday_options['wpdtrt_elapsedday_data'];
+      $wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
+      $wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
 
     /**
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'views/admin/partials/wpdtrt-elapsedday-widget.php');
+      require(WPDTRT_ELAPSEDDAY_PATH . 'views/admin/partials/wpdtrt-tourdates-widget.php');
     }
   }
 
 }
 
-if ( !function_exists( 'wpdtrt_elapsedday_register_widgets' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_register_widgets' ) ) {
 
   /**
    * Register the widget
@@ -127,11 +127,11 @@ if ( !function_exists( 'wpdtrt_elapsedday_register_widgets' ) ) {
    * @see         https://codex.wordpress.org/Function_Reference/register_widget#Example
    */
 
-  function wpdtrt_elapsedday_register_widgets() {
-    register_widget( 'Wpdtrt_Elapsedday_Widget' );
+  function wpdtrt_tourdates_register_widgets() {
+    register_widget( 'WPDTRT_Tourdates_Widget' );
   }
 
-  add_action( 'widgets_init', 'wpdtrt_elapsedday_register_widgets' );
+  add_action( 'widgets_init', 'wpdtrt_tourdates_register_widgets' );
 
 }
 

@@ -1,13 +1,13 @@
 {
   "generator-wp-plugin-boilerplate": {
-    "name": "wpdtrt-elapsedday",
-    "nameSafe": "wpdtrt_elapsedday",
-    "nameFriendly": "WPDTRT Elapsed Day",
-    "nameFriendlySafe": "Wpdtrt_Elapsedday",
-    "nameAdminMenu": "Elapsed Day",
-    "urlAdminMenu": "wpdtrt-elapsedday",
-    "description": "Creates a sequential day count from a posts publish date relative to a date ranged category.",
-    "tags": "boilerplate, placeholder",
+    "name": "wpdtrt-tourdates",
+    "nameSafe": "wpdtrt_tourdates",
+    "nameFriendly": "WPDTRT Tour Dates",
+    "nameFriendlySafe": "WPDTRT_Tourdates",
+    "nameAdminMenu": "Tour Dates",
+    "urlAdminMenu": "wpdtrt-tourdates",
+    "description": "Display the relative position of content within an assigned date-range.",
+    "tags": "cycle-touring, travel",
     "homepage": "http://dotherightthing.co.nz",
     "license": "GPLv2 or later",
     "licenseUrl": "http://www.gnu.org/licenses/gpl-2.0.html",
@@ -18,7 +18,7 @@
     "authorEmail": "dev@dotherightthing.co.nz",
     "authorUrl": "http://dotherightthing.co.nz",
     "repositoryType": "git",
-    "repositoryUrl": "git@github.com:dotherightthing/wpdtrt-elapsedday.git",
+    "repositoryUrl": "git@github.com:dotherightthing/wpdtrt-tourdates.git",
     "version": "0.1.0"
   }
 }

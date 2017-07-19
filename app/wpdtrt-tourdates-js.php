@@ -8,11 +8,11 @@
  * @see         https://codex.wordpress.org/AJAX_in_Plugins
  * @since       0.1.0
  *
- * @package     Wpdtrt_Elapsedday
- * @subpackage  Wpdtrt_Elapsedday/app
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/app
  */
 
-if ( !function_exists( 'wpdtrt_elapsedday_js' ) ) {
+if ( !function_exists( 'wpdtrt_tourdates_js' ) ) {
 
   /**
    * Attach JS for front-end widgets and shortcodes
@@ -23,25 +23,25 @@ if ( !function_exists( 'wpdtrt_elapsedday_js' ) ) {
    * @see         https://codex.wordpress.org/AJAX_in_Plugins
    * @see         https://codex.wordpress.org/Function_Reference/wp_localize_script
    */
-  function wpdtrt_elapsedday_js() {
+  function wpdtrt_tourdates_js() {
 
-    wp_enqueue_script( 'wpdtrt_elapsedday_js',
-      WPDTRT_ELAPSEDDAY_URL . 'js/wpdtrt-elapsedday.min.js',
+    wp_enqueue_script( 'wpdtrt_tourdates_js',
+      WPDTRT_ELAPSEDDAY_URL . 'js/wpdtrt-tourdates.min.js',
       array('jquery'),
       WPDTRT_ELAPSEDDAY_VERSION,
       true
     );
 
-    wp_localize_script( 'wpdtrt_elapsedday_js',
-      'wpdtrt_elapsedday_config',
+    wp_localize_script( 'wpdtrt_tourdates_js',
+      'wpdtrt_tourdates_config',
       array(
-        'ajax_url' => admin_url( 'admin-ajax.php' ) // wpdtrt_elapsedday_config.ajax_url
+        'ajax_url' => admin_url( 'admin-ajax.php' ) // wpdtrt_tourdates_config.ajax_url
       )
     );
 
   }
 
-  add_action( 'wp_enqueue_scripts', 'wpdtrt_elapsedday_js' );
+  add_action( 'wp_enqueue_scripts', 'wpdtrt_tourdates_js' );
 
 }
 
