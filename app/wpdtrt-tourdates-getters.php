@@ -69,14 +69,15 @@ function wpdtrt_tourdates_get_daycontroller_id($post_id, $tour_type) {
  * Get the number of a tour day, relative to the tour start date
  * Note that the post has to be published on (for) the target date,
  * else this will show the creation date
- * @param number $post_id The id of the current post
- * @return number $post_day_number The day number
+ * @return number $post_daynumber The day number
  */
-function wpdtrt_tourdates_get_post_daynumber($post_id) {
+function wpdtrt_tourdates_get_post_daynumber() {
+  global $post;
+  $post_id = $post->ID;
 
   $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id );
   $post_date = get_the_date( "Y-n-j 00:01:00", $post_id );
-  $post_day_number = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $post_date );
+  $post_daynumber = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $post_date );
 
   /*
   $post_day_number = get_post_meta($post_id, 'acf_daynumber', true);
@@ -87,7 +88,7 @@ function wpdtrt_tourdates_get_post_daynumber($post_id) {
   }
   */
 
-  return $post_day_number;
+  return $post_daynumber;
 }
 
 /**

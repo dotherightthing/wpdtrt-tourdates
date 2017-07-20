@@ -12,18 +12,20 @@
  */
 if ( function_exists( 'wpdtrt_taxonomy_create' ) ) {
 
+  $daynumber = wpdtrt_tourdates_get_post_daynumber();
+
   wpdtrt_taxonomy_create(
     array(
-      'slug' => 'elapsedday',
-      'fallback' => 'no-elapsedday',
+      'slug' => 'tourdates',
+      'fallback' => 'no-tourdates',
       'post_type_slug' => 'tourdiaryday',
       'description' => 'The count of a tour day relative to the tour date range',
-      'label_single' => 'Tour Dates',
-      'label_plural' => 'Tour Datess',
+      'label_single' => 'Tour Date',
+      'label_plural' => 'Tour Dates',
       'hierarchical' => true,
       'public' => true,
       'label_prefix' => '',
-      'terms' => false
+      'terms' => array( $daynumber )
     )
   );
 }
