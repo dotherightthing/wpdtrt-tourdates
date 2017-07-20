@@ -81,6 +81,7 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
 
   // API data
   //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-api.php');
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-acf.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-getters.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-navigation.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
