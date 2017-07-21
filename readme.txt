@@ -23,13 +23,12 @@ Display the relative position of content within an assigned date-range.
 
 == Features ==
 
-1. Tour **taxonomy**
-2. Assign inclusive **Date Range** (start & end dates) to a category (the hierarchical Tour taxonomy) (e.g. `01.01.2017 - 10.04.2017`)
-3. Display **Current/Elapsed Day** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `#32`).
-4. Display **Total Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `100`)
-5. Display **Relative Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `32%`)
-6. Display **Relative Day Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `Days #1-#32`)
-7. Display **Relative Date Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `January to February 2017`)
+1. Assign inclusive **Date Range** (start & end dates) to a category (the hierarchical Tour taxonomy) (e.g. `01.01.2017 - 10.04.2017`)
+2. Display **Current/Elapsed Day** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `#32`).
+3. Display **Total Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `100`)
+4. Display **Relative Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `32%`)
+5. Display **Relative Day Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `Days #1-#32`)
+6. Display **Relative Date Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `January to February 2017`)
 
 = Notes =
 
