@@ -1,4 +1,15 @@
 <?php
+/**
+ * Getters
+ *
+ * This file contains PHP.
+ *
+ * @link        http://dotherightthing.co.nz
+ * @since       0.1.0
+ *
+ * @package     WPDTRT_Tourdates
+ * @subpackage  WPDTRT_Tourdates/app
+ */
 
 /**
  * Elapsed day
@@ -17,7 +28,7 @@
 /**
  * Get the ID of the category which controls tour dates, to ensure accurate day counts
  * Category Types:
- * 1. Category: New Zealand is a generic geographical category
+ * 1. Region: New Zealand is a generic geographical category
  * 2. Tour Leg: The Rainbow Road (2017) category controls 6 days and is a child of the New Zealand category
  * 3. Tour: The East Asia (2015-6) category controls 298 days and is a parent to the legs China, Mongolia, etc
  * @param number $post_id The id of the current post
@@ -28,40 +39,54 @@
  */
 function wpdtrt_tourdates_get_daycontroller_id($post_id, $tour_type) {
   $daycontroller_id = '';
+  $taxonomy_name = 'tours';
 
-  // get associated categories
+  // get associated taxonomy_terms
   // get_the_category() doesn't work with custom post type taxonomies
-  $categories = get_the_terms( $post_id, 'tour' );
+  $taxonomy_terms = get_the_terms( $post_id, $taxonomy_name );
 
-  // each post is only in one child category and one parent category
-  if ( count($categories) === 1 ) {
+  if ( is_array( $taxonomy_terms ) ) {
+    /**
+     * Sort terms into hierarchical order
+     *
+     * Has parent: $term->parent === n
+     * No parent: $term->parent === 0
+     * strnatcmp = Natural string comparison
+     *
+     * @see https://developer.wordpress.org/reference/functions/get_the_terms/
+     * @see https://wordpress.stackexchange.com/questions/172118/get-the-term-list-by-hierarchy-order
+     * @see https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
+     * @see https://wpseek.com/function/_get_term_hierarchy/
+     * @see https://wordpress.stackexchange.com/questions/137926/sorting-attributes-order-when-using-get-the-terms
+     * @uses WPDTRT helpers/permalinks.php
+     */
+    uasort ( $taxonomy_terms , function ( $term_a, $term_b ) {
+      return strnatcmp( $term_a->parent, $term_b->parent );
+    });
 
-    // https://stackoverflow.com/questions/1921421/get-the-first-element-of-an-array
-    $category = reset($categories);
-    $category_ids = array();
+    if ( !is_wp_error( $taxonomy_terms ) ) {
+      foreach ( $taxonomy_terms as $term ) {
+        if ( !empty( $term ) && is_object( $term ) ) {
 
-    // category id
-    $category_id = intval( $category->term_id );
-    $category_ids[] = $category_id;
+          $taxonomy_term_id = $term->term_id;
 
-    // parent id
-    $parent_category_id = $category->parent;
-    if ( $parent_category_id ) {
-      $category_ids[] = intval( $parent_category_id );
-    }
+          $acf_taxonomy_term_id = $taxonomy_name . '_' . $taxonomy_term_id;
 
-    foreach( $category_ids as $category_id ) {
-      $acf_category_id = 'tour_' . $category_id;
-      $acf_tour_category_type = get_field('acf_tour_category_type', $acf_category_id);
+          $taxonomy_term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $acf_taxonomy_term_id);
 
-
-      if ( $acf_tour_category_type === $tour_type ) {
-        $daycontroller_id = $category_id;
+          if ( $taxonomy_term_type === $tour_type ) {
+            $daycontroller_id = $taxonomy_term_id;
+            break;
+          }
+        }
+        // !empty
       }
+      // loop
     }
+    // is_wp_error
   }
+  // if array
 
-  //wpdtrt_log('$daycontroller_id=' . $daycontroller_id); // ok
   return $daycontroller_id;
 }
 
@@ -72,6 +97,11 @@ function wpdtrt_tourdates_get_daycontroller_id($post_id, $tour_type) {
  * @return number $post_daynumber The day number
  */
 function wpdtrt_tourdates_get_post_daynumber() {
+
+  //if ( ! is_single() ) {
+  //  return 0;
+  //}
+
   global $post;
   $post_id = $post->ID;
 
@@ -108,17 +138,21 @@ function wpdtrt_tourdates_get_tour_leg_daynumber($tour_id, $tour_leg_date) {
 /**
  * Get the first date in a tour
  * @param number $post_id The id of the current post (if a post)
- * @param number $tour_id The id of the tour (if a category archive page)
+ * @param number $taxonomy_term_id The id of the tour (if a category archive page)
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_tourdates_get_tour_start_date($post_id=-1, $tour_id=-1) {
-  if ( $tour_id === -1 ) {
-    $tour_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, 'tour' );
+function wpdtrt_tourdates_get_tour_start_date($post_id=-1, $taxonomy_term_id=-1) {
+
+  $taxonomy_name = 'tours';
+  $wpdtrt_tourdates_acf_tour_category_type = 'tour'; // region|tour|tour_leg
+
+  if ( $taxonomy_term_id === -1 ) {
+    $taxonomy_term_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, $wpdtrt_tourdates_acf_tour_category_type );
   }
 
-  $acf_category_id = 'tour_' . $tour_id;
-  $tour_start_date = get_field('acf_tour_category_start_date', $acf_category_id);
+  $acf_taxonomy_term_id = $taxonomy_name . '_' . $taxonomy_term_id;
+  $tour_start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $acf_taxonomy_term_id);
 
   //wpdtrt_log('$tour_start_date=' . $tour_start_date); // ok
   return $tour_start_date;
@@ -127,17 +161,21 @@ function wpdtrt_tourdates_get_tour_start_date($post_id=-1, $tour_id=-1) {
 /**
  * Get the last date in a tour
  * @param number $post_id The id of the current post (if a post)
- * @param number $tour_id The id of the tour (if a category archive page)
+ * @param number $taxonomy_term_id The id of the tour (if a category archive page)
  * @return string $tour_start_date The date when the tour ended (Y-n-j 00:01:00)
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
-function wpdtrt_tourdates_get_tour_end_date($post_id=-1, $tour_id=-1) {
-  if ( $tour_id === -1 ) {
-    $tour_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, 'tour' );
+function wpdtrt_tourdates_get_tour_end_date($post_id=-1, $taxonomy_term_id=-1) {
+
+  $taxonomy_name = 'tours';
+  $wpdtrt_tourdates_acf_tour_category_type = 'tour'; // region|tour|tour_leg
+
+  if ( $taxonomy_term_id === -1 ) {
+    $taxonomy_term_id = wpdtrt_tourdates_get_daycontroller_id( $post_id, $wpdtrt_tourdates_acf_tour_category_type );
   }
 
-  $acf_category_id = 'tour_' . $tour_id;
-  $tour_end_date = get_field('acf_tour_category_end_date', $acf_category_id);
+  $acf_taxonomy_term_id = $taxonomy_name . '_' . $taxonomy_term_id;
+  $tour_end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $acf_taxonomy_term_id);
 
   //wpdtrt_log('$tour_end_date=' . $tour_end_date); // ok
   return $tour_end_date;
@@ -151,7 +189,7 @@ function wpdtrt_tourdates_get_tour_end_date($post_id=-1, $tour_id=-1) {
  * @param string $text_after Text to display if more than one leg
  * @return string $tour_length_days The length of the tour
  * @see https://www.advancedcustomfields.com/resources/get_field/
- * @todo replace with filter of legs by acf_tour_category_first_visit
+ * @todo replace with filter of legs by wpdtrt_tourdates_acf_tour_category_first_visit
  */
 function wpdtrt_tourdates_get_tour_length($post_id=-1, $tour_id=-1, $text_before='', $text_after='') {
   $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id, $tour_id );
@@ -169,11 +207,12 @@ function wpdtrt_tourdates_get_tour_length($post_id=-1, $tour_id=-1, $text_before
  * @param string $text_after Text to display if more than one leg
  * @return string $tour_leg_count The number of unique tour legs
  * @see https://www.advancedcustomfields.com/resources/get_field/
+ * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
  */
 function wpdtrt_tourdates_get_tour_leg_count($tour_id, $text_before='', $text_after='') {
   $daycontroller_id = $tour_id;
   $acf_category_id = 'tour_' . $daycontroller_id;
-  $tour_leg_count = get_field('acf_tour_category_leg_count', $acf_category_id);
+  $tour_leg_count = get_field('wpdtrt_tourdates_acf_tour_category_leg_count', $acf_category_id);
 
   if ( $tour_leg_count > 1 ) {
     $str = $text_before . $tour_leg_count . $text_after;
@@ -194,7 +233,7 @@ function wpdtrt_tourdates_get_tour_leg_count($tour_id, $text_before='', $text_af
 function wpdtrt_tourdates_get_tour_leg_start_date($category_slug, $date_format=null) {
   $daycontroller_id = wpdtrt_tourdates_get_tour_leg_id( $category_slug );
   $acf_category_id = 'tour_' . $daycontroller_id;
-  $tour_leg_start_date = get_field('acf_tour_category_start_date', $acf_category_id);
+  $tour_leg_start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $acf_category_id);
 
   if ( $date_format !== null ) {
     $date = new DateTime($tour_leg_start_date);
@@ -216,7 +255,7 @@ function wpdtrt_tourdates_get_tour_leg_start_date($category_slug, $date_format=n
 function wpdtrt_tourdates_get_tour_leg_end_date($category_slug, $date_format=null) {
   $daycontroller_id = wpdtrt_tourdates_get_tour_leg_id( $category_slug );
   $acf_category_id = 'tour_' . $daycontroller_id;
-  $tour_leg_end_date = get_field('acf_tour_category_end_date', $acf_category_id);
+  $tour_leg_end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $acf_category_id);
 
   if ( $date_format !== null ) {
     $date = new DateTime($tour_leg_end_date);
@@ -327,7 +366,7 @@ function wpdtrt_tourdates_get_tour_days_elapsed($start_date, $end_date) {
 function wpdtrt_tourdates_get_tour_leg_name($tour_leg_slug) {
   $tour_leg_name = '';
 
-  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
+  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
   //wpdtrt_log( $term ); // ok
 
   $tour_leg_name = $tour_leg->name;
@@ -344,7 +383,7 @@ function wpdtrt_tourdates_get_tour_leg_name($tour_leg_slug) {
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
  */
 function wpdtrt_tourdates_get_tour_leg_id($tour_leg_slug) {
-  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
+  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
 
   $tour_leg_id = $tour_leg->term_id;
   //wpdtrt_log( 'tour_leg_id='.$tour_leg_id ); // ok
@@ -360,7 +399,7 @@ function wpdtrt_tourdates_get_tour_leg_id($tour_leg_slug) {
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
  */
 function wpdtrt_tourdates_get_tour_id($tour_leg_slug) {
-  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tour');
+  $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
   $tour_id = $tour_leg->parent;
   //wpdtrt_log( 'tour_id='.$tour_id ); // ok
 
