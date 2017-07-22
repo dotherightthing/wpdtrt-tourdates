@@ -25,7 +25,14 @@ if ( !function_exists( 'wpdtrt_tourdates_set_daynumber' ) ) {
   add_action('save_post', 'wpdtrt_tourdates_set_daynumber');
 
   function wpdtrt_tourdates_set_daynumber() {
+
       global $post;
+
+      // if Update button used in Quick Edit view
+      if ( ! $post ) {
+        return;
+      }
+
       $post_id = $post->ID;
 
       if( ! wp_is_post_revision($post) ) {
@@ -36,7 +43,7 @@ if ( !function_exists( 'wpdtrt_tourdates_set_daynumber' ) ) {
         update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber, true);
 
         // note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
-        $test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true);
+        //$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true);
       }
   }
 }

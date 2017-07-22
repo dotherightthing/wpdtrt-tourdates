@@ -21,6 +21,8 @@ Display the relative position of content within an assigned date-range.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Plugin Name screen to configure the plugin
 
+A day number is assigned to each post as it is (re)published.
+
 == Features ==
 
 1. Assign inclusive **Date Range** (start & end dates) to a category (the hierarchical Tour taxonomy) (e.g. `01.01.2017 - 10.04.2017`)
