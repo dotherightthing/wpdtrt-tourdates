@@ -205,7 +205,7 @@ function wpdtrt_tourdates_get_tour_end_month($tour_type) {
 /**
  * Get tour length in days
  *
- * @param number $tour_type The type of tour
+ * @param string $tour_type The type of tour (tour|tour_leg)
  * @param string $text_before Text to display if more than one leg
  * @param string $text_after Text to display if more than one leg
  * @return string $tour_length_days The length of the tour
@@ -251,19 +251,22 @@ function wpdtrt_tourdates_get_tour_leg_count($text_before='', $text_after='') {
  * @param number $start_date The start date
  * @param number $end_date The end date
  * @return number $tour_days_elapsed Days elapsed
+ * @see http://www.timeanddate.com/date/durationresult.html?d1=2&m1=9&y1=2015&d2=30&m2=6&y2=2016
  */
 function wpdtrt_tourdates_get_tour_days_elapsed($start_date, $end_date) {
   // http://stackoverflow.com/a/3923228
   $date1 = new DateTime($start_date);
   $date2 = new DateTime($end_date);
-  $interval = $date1->diff($date2);
-  $day_difference = $interval->format("%r%a"); // ->d only gets days in the same month
 
-  // http://www.timeanddate.com/date/durationresult.html?d1=2&m1=9&y1=2015&d2=30&m2=6&y2=2016
-  $default_day = 1;
-  $tour_days_elapsed = $default_day + $day_difference;
+  if ( $date1 === $date2 ) {
+    $tour_days_elapsed = 1;
+  }
+  else {
+    $interval = $date1->diff($date2);
+    $tour_days_elapsed = $interval->format("%r%a"); // ->d only gets days in the same month
+  }
 
-  return $tour_days_elapsed;
+  return $tour_days_elapsed + 1;
 }
 
 /**
