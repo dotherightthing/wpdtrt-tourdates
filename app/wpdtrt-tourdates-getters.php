@@ -189,6 +189,7 @@ function wpdtrt_tourdates_get_tour_end_date($tour_type, $date_format=null) {
  */
 function wpdtrt_tourdates_get_tour_start_month($tour_type) {
   $tour_leg_start_month = wpdtrt_tourdates_get_tour_start_date($tour_type, 'F Y');
+
   return $tour_leg_start_month;
 }
 
@@ -199,6 +200,7 @@ function wpdtrt_tourdates_get_tour_start_month($tour_type) {
  */
 function wpdtrt_tourdates_get_tour_end_month($tour_type) {
   $tour_leg_end_month = wpdtrt_tourdates_get_tour_end_date($tour_type, 'F Y');
+
   return $tour_leg_end_month;
 }
 
@@ -206,12 +208,11 @@ function wpdtrt_tourdates_get_tour_end_month($tour_type) {
  * Get tour length in days
  *
  * @param string $tour_type The type of tour (tour|tour_leg)
- * @param string $text_before Text to display if more than one leg
- * @param string $text_after Text to display if more than one leg
+ * @param string $text_before Translatable text displayed before the tour length
+ * @param string $text_after Translatable text displayed after the tour length
  * @return string $tour_length_days The length of the tour
  *
  * @see https://www.advancedcustomfields.com/resources/get_field/
- * @todo replace with filter of legs by wpdtrt_tourdates_acf_tour_category_first_visit
  */
 function wpdtrt_tourdates_get_tour_length($tour_type, $text_before='', $text_after='') {
 
@@ -219,7 +220,6 @@ function wpdtrt_tourdates_get_tour_length($tour_type, $text_before='', $text_aft
   $tour_end_date = wpdtrt_tourdates_get_tour_end_date( $tour_type );
   $tour_length_days = wpdtrt_tourdates_get_tour_days_elapsed($tour_start_date, $tour_end_date);
 
-  //wpdtrt_log('$tour_length_days=' . $tour_length_days); // ok
   return $text_before . $tour_length_days . $text_after;
 }
 
@@ -280,10 +280,8 @@ function wpdtrt_tourdates_get_tour_leg_name($tour_leg_slug) {
   $tour_leg_name = '';
 
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
-  //wpdtrt_log( $term ); // ok
 
   $tour_leg_name = $tour_leg->name;
-  //wpdtrt_log( $tour_leg_name ); // ok
 
   return $tour_leg_name;
 }
@@ -299,7 +297,6 @@ function wpdtrt_tourdates_get_tour_leg_id($tour_leg_slug) {
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
 
   $tour_leg_id = $tour_leg->term_id;
-  //wpdtrt_log( 'tour_leg_id='.$tour_leg_id ); // ok
 
   return $tour_leg_id;
 }
