@@ -247,6 +247,22 @@ function wpdtrt_tourdates_get_tour_leg_count($text_before='', $text_after='') {
 }
 
 /**
+ * Get the term image
+ * @param string $tour_type The type of tour (tour|tour_leg)
+ * @return string $tour_thumbnail_id The image ID
+ * @see https://www.advancedcustomfields.com/resources/image/
+ */
+function wpdtrt_tourdates_get_tour_thumbnail_id( $tour_type ) {
+
+  $term_ids = wpdtrt_tourdates_get_term_ids( $tour_type );
+  $acf_term_id = $term_ids['acf_term_id'];
+
+  $tour_thumbnail_id = get_field('wpdtrt_tourdates_acf_tour_category_thumbnail', $acf_term_id);
+
+  return $tour_thumbnail_id;
+}
+
+/**
  * Get days elapsed since tour started
  * @param number $start_date The start date
  * @param number $end_date The end date

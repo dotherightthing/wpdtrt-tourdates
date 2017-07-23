@@ -15,7 +15,7 @@ if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array (
 	'key' => 'group_595c333a1fd7a',
-	'title' => 'WPDTRT Tour Dates',
+	'title' => 'WPDTRT Tour Dates: Taxonomy',
 	'fields' => array (
 		array (
 			'key' => 'field_595c382ec7af6',
@@ -170,20 +170,41 @@ acf_add_local_field_group(array (
 			'allow_quickedit' => 0,
 			'allow_bulkedit' => 0,
 		),
+		array (
+			'key' => 'field_59746cd830ef3',
+			'label' => 'Thumbnail',
+			'name' => 'wpdtrt_tourdates_acf_tour_category_thumbnail',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'id',
+			'preview_size' => 'post-thumbnail',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+			'show_column' => 1,
+			'show_column_weight' => 1000,
+			'allow_quickedit' => 0,
+			'allow_bulkedit' => 0,
+		),
 	),
 	'location' => array (
 		array (
 			array (
 				'param' => 'taxonomy',
 				'operator' => '==',
-				'value' => 'category',
-			),
-		),
-		array (
-			array (
-				'param' => 'taxonomy',
-				'operator' => '==',
-				'value' => 'tour',
+				'value' => 'tours',
 			),
 		),
 	),
