@@ -133,9 +133,9 @@ if ( !function_exists( 'wpdtrt_tourdates_daytotal_shortcode' ) ) {
   function wpdtrt_tourdates_daytotal_shortcode( $atts, $content = null ) {
     global $post;
     $post_id = $post->ID;
-    $tour_start_date = wpdtrt_tourdates_get_tour_start_date( $post_id );
-    $tour_end_date = wpdtrt_tourdates_get_tour_end_date( $post_id );
-    $day_total = wpdtrt_tourdates_get_tour_days_elapsed( $tour_start_date, $tour_end_date );
+    $tour_start_date = wpdtrt_tourdates_get_term_start_date( $post_id );
+    $tour_end_date = wpdtrt_tourdates_get_term_end_date( $post_id );
+    $day_total = wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $tour_end_date );
 
     return $day_total;
   }

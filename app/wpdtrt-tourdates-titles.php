@@ -30,6 +30,11 @@ if ( !function_exists( 'wpdtrt_tourdates_post_title_add_day' ) ) {
      // $day = get_post_field('acf_daynumber', $id);
     //}
 
+    global $post;
+    $id = $post->ID;
+
+    wpdtrt_log( 'wpdtrt_tourdates_post_title_add_day for ' . $id);
+
     $day = wpdtrt_tourdates_get_post_daynumber($id);
 
     $day_html = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . '</span><span class="wpdtrt-tourdates-day--period">, </span></span>';
