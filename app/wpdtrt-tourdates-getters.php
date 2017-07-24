@@ -311,6 +311,9 @@ function wpdtrt_tourdates_get_term_leg_count($term_id, $text_before='', $text_af
     $str = $text_before . $tour_leg_count . $text_after;
     $tour_leg_count = $str;
   }
+  else {
+    $tour_leg_count = ''; // new zealand tour legs are tours
+  }
 
   return $tour_leg_count;
 }
