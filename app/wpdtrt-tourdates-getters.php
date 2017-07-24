@@ -26,6 +26,27 @@
  */
 
 /**
+ * Get the tour type
+ * @return string $tour_type (tour|tour_leg)
+ */
+function wpdtrt_tourdates_get_tour_type() {
+  $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+
+  $parent_id = $term->parent;
+  $tour_type = 'tour';
+
+  if ( $parent_id > 0 ) {
+    $acf_term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', get_query_var( 'taxonomy' ) . '_' . $parent_id);
+
+    if ( $acf_term_type === 'tour' ) { // not region
+      $tour_type ='tour_leg';
+    }
+  }
+
+  return $tour_type;
+}
+
+/**
  * Get the ID of the ACF term
  * so we can get the values of the ACF fields attached to this term
  *
@@ -39,7 +60,7 @@ function wpdtrt_tourdates_get_term_ids($tour_type) {
   $term_id = null;
   $acf_term_id = null;
 
-  $taxonomy_name = 'tours';
+  $taxonomy_name = 'tours'; // TODO
 
   // get associated taxonomy_terms
   // get_the_category() doesn't work with custom post type taxonomies
