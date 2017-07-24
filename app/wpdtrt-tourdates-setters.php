@@ -11,6 +11,20 @@
  * @subpackage  WPDTRT_Tourdates/app
  */
 
+
+/**
+ * Set the term ID
+ * @return $term_id;
+ * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
+ * @todo prefix term_id with plugin prefix
+ */
+function wpdtrt_tourdates_set_partial_term_id( $term_id ) {
+
+  set_query_var( 'term_id', $term_id );
+
+  return $term_id;
+}
+
 /**
  * Create a custom field when a post is saved,
  * which can be queried by the next/previous_post_link_plus plugin

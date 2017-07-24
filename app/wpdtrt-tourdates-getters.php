@@ -26,6 +26,32 @@
  */
 
 /**
+ * Get the term ID
+ * get_query_var('term') gets the parent page, not the included partial
+ * @return string $term_id
+ * @todo prefix term_id with plugin prefix
+ */
+function wpdtrt_tourdates_get_partial_term_id() {
+
+  $term_id = get_query_var( 'term_id' ); // manually set in taxonomy template
+
+  return $term_id;
+}
+
+/**
+ * Get the term
+ * get_query_var('term') gets the parent page, not the included partial
+ * @return object $term
+ * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
+ */
+function wpdtrt_tourdates_get_partial_term( $term_id ) {
+
+  $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
+
+  return $term;
+}
+
+/**
  * Get the tour type
  * @param number $id The ID of the term
  * @return string $term_type (tour|tour_leg)
@@ -166,9 +192,6 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
  */
 function wpdtrt_tourdates_get_term_start_date($id, $date_format=null) {
 
-    wpdtrt_log( 'id=' . $id );
-
-
   if ( term_exists( $id, get_query_var('taxonomy') ) ) {
     $term_id = $id;
   }
@@ -176,12 +199,13 @@ function wpdtrt_tourdates_get_term_start_date($id, $date_format=null) {
     $post_id = $id;
 
     // get the term_id
+    $term_id = 0; // TODO
 
-    $term_type = wpdtrt_tourdates_get_term_type( $post_id ); // TODO this should be term_id
+    wpdtrt_log( 'term_id=? for post_id=' . $post_id );
 
-    wpdtrt_log( 'post_id=' . $post_id );
+    $term_type = wpdtrt_tourdates_get_term_type( $term_id );
 
-    wpdtrt_log( 'term_type=' . $term_type );
+    wpdtrt_log( 'term_type=' . $term_type . ' for post_id=' . $post_id );
 
     // wpdtrt_tourdates_get_post_term_ids is the full hierarchy
     // $term type allows us to narrow it down
