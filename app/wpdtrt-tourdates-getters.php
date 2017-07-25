@@ -41,12 +41,21 @@ function wpdtrt_tourdates_get_partial_term_id() {
 /**
  * Get the term
  * get_query_var('term') gets the parent page, not the included partial
+ * @param number $term_id
  * @return object $term
  * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
+ * @todo Check if recent mods required as the fix was made elsewhere
  */
-function wpdtrt_tourdates_get_partial_term( $term_id ) {
+function wpdtrt_tourdates_get_partial_term( $term_id=null ) {
 
-  $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
+  $term = get_query_var('term');
+
+  if ( isset( $term_id) ) {
+    $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
+  }
+  else if ( isset( $term ) ) {
+    return $term;
+  }
 
   return $term;
 }
@@ -132,7 +141,7 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
  */
 function wpdtrt_tourdates_get_post_daynumber($post_id) {
 
-  $tour_start_date =  wpdtrt_tourdates_get_term_start_date( $post_id );
+  $tour_start_date =  wpdtrt_tourdates_get_term_start_date( $post_id, 'tour' ); // this was wrongly returning the tour leg start date
   $post_date =        get_the_date( "Y-n-j 00:01:00", $post_id );
   $post_daynumber =   wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $post_date );
 
@@ -185,31 +194,23 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
  * Get the first date in a tour
  *
  * @param number $id The ID of the post or term
+ * @param string $term_type An optional term type, useful when we want to query a tour rather than a tour leg
  * @param string $date_format An optional date format
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
  *
  * @see https://www.advancedcustomfields.com/resources/get_field/
+ * @todo for daynumber, this is wrongly returning the tour leg start date
  */
-function wpdtrt_tourdates_get_term_start_date($id, $date_format=null) {
+function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format=null) {
 
+  // if this is a tour leg (getting tour leg date range)
   if ( term_exists( $id, get_query_var('taxonomy') ) ) {
     $term_id = $id;
   }
+  // if this is a tour day (getting start date for term_days_elapsed daynumber)
   else { // if post
-    $post_id = $id;
-
-    // get the term_id
-    $term_id = 0; // TODO
-
-    wpdtrt_log( 'term_id=? for post_id=' . $post_id );
-
-    $term_type = wpdtrt_tourdates_get_term_type( $term_id );
-
-    wpdtrt_log( 'term_type=' . $term_type . ' for post_id=' . $post_id );
-
-    // wpdtrt_tourdates_get_post_term_ids is the full hierarchy
-    // $term type allows us to narrow it down
-    // but we need the term id to figure out which term type we want
+    // when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
+    // then the term is not passed
     $term_id = wpdtrt_tourdates_get_post_term_ids( $term_type );
   }
 
