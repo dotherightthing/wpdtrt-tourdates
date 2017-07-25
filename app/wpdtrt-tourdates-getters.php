@@ -44,18 +44,10 @@ function wpdtrt_tourdates_get_partial_term_id() {
  * @param number $term_id
  * @return object $term
  * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
- * @todo Check if recent mods required as the fix was made elsewhere
  */
-function wpdtrt_tourdates_get_partial_term( $term_id=null ) {
+function wpdtrt_tourdates_get_partial_term( $term_id ) {
 
-  $term = get_query_var('term');
-
-  if ( isset( $term_id) ) {
-    $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
-  }
-  else if ( isset( $term ) ) {
-    return $term;
-  }
+  $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
 
   return $term;
 }
