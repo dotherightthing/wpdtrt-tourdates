@@ -85,8 +85,6 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
   $post_id = $post->ID;
   $taxonomy = get_query_var('taxonomy');
 
-  wpdtrt_log( 'wpdtrt_tourdates_get_post_term_ids', $term_type );
-
   $term_id = null;
 
   // get associated taxonomy_terms
@@ -119,8 +117,6 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
           $term_id = $term->term_id;
           $acf_term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
 
-          wpdtrt_log( $acf_term_type . ' vs ' . $term_type );
-
           if ( $acf_term_type === $term_type ) {
             break;
           }
@@ -144,8 +140,6 @@ function wpdtrt_tourdates_get_post_daynumber($post_id) {
   $tour_start_date =  wpdtrt_tourdates_get_term_start_date( $post_id, 'tour' ); // this was wrongly returning the tour leg start date
   $post_date =        get_the_date( "Y-n-j 00:01:00", $post_id );
   $post_daynumber =   wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $post_date );
-
-  wpdtrt_log( 'tour_start_date=' . $tour_start_date );
 
   return $post_daynumber;
 }
@@ -199,7 +193,6 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
  *
  * @see https://www.advancedcustomfields.com/resources/get_field/
- * @todo for daynumber, this is wrongly returning the tour leg start date
  */
 function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format=null) {
 
@@ -239,9 +232,6 @@ function wpdtrt_tourdates_get_term_start_day( $term_id ) {
   $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
   $term_type = wpdtrt_tourdates_get_term_type( $term_id );
 
-    wpdtrt_log( 'term_type=' . $term_type );
-
-
   if ( $term_type === 'tour' ) {
     $tour_start_day = 1;
   }
@@ -250,11 +240,6 @@ function wpdtrt_tourdates_get_term_start_day( $term_id ) {
     $tour_start_date =      wpdtrt_tourdates_get_term_start_date( $parent_term_id );
     $tour_leg_start_date =  wpdtrt_tourdates_get_term_start_date( $term_id );
     $tour_start_day =       wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );
-
-    wpdtrt_log( 'parent_term_id=' . $parent_term_id );
-    wpdtrt_log( 'tour_start_date=' . $tour_start_date );
-    wpdtrt_log( 'tour_leg_start_date=' . $tour_leg_start_date );
-    wpdtrt_log( 'tour_start_day=' . $tour_start_day );
   }
 
   return $tour_start_day;
