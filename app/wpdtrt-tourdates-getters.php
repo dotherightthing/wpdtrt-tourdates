@@ -264,7 +264,7 @@ function wpdtrt_tourdates_get_term_end_date($term_id, $date_format=null) {
  * @return string $tour_leg_start_month The month when the tour started (Month YYYY)
  */
 function wpdtrt_tourdates_get_term_start_month( $term_id ) {
-  $tour_leg_start_month = wpdtrt_tourdates_get_term_start_date($term_id, 'F Y');
+  $tour_leg_start_month = wpdtrt_tourdates_get_term_start_date($term_id, null, 'F Y');
 
   return $tour_leg_start_month;
 }
