@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name:  WPDTRT Tour Dates
-Plugin URI:   http://dotherightthing.co.nz
+Plugin Name:  DTRT Tour Dates
+Plugin URI:   https://github.com/dotherightthing/wpdtrt-soundcloud-pages
 Description:  Display the relative position of content within an assigned date-range.
 Version:      0.1.0
 Author:       Dan Smith
@@ -89,7 +89,7 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-titles.php');
 
   // Views
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-options-page.php');
+  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-options.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-widget.php');
 
   // Theming

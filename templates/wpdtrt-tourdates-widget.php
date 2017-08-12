@@ -1,7 +1,7 @@
 <?php
 /**
  * Template partial for Widget administration
- *    WP Admin > Appearance > Widgets > WPDTRT Tour Dates
+ *    WP Admin > Appearance > Widgets > DTRT Tour Dates
  *
  * This file contains PHP, and HTML fields.
  *

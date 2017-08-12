@@ -15,7 +15,7 @@ if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array (
 	'key' => 'group_595c333a1fd7a',
-	'title' => 'WPDTRT Tour Dates: Taxonomy',
+	'title' => 'DTRT Tour Dates: Taxonomy',
 	'fields' => array (
 		array (
 			'key' => 'field_595c382ec7af6',

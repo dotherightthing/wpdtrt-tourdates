@@ -1,7 +1,7 @@
 <?php
 /**
  * Functionality for the WP Admin Plugin Options page
- *    WP Admin > Settings > WPDTRT Tour Dates
+ *    WP Admin > Settings > DTRT Tour Dates
  *
  * This file contains PHP.
  *
@@ -25,7 +25,7 @@ if ( !function_exists( 'wpdtrt_tourdates_menu' ) ) {
   function wpdtrt_tourdates_menu() {
 
     add_options_page(
-      'WPDTRT Tour Dates',
+      'DTRT Tour Dates',
       'Tour Dates',
       'manage_options',
       'wpdtrt-tourdates',
@@ -128,7 +128,7 @@ if ( !function_exists( 'wpdtrt_tourdates_options_page' ) ) {
      * This function's variables will be available to this template.
      * @todo display the last generated timestamp on the options page
      */
-    require_once(WPDTRT_ELAPSEDDAY_PATH . 'views/admin/partials/wpdtrt-tourdates-options-page.php');
+    require_once(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-options.php');
   }
 
 }

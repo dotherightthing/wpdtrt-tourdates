@@ -1,5 +1,5 @@
 
-=== WPDTRT Tour Dates ===
+=== DTRT Tour Dates ===
 Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
 Tags: cycle-touring, travel,

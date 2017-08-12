@@ -2,7 +2,7 @@
   "generator-wp-plugin-boilerplate": {
     "name": "wpdtrt-tourdates",
     "nameSafe": "wpdtrt_tourdates",
-    "nameFriendly": "WPDTRT Tour Dates",
+    "nameFriendly": "DTRT Tour Dates",
     "nameFriendlySafe": "WPDTRT_Tourdates",
     "nameAdminMenu": "Tour Dates",
     "urlAdminMenu": "wpdtrt-tourdates",

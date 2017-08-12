@@ -27,7 +27,7 @@ if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
 
     function __construct() {
       // Instantiate the parent object
-      parent::__construct( false, 'WPDTRT Tour Dates Widget' );
+      parent::__construct( false, 'DTRT Tour Dates Widget' );
     }
 
     /**
@@ -67,7 +67,7 @@ if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'views/public/partials/wpdtrt-tourdates-front-end.php');
+      require(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-front-end.php');
     }
 
     /**
@@ -111,7 +111,7 @@ if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'views/admin/partials/wpdtrt-tourdates-widget.php');
+      require(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-widget.php');
     }
   }
 
