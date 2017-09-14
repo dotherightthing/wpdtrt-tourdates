@@ -109,25 +109,15 @@ function wpdtrt_tourdates_permalink_placeholders($permalink, $post, $leavename) 
 				 * Replace the %taxonomy% tag with our custom taxonomy slug.
 				 */
 				$permalink = str_replace( ( '%' . $placeholder_name . '%' ), $replacements, $permalink);
-
-				wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders | A: permalink = ' . $permalink );
 			}
 		}
 		// if %placeholder_name% is a custom field
 		else if ( metadata_exists( 'post', $post_id, $placeholder_name ) ) {
 			$replacement = get_post_meta( $post_id, $placeholder_name, true );
 			$permalink = str_replace( ( '%' . $placeholder_name . '%' ), $replacement, $permalink);
-
-			wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders | B: permalink = ' . $permalink );
-
-			//wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders = metadata_exists("post")' );
 		}
 		// if neither
 		else {
-			wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders | C: permalink = ' . $permalink );
-
-			//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true);
-			//wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders = no metadata_exists and wpdtrt_tourdates_cf_daynumber = ' . $test );
 			// custom post type placeholder
 			if ( ( $placeholder_name !== 'postname' ) && ( $placeholder_name !== 'tourdiaries' ) ) {
 				$replacement = 'no-' . $placeholder_name;
