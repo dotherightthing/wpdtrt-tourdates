@@ -25,6 +25,8 @@
  * @see http://shibashake.com/wordpress-theme/add-custom-taxonomy-tags-to-your-wordpress-permalinks
  * @see http://shibashake.com/wordpress-theme/custom-post-type-permalinks-part-2#conflict
  * @see https://stackoverflow.com/questions/7723457/wordpress-custom-type-permalink-containing-taxonomy-slug
+ * @see https://kellenmace.com/edit-slug-button-missing-in-wordpress/
+ * @see http://kb.dotherightthing.dan/php/wordpress/missing-permalink-edit-button/
  */
 add_filter('post_link', 		'wpdtrt_tourdates_permalink_placeholders', 10, 3);
 add_filter('post_type_link', 	'wpdtrt_tourdates_permalink_placeholders', 10, 3);
@@ -122,13 +124,15 @@ function wpdtrt_tourdates_permalink_placeholders($permalink, $post, $leavename) 
 		}
 		// if neither
 		else {
-			$replacement = 'no-' . $placeholder_name;
-			$permalink = str_replace( ( '%' . $placeholder_name . '%' ), $replacement, $permalink);
-
 			wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders | C: permalink = ' . $permalink );
 
 			//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true);
 			//wpdtrt_log( 'wpdtrt_tourdates_permalink_placeholders = no metadata_exists and wpdtrt_tourdates_cf_daynumber = ' . $test );
+			// custom post type placeholder
+			if ( ( $placeholder_name !== 'postname' ) && ( $placeholder_name !== 'tourdiaries' ) ) {
+				$replacement = 'no-' . $placeholder_name;
+				$permalink = str_replace( ( '%' . $placeholder_name . '%' ), $replacement, $permalink);
+			}
 		}
 	}
 
