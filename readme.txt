@@ -20,6 +20,7 @@ Display the relative position of content within an assigned date-range.
 1. Upload the plugin files to the `/wp-content/plugins/wpdtrt-tourdates` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Plugin Name screen to configure the plugin
+4. Settings->Permalinks: Post name
 
 A day number is assigned to each post as it is (re)published.
 
