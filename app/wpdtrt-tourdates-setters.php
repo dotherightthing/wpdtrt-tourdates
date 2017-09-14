@@ -14,6 +14,9 @@
 
 /**
  * Set the term ID
+ *  Used in wpdtrt-dbth/taxonomy-tours.php
+ *
+ * @link wpdtrt-dbth/taxonomy-tours.php
  * @return $term_id;
  * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
  * @todo prefix term_id with plugin prefix
@@ -29,7 +32,12 @@ function wpdtrt_tourdates_set_partial_term_id( $term_id ) {
  * Create a custom field when a post is saved,
  * which can be queried by the next/previous_post_link_plus plugin
  * and used in the Yoast page title via %%cf_wpdtrt_tourdates_daynumber%%,
+ * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth)
  *
+ * Use the Query Monitor plugin to view the Post type
+ *
+ * @link wpdtrt/library/permalink-placeholders.php
+ * @link wpdtrt-dbth/library/register_post_type_tourdiaries
  * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
  * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
  * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
@@ -53,11 +61,12 @@ if ( !function_exists( 'wpdtrt_tourdates_set_daynumber' ) ) {
 
       	$daynumber = wpdtrt_tourdates_get_post_daynumber($post_id);
 
-      	// update_post_meta runs add_post_meta if the $meta_key does not already exist
-        update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber, true);
+      	// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
+        update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber);
 
         // note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
-        //$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true);
+        //$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true); // true = return single value
+
       }
   }
 }
