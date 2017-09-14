@@ -83,6 +83,8 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
   //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-acf.php'); // debugging
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-getters.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-navigation.php');
+  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-rewrite.php'); // doesn't help
+  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-permalink-placeholders.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-setters.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
   require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-titles.php');
