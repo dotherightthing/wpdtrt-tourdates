@@ -9,6 +9,7 @@
  *
  * @package     WPDTRT_Tourdates
  * @subpackage  WPDTRT_Tourdates/app
+ * @todo        Cache results in custom fields or plugin options
  */
 
 /**
@@ -75,7 +76,7 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
 
   global $post;
   $post_id = $post->ID;
-  $taxonomy = get_query_var('taxonomy');
+  $taxonomy = 'tours'; // get_query_var('taxonomy') isn't working
 
   $term_id = null;
 
@@ -138,7 +139,9 @@ function wpdtrt_tourdates_get_post_daynumber($post_id) {
 
 /**
  * Get the legs in a tour
+ *  Used in wpdtrt-dbth/taxonomy-tours.php
  *
+ * @link wpdtrt-dbth/taxonomy-tours.php
  * @param number $term_id The term ID
  * @return string $tour_leg_term_ids The tour leg IDs in order of start date
  *
@@ -179,7 +182,7 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
 /**
  * Get the first date in a tour
  *
- * @param number $id The ID of the post or term
+ * @param number $id The ID of the post OR term
  * @param string $term_type An optional term type, useful when we want to query a tour rather than a tour leg
  * @param string $date_format An optional date format
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
@@ -188,18 +191,24 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
  */
 function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format=null) {
 
-  // if this is a tour leg (getting tour leg date range)
-  if ( term_exists( $id, get_query_var('taxonomy') ) ) {
+  $taxonomy = 'tours'; // get_query_var('taxonomy') isn't working
+
+  // if $id is the ID of a term in the 'tours' taxonomy
+  // then this is a tour leg
+  // and we are getting the tour leg date range
+  // term_exists( $term, $taxonomy, $parent )
+  if ( term_exists( $id, $taxonomy ) ) {
     $term_id = $id;
   }
-  // if this is a tour day (getting start date for term_days_elapsed daynumber)
+  // else if it isn't then the $id is the ID of a tour day
+  // and we are getting the start date for term_days_elapsed daynumber
   else { // if post
     // when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
     // then the term is not passed
     $term_id = wpdtrt_tourdates_get_post_term_ids( $term_type );
   }
 
-  $tour_start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', get_query_var('taxonomy') . '_' . $term_id);
+  $tour_start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
 
   if ( $date_format !== null ) {
     $date = new DateTime($tour_start_date);
