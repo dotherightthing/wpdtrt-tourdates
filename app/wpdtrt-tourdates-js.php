@@ -26,7 +26,7 @@ if ( !function_exists( 'wpdtrt_tourdates_js' ) ) {
   function wpdtrt_tourdates_js() {
 
     wp_enqueue_script( 'wpdtrt_tourdates_js',
-      WPDTRT_TOURDATES_URL . 'js/wpdtrt-tourdates.min.js',
+      WPDTRT_TOURDATES_URL . 'js/wpdtrt-tourdates.js',
       array('jquery'),
       WPDTRT_TOURDATES_VERSION,
       true
