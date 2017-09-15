@@ -21,9 +21,9 @@ if ( !function_exists( 'wpdtrt_tourdates_css' ) ) {
   function wpdtrt_tourdates_css() {
 
     wp_enqueue_style( 'wpdtrt_tourdates_css',
-      WPDTRT_ELAPSEDDAY_URL . 'css/wpdtrt-tourdates.min.css',
+      WPDTRT_TOURDATES_URL . 'css/wpdtrt-tourdates.min.css',
       array(),
-      WPDTRT_ELAPSEDDAY_VERSION
+      WPDTRT_TOURDATES_VERSION
       //'all'
     );
 
@@ -43,9 +43,9 @@ if ( !function_exists( 'wpdtrt_tourdates_admin_css' ) ) {
   function wpdtrt_tourdates_admin_css() {
 
     wp_enqueue_style( 'wpdtrt_tourdates_admin_css',
-      WPDTRT_ELAPSEDDAY_URL . 'css/wpdtrt-tourdates-admin.min.css',
+      WPDTRT_TOURDATES_URL . 'css/wpdtrt-tourdates-admin.min.css',
       array(),
-      WPDTRT_ELAPSEDDAY_VERSION
+      WPDTRT_TOURDATES_VERSION
       //'all'
     );
   }

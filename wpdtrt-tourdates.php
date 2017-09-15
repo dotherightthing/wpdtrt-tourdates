@@ -40,8 +40,8 @@ Domain Path:  /languages
  * @example $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
  * @link https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
  */
-if( ! defined( 'WPDTRT_ELAPSEDDAY_VERSION' ) ) {
-  define( 'WPDTRT_ELAPSEDDAY_VERSION', '0.1' );
+if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
+  define( 'WPDTRT_TOURDATES_VERSION', '0.1' );
 }
 
 /**
@@ -51,8 +51,8 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_VERSION' ) ) {
  * @link https://developer.wordpress.org/reference/functions/plugin_dir_path/
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
  */
-if( ! defined( 'WPDTRT_ELAPSEDDAY_PATH' ) ) {
-  define( 'WPDTRT_ELAPSEDDAY_PATH', plugin_dir_path( __FILE__ ) );
+if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
+  define( 'WPDTRT_TOURDATES_PATH', plugin_dir_path( __FILE__ ) );
 }
 
 /**
@@ -62,8 +62,8 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_PATH' ) ) {
  * @link https://codex.wordpress.org/Function_Reference/plugin_dir_url
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
  */
-if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
-  define( 'WPDTRT_ELAPSEDDAY_URL', plugin_dir_url( __FILE__ ) );
+if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
+  define( 'WPDTRT_TOURDATES_URL', plugin_dir_url( __FILE__ ) );
 }
 
 
@@ -80,24 +80,24 @@ if( ! defined( 'WPDTRT_ELAPSEDDAY_URL' ) ) {
  */
 
   // API data
-  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-acf.php'); // debugging
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-getters.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-navigation.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-permalink-placeholders.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-setters.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-titles.php');
+  //require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-acf.php'); // debugging
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-getters.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-navigation.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-permalink-placeholders.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-setters.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-titles.php');
 
   // Views
-  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-options.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-widget.php');
+  //require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-options.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-widget.php');
 
   // Theming
-  //require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-html.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-css.php');
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-js.php');
+  //require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-html.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-css.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-js.php');
 
   // Shortcode
-  require_once(WPDTRT_ELAPSEDDAY_PATH . 'app/wpdtrt-tourdates-shortcodes.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-shortcodes.php');
 
 ?>

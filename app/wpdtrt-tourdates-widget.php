@@ -67,7 +67,7 @@ if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-front-end.php');
+      require(WPDTRT_TOURDATES_PATH . 'templates/wpdtrt-tourdates-front-end.php');
     }
 
     /**
@@ -111,7 +111,7 @@ if ( !class_exists( 'WPDTRT_Tourdates_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-widget.php');
+      require(WPDTRT_TOURDATES_PATH . 'templates/wpdtrt-tourdates-widget.php');
     }
   }
 

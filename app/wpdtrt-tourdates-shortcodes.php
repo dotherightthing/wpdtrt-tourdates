@@ -80,7 +80,7 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_shortcode' ) ) {
      */
     ob_start();
 
-    require(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-navigation.php');
+    require(WPDTRT_TOURDATES_PATH . 'templates/wpdtrt-tourdates-navigation.php');
 
     /**
      * ob_get_clean — Get current buffer contents and delete current output buffer

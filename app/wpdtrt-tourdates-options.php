@@ -128,7 +128,7 @@ if ( !function_exists( 'wpdtrt_tourdates_options_page' ) ) {
      * This function's variables will be available to this template.
      * @todo display the last generated timestamp on the options page
      */
-    require_once(WPDTRT_ELAPSEDDAY_PATH . 'templates/wpdtrt-tourdates-options.php');
+    require_once(WPDTRT_TOURDATES_PATH . 'templates/wpdtrt-tourdates-options.php');
   }
 
 }
