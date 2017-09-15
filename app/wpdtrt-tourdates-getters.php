@@ -27,20 +27,83 @@
  */
 
 /**
- * Get the tour type
- * @param number $id The ID of the term
- * @return string $term_type (tour|tour_leg)
+ * Get the value of the leg count field
+ * @param number $term_id The Term ID
+ * @param string $taxonomy The taxonomy
+ * @return string $start_date The start date
+ * @see https://www.advancedcustomfields.com/resources/get_field/
+ * @todo calculate this instead, allowing for only unique legs
  */
-function wpdtrt_tourdates_get_term_type( $term_id ) {
+function wpdtrt_tourdates_get_acf_tour_category_leg_count( $term_id, $taxonomy ) {
 
-  $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', get_query_var( 'taxonomy' ) . '_' . $term_id);
+  $leg_count = get_field('wpdtrt_tourdates_acf_tour_category_leg_count', $taxonomy . '_' . $term_id);
+
+  return $leg_count;
+}
+
+/**
+ * Get the value of the start date field
+ * @param number $term_id The Term ID
+ * @param string $taxonomy The taxonomy
+ * @return string $start_date The start date
+ * @see https://www.advancedcustomfields.com/resources/get_field/
+ */
+function wpdtrt_tourdates_get_acf_term_start_date( $term_id, $taxonomy ) {
+
+  $start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
+
+  return $start_date;
+}
+
+/**
+ * Get the value of the end date field
+ * @param number $term_id The Term ID
+ * @param string $taxonomy The taxonomy
+ * @return string $end_date The end date
+ * @see https://www.advancedcustomfields.com/resources/get_field/
+ */
+function wpdtrt_tourdates_get_acf_term_end_date( $term_id, $taxonomy ) {
+
+  $end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $taxonomy . '_' . $term_id);
+
+  return $end_date;
+}
+
+
+/**
+ * Get the value of the term image field
+ * @param number $term_id The Term ID
+ * @param string $taxonomy The taxonomy
+ * @return string $term_thumbnail_id The thumbnail ID
+ * @see https://www.advancedcustomfields.com/resources/get_field/
+ * @see https://www.advancedcustomfields.com/resources/image/
+ * @todo Roll into theme as not date specific
+ */
+function wpdtrt_tourdates_get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
+
+  $thumbnail_id = get_field('wpdtrt_tourdates_acf_tour_category_thumbnail', $taxonomy . '_' . $term_id);
+
+  return $thumbnail_id;
+}
+
+/**
+ * Get the value of the tour type field
+ *  Used to calculate date offsets.
+ *
+ * @param number $id The ID of the term
+ * @param string $taxonomy The taxonomy
+ * @return string $term_type (tour|tour_leg)
+ * @see https://www.advancedcustomfields.com/resources/get_field/
+ */
+function wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy ) {
+  $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
 
   return $term_type;
 }
 
 /**
- * Get the ID of the ACF term
- * so we can get the values of the ACF fields attached to this term
+ * Get the ID of the ACF term type
+ *  so we can get the values of the ACF fields attached to this term
  *
  * @param string $term_type The term type (tour|tour_leg)
  * @return number $term_id The term ID
@@ -81,7 +144,7 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
         if ( !empty( $term ) && is_object( $term ) ) {
 
           $term_id = $term->term_id;
-          $acf_term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
+          $acf_term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
 
           if ( $acf_term_type === $term_type ) {
             break;
@@ -100,6 +163,7 @@ function wpdtrt_tourdates_get_post_term_ids($term_type) { // // this is returnin
  * else this will show the creation date
  * @param number $post_id The post ID
  * @return number $post_daynumber The day number
+ * @todo Consider rewriting into a shortcode
  */
 function wpdtrt_tourdates_get_post_daynumber($post_id) {
 
@@ -117,8 +181,6 @@ function wpdtrt_tourdates_get_post_daynumber($post_id) {
  * @param string $term_type An optional term type, useful when we want to query a tour rather than a tour leg
  * @param string $date_format An optional date format
  * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
- *
- * @see https://www.advancedcustomfields.com/resources/get_field/
  */
 function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format=null) {
 
@@ -139,7 +201,7 @@ function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format
     $term_id = wpdtrt_tourdates_get_post_term_ids( $term_type );
   }
 
-  $tour_start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
+  $tour_start_date = wpdtrt_tourdates_get_acf_term_start_date( $term_id, $taxonomy );
 
   if ( $date_format !== null ) {
     $date = new DateTime($tour_start_date);
@@ -156,13 +218,12 @@ function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format
  *
  * @param number $term_id The term ID
  * @return number $tour_start_day The day when the tour started
- *
- * @see https://www.advancedcustomfields.com/resources/get_field/
  */
 function wpdtrt_tourdates_get_term_start_day( $term_id ) {
 
-  $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
-  $term_type = wpdtrt_tourdates_get_term_type( $term_id );
+  $taxonomy = get_query_var( 'taxonomy' );
+  $term = get_term_by( 'id', $term_id, $taxonomy );
+  $term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
 
   if ( $term_type === 'tour' ) {
     $tour_start_day = 1;
@@ -183,12 +244,11 @@ function wpdtrt_tourdates_get_term_start_day( $term_id ) {
  * @param number $term_id The term ID
  * @param string $date_format An optional PHP date format
  * @return string $tour_end_date The date when the tour ended (Y-n-j 00:01:00)
- *
- * @see https://www.advancedcustomfields.com/resources/get_field/
  */
 function wpdtrt_tourdates_get_term_end_date($term_id, $date_format=null) {
 
-  $tour_end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', get_query_var('taxonomy') . '_' . $term_id);
+  $taxonomy = get_query_var( 'taxonomy' );
+  $tour_end_date = wpdtrt_tourdates_get_acf_term_end_date( $term_id, $taxonomy );
 
   if ( $date_format !== null ) {
     $date = new DateTime($tour_end_date);
@@ -226,11 +286,13 @@ function wpdtrt_tourdates_get_term_end_month( $term_id ) {
  * @param string $text_before Text to display if more than one leg
  * @param string $text_after Text to display if more than one leg
  * @return string $tour_leg_count The number of unique tour legs
- * @see https://www.advancedcustomfields.com/resources/get_field/
  * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
+ * @todo Consider replacing with a shortcode
  */
 function wpdtrt_tourdates_get_term_leg_count($term_id, $text_before='', $text_after='') {
-  $tour_leg_count = get_field('wpdtrt_tourdates_acf_tour_category_leg_count', get_query_var('taxonomy') . '_' . $term_id);
+
+  $taxonomy = get_query_var( 'taxonomy' );
+  $tour_leg_count = wpdtrt_tourdates_get_acf_tour_category_leg_count( $term_id, $taxonomy );
 
   if ( $tour_leg_count > 1 ) {
     $str = $text_before . $tour_leg_count . $text_after;
@@ -241,18 +303,6 @@ function wpdtrt_tourdates_get_term_leg_count($term_id, $text_before='', $text_af
   }
 
   return $tour_leg_count;
-}
-
-/**
- * Get the term image
- * @param number $term_id The Term ID
- * @return string $term_thumbnail_id The thumbnail ID
- * @see https://www.advancedcustomfields.com/resources/image/
- */
-function wpdtrt_tourdates_get_term_thumbnail_id( $term_id ) {
-  $term_thumbnail_id = get_field('wpdtrt_tourdates_acf_tour_category_thumbnail', get_query_var('taxonomy') . '_' . $term_id);
-
-  return $term_thumbnail_id;
 }
 
 /**
@@ -284,6 +334,7 @@ function wpdtrt_tourdates_get_term_days_elapsed($start_date, $end_date) {
  * @return string $tour_leg_name The name of the tour leg
  * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
+ * @todo Roll into theme as not date specific
  */
 function wpdtrt_tourdates_get_term_leg_name($tour_leg_slug) {
   $tour_leg_name = '';
@@ -301,6 +352,7 @@ function wpdtrt_tourdates_get_term_leg_name($tour_leg_slug) {
  * @return string $tour_leg_id The ID of the tour leg
  * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
  * @see https://codex.wordpress.org/Function_Reference/get_term_by
+ * @todo Roll into theme as not date specific
  */
 function wpdtrt_tourdates_get_term_leg_id($tour_leg_slug) {
   $tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
