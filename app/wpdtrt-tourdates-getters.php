@@ -27,19 +27,6 @@
  */
 
 /**
- * Get the term ID
- * get_query_var('term') gets the parent page, not the included partial
- * @return string $term_id
- * @todo prefix term_id with plugin prefix
- */
-function wpdtrt_tourdates_get_partial_term_id() {
-
-  $term_id = get_query_var( 'term_id' ); // manually set in taxonomy template
-
-  return $term_id;
-}
-
-/**
  * Get the term
  * get_query_var('term') gets the parent page, not the included partial
  * @param number $term_id
