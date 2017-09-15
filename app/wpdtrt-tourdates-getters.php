@@ -130,11 +130,17 @@ function wpdtrt_tourdates_get_post_daynumber($post_id) {
  *
  * @link wpdtrt-dbth/taxonomy-tours.php
  * @param number $term_id The term ID
+ * @param strong $order_function_name The name of a function which reorder the results
  * @return string $tour_leg_term_ids The tour leg IDs in order of start date
  *
  * @see https://www.advancedcustomfields.com/resources/get_field/
+ * @see http://php.net/manual/en/function.is-callable.php
+ * @see http://php.net/manual/en/function.call-user-func.php
+ *
+ * @todo Move into theme framework as wpdtrt_get_term_children_ordered
  */
-function wpdtrt_tourdates_get_tour_legs($term_id) {
+
+function wpdtrt_tourdates_get_tour_legs($term_id, $order_function_name=null) {
 
   $tour_leg_term_ids = get_term_children( $term_id, get_query_var( 'taxonomy' ) );
   $tour_leg_terms = array();
@@ -145,16 +151,9 @@ function wpdtrt_tourdates_get_tour_legs($term_id) {
     $tour_leg_terms[] = $term;
   }
 
-  // sort term objects by start date
-  uasort ( $tour_leg_terms , function ( $term_a, $term_b ) {
-    $term_a_id = $term_a->term_id;
-    $term_a_start_date = wpdtrt_tourdates_get_term_start_date( $term_a_id );
-
-    $term_b_id = $term_b->term_id;
-    $term_b_start_date = wpdtrt_tourdates_get_term_start_date( $term_b_id );
-
-    return strnatcmp( $term_a_start_date, $term_b_start_date );
-  });
+  if ( isset( $order_function_name ) && is_callable( $order_function_name ) ) {
+    $tour_leg_terms = call_user_func( $order_function_name, $tour_leg_terms );
+  }
 
   // reset term ids array
   $tour_leg_term_ids = array();
