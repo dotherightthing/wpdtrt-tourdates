@@ -287,7 +287,7 @@ function wpdtrt_tourdates_get_term_end_month( $term_id ) {
  * @param string $text_after Text to display if more than one leg
  * @return string $tour_leg_count The number of unique tour legs
  * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
- * @todo Consider replacing with a shortcode
+ * @todo Roll into theme as nothing to do with dates
  */
 function wpdtrt_tourdates_get_term_leg_count($term_id, $text_before='', $text_after='') {
 
