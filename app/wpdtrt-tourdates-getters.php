@@ -81,7 +81,7 @@ function wpdtrt_tourdates_get_acf_term_end_date( $term_id, $taxonomy ) {
  */
 function wpdtrt_tourdates_get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
 
-  $thumbnail_id = get_field('wpdtrt_tourdates_acf_tour_category_thumbnail', $taxonomy . '_' . $term_id);
+  $thumbnail_id = get_field('wpdtrt_dbth_acf_tours_term_thumbnail', $taxonomy . '_' . $term_id);
 
   return $thumbnail_id;
 }
