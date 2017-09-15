@@ -27,20 +27,6 @@
  */
 
 /**
- * Get the term
- * get_query_var('term') gets the parent page, not the included partial
- * @param number $term_id
- * @return object $term
- * @see http://keithdevon.com/passing-variables-to-get_template_part-in-wordpress/#comment-110459
- */
-function wpdtrt_tourdates_get_partial_term( $term_id ) {
-
-  $term = get_term_by( 'id', $term_id, get_query_var( 'taxonomy' ) );
-
-  return $term;
-}
-
-/**
  * Get the tour type
  * @param number $id The ID of the term
  * @return string $term_type (tour|tour_leg)
