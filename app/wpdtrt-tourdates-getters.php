@@ -235,23 +235,6 @@ function wpdtrt_tourdates_get_term_end_month( $term_id ) {
 }
 
 /**
- * Get tour length in days
- *
- * @param number $term_id The term ID
- * @param string $text_before Translatable text displayed before the tour length
- * @param string $text_after Translatable text displayed after the tour length
- * @return string $tour_length_days The length of the tour
- */
-function wpdtrt_tourdates_get_term_length($term_id, $text_before='', $text_after='') {
-
-  $tour_start_date = wpdtrt_tourdates_get_term_start_date( $term_id );
-  $tour_end_date = wpdtrt_tourdates_get_term_end_date( $term_id );
-  $tour_length_days = wpdtrt_tourdates_get_term_days_elapsed($tour_start_date, $tour_end_date);
-
-  return $text_before . $tour_length_days . $text_after;
-}
-
-/**
  * Get the number of unique tour legs
  * @param number $term_id The Term ID
  * @param string $text_before Text to display if more than one leg

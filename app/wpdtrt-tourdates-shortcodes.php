@@ -141,4 +141,57 @@ if ( !function_exists( 'wpdtrt_tourdates_daytotal_shortcode' ) ) {
   }
 }
 
+if ( !function_exists( 'wpdtrt_tourdates_tourlengthdays_shortcode' ) ) {
+
+  /**
+   * add_shortcode
+   * @param       string $tag
+   *    Shortcode tag to be searched in post content.
+   * @param       callable $func
+   *    Hook to run when shortcode is found.
+   *
+   * @since       0.1.0
+   * @uses        ../../../../wp-includes/shortcodes.php
+   * @see         https://codex.wordpress.org/Function_Reference/add_shortcode
+   */
+  add_shortcode( 'wpdtrt_tourdates_tourlengthdays', 'wpdtrt_tourdates_tourlengthdays_shortcode' );
+
+  /**
+   * Get tour length in days
+   *
+   * @param number $term_id The term ID
+   * @param string $text_before Translatable text displayed before the tour length
+   * @param string $text_after Translatable text displayed after the tour length
+   * @return string $tour_length_days The length of the tour
+   */
+  function wpdtrt_tourdates_tourlengthdays_shortcode( $atts, $content = null ) {
+
+    // initialise extracted variables to aid debugging
+    $term_id = null;
+    $text_before = null;
+    $text_after = null;
+
+    extract( shortcode_atts(
+      array(
+        'term_id' => null,
+        'text_before' => '',
+        'text_after' => ''
+      ),
+      $atts,
+      ''
+    ) );
+
+    // convert shortcode argument to a number
+    if ( isset( $term_id ) ) {
+      $term_id = (int)$term_id;
+    }
+
+    $tour_start_date = wpdtrt_tourdates_get_term_start_date( $term_id );
+    $tour_end_date = wpdtrt_tourdates_get_term_end_date( $term_id );
+    $tour_length_days = wpdtrt_tourdates_get_term_days_elapsed($tour_start_date, $tour_end_date);
+
+    return $text_before . $tour_length_days . $text_after;
+  }
+}
+
 ?>
