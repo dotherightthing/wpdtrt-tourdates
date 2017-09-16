@@ -84,6 +84,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-getters.php');
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-navigation.php');
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-permalink-placeholders.php');
+  require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-rewrite-rules.php');
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-setters.php');
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-taxonomies.php');
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-titles.php');
@@ -99,5 +100,29 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
   // Shortcode
   require_once(WPDTRT_TOURDATES_PATH . 'app/wpdtrt-tourdates-shortcodes.php');
+
+/**
+ * The register_activation_hook function registers a plugin function
+ * to be run when the plugin is activated.
+ * @see https://codex.wordpress.org/Function_Reference/register_activation_hook
+ */
+
+register_activation_hook(__FILE__, 'wpdtrt_tourdates_activate');
+
+function wpdtrt_tourdates_activate() {
+  wpdtrt_tourdates_rewrite_rules();
+  flush_rewrite_rules();
+}
+
+/**
+ * The function register_deactivation_hook (introduced in WordPress 2.0) registers a plugin function
+ * to be run when the plugin is deactivated.
+ * @see https://codex.wordpress.org/Function_Reference/register_deactivation_hook
+ */
+ register_deactivation_hook(__FILE__, 'wpdtrt_tourdates_deactivate');
+
+function wpdtrt_tourdates_deactivate() {
+  flush_rewrite_rules();
+}
 
 ?>

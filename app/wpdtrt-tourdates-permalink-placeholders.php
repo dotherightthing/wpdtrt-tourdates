@@ -13,6 +13,9 @@
 
 /**
  * Support Custom Field %placeholders% in Custom Post Type permalinks
+ * 	This replacement is only applied when the permalink is generated
+ * 	eg on an archive listing or wpadmin edit page
+ *	NOT in the rewrite rules / when the page is loaded
  *
  * @param $permalink See WordPress function options
  * @param $post See WordPress function options
@@ -32,8 +35,8 @@
  * @see https://kellenmace.com/edit-slug-button-missing-in-wordpress/
  * @see http://kb.dotherightthing.dan/php/wordpress/missing-permalink-edit-button/
  */
-add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3);
-add_filter('post_type_link', 	'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3);
+//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
+add_filter('post_type_link', 	'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Custom Post Type
 
 function wpdtrt_tourdates_cf_permalink_placeholders($permalink, $post, $leavename) {
 
