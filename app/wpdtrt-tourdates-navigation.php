@@ -37,14 +37,14 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_link' ) ) {
 
     $config = array(
       'order_by' => 'meta_key',
-      'post_type' => '"tourdiaryday"',
-      'meta_key' => 'cf_wpdtrt_tourdates_daynumber',
+      'post_type' => '"tourdiaries"',
+      'meta_key' => 'wpdtrt_tourdates_cf_daynumber',
       'loop' => false,
       'max_length' => 9999,
       'format' => '%link',
       'link' => '<span class="stack--navigation--text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
       'tooltip' => $tooltip_prefix . ': Day DAY_NUMBER.',
-      'in_same_tax' => 'tour',
+      'in_same_tax' => 'tours',
       'echo' => false
     );
 
