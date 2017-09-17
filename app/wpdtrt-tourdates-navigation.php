@@ -50,17 +50,27 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_link' ) ) {
       'echo' => false
     );
 
+    $current_daynumber = wpdtrt_tourdates_get_post_daynumber($post->ID);
+
     if ( $direction == 'previous' ) {
       $the_id = previous_post_link_plus( array('return' => 'id') );
-      $the_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
-      $the_link = previous_post_link_plus( $config );
-      $the_link = str_replace('DAY_NUMBER', $the_daynumber, $the_link);
+      $adjacent_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
+
+      // Prevent navigation between different tours
+      if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber < $current_daynumber ) ) {
+        $the_link = previous_post_link_plus( $config );
+        $the_link = str_replace('DAY_NUMBER', $adjacent_daynumber, $the_link);
+      }
     }
     else if ( $direction == 'next' ) {
       $the_id = next_post_link_plus( array('return' => 'id') );
-      $the_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
-      $the_link = next_post_link_plus( $config );
-      $the_link = str_replace('DAY_NUMBER', $the_daynumber, $the_link);
+      $adjacent_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
+
+      // Prevent navigation between different tours
+      if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber > $current_daynumber ) ) {
+        $the_link = next_post_link_plus( $config );
+        $the_link = str_replace('DAY_NUMBER', $adjacent_daynumber, $the_link);
+      }
     }
 
     if ( !$the_link ) {
