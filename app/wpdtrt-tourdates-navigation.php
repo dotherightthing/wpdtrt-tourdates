@@ -17,9 +17,11 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_link' ) ) {
    * Link to next/previous post
    * @requires http://www.ambrosite.com/plugins/next-previous-post-link-plus-for-wordpress
    * @param $direction string previous|next
+   * @param $posttype
+   * @param $taxonomy
    * @todo Update to limit to the daycontroller category
    */
-  function wpdtrt_tourdates_navigation_link($direction) {
+  function wpdtrt_tourdates_navigation_link($direction, $posttype, $taxonomy) {
 
     global $post;
     $id = $post->ID;
@@ -37,14 +39,14 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_link' ) ) {
 
     $config = array(
       'order_by' => 'meta_key',
-      'post_type' => '"tourdiaries"',
+      'post_type' => '"' . $posttype . '"',
       'meta_key' => 'wpdtrt_tourdates_cf_daynumber',
       'loop' => false,
       'max_length' => 9999,
       'format' => '%link',
       'link' => '<span class="stack--navigation--text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
       'tooltip' => $tooltip_prefix . ': Day DAY_NUMBER.',
-      'in_same_tax' => 'tours',
+      'in_same_tax' => $taxonomy,
       'echo' => false
     );
 

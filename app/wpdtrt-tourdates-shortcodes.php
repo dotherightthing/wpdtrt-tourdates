@@ -44,32 +44,21 @@ if ( !function_exists( 'wpdtrt_tourdates_navigation_shortcode' ) ) {
     $title = null;
     $after_title = null;
     $after_widget = null;
+    $posttype = null;
+    $taxonomy = null;
 
-    /*
     extract( shortcode_atts(
       array(
-        'number' => '4',
-        'enlargement' => 'yes'
+        'posttype' => '',
+        'taxonomy' => ''
       ),
       $atts,
       ''
-    ) );
-
-    if ( $enlargement === 'yes') {
-      $enlargement = '1';
-    }
-
-    if ( $enlargement === 'no') {
-      $enlargement = '0';
-    }
-
-    $wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
-    $wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
-    */
+    ), EXTR_IF_EXISTS );
 
     // vars to pass to template partial
-    $previous =   wpdtrt_tourdates_navigation_link('previous');
-    $next =       wpdtrt_tourdates_navigation_link('next');
+    $previous =   wpdtrt_tourdates_navigation_link('previous', $posttype, $taxonomy);
+    $next =       wpdtrt_tourdates_navigation_link('next', $posttype, $taxonomy);
     $daynumber =  wpdtrt_tourdates_get_post_daynumber($post_id);
 
     /**

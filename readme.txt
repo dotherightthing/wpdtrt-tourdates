@@ -41,8 +41,8 @@ A day number is assigned to each post as it is (re)published.
 
 = previous/next arrow navigation =
 
-* Shortcode: `[wpdtrt_tourdates_navigation]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_navigation]' );`
+* Shortcode: `[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]' );`
 
 = the elapsed day number =
 
