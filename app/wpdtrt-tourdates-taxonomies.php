@@ -17,16 +17,21 @@ if ( !function_exists( 'wpdtrt_tourdates_order_tour_terms_by_date' ) ) {
 	 * Sort term objects by start date
 	 * @param {array} $tour_terms Array of terms (e.g. tour legs)
 	 * @return {array} $tour_terms Sorted terms
+	 * @see https://stackoverflow.com/a/22231045/6850747
 	 */
 	function wpdtrt_tourdates_order_tour_terms_by_date( $tour_terms ) {
 
-		uasort ( $tour_terms , function ( $term_a, $term_b ) {
+		// usort: Sort an array with a user-defined comparison function
+		// uasort: and maintain index association
+		// @uasort: suppress PHP Warning: uasort(): Array was modified by the user comparison function
+		@uasort( $tour_terms, function( $term_a, $term_b ) {
 			$term_a_id = $term_a->term_id;
 			$term_a_start_date = wpdtrt_tourdates_get_term_start_date( $term_a_id );
 
 			$term_b_id = $term_b->term_id;
 			$term_b_start_date = wpdtrt_tourdates_get_term_start_date( $term_b_id );
 
+			//  compare strings using a 'natural order' algorithm
 			return strnatcmp( $term_a_start_date, $term_b_start_date );
 		});
 
