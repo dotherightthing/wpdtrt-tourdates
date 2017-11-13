@@ -50,13 +50,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      * @todo support this function in child plugin
      */
     protected function wp_setup() {
-    	add_filter('post_type_link', 'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Custom Post Type
-		add_action('init', 'wpdtrt_tourdates_rewrite_rules');
-  		add_action('save_post', 'wpdtrt_tourdates_set_daynumber');
-  		add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' );
+		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders', 10, 3] ); // Custom Post Type
+		add_action( 'init', 			[$this, 'rewrite_rules'] );
+		add_action( 'save_post', 		[$this, 'set_daynumber'] );
+		add_filter( 'the_title', 		[$this, 'post_title_add_day'] );
+		//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
     }
 
-    // SETTERS AND GETTERS
+    //// END WORDPRESS INTEGRATION \\\\
+
+    //// START SETTERS AND GETTERS \\\\
 
 	/**
 	 * Get the value of the leg count field
@@ -518,6 +521,71 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
+	 * Get tour length in days
+	 *
+	 * @param number $term_id The term ID
+	 * @param string $text_before Translatable text displayed before the tour length
+	 * @param string $text_after Translatable text displayed after the tour length
+	 * @return string $tour_length_days The length of the tour
+	 *
+	 * @version 1.0.0
+	 * @since 0.1.0
+	 */
+	public function get_tourlengthdays( $term_id, $text_before, $text_after ) {
+		// convert shortcode argument to a number
+		if ( isset( $term_id ) ) {
+			$term_id = (int)$term_id;
+		}
+
+		$tour_start_date = $this->get_term_start_date( $term_id );
+		$tour_end_date = $this->get_term_end_date( $term_id );
+		$tour_length_days = $this->get_term_days_elapsed($tour_start_date, $tour_end_date);
+
+		return $text_before . $tour_length_days . $text_after;
+	}
+
+	/**
+	 * Create a custom field when a post is saved,
+	 * which can be queried by the next/previous_post_link_plus plugin
+	 * and used in the Yoast page title via %%cf_wpdtrt_tourdates_daynumber%%,
+	 * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth)
+	 *
+	 * Use the Query Monitor plugin to view the Post type
+	 *
+	 * @link wpdtrt/library/permalink-placeholders.php
+	 * @link wpdtrt-dbth/library/register_post_type_tourdiaries
+	 * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
+	 * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
+	 * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
+	 */
+	public function set_daynumber() {
+
+		global $post;
+
+		// if Update button used in Quick Edit view
+		if ( ! $post ) {
+			return;
+		}
+
+		$post_id = $post->ID;
+
+		if( ! wp_is_post_revision($post) ) {
+
+			$daynumber = wpdtrt_tourdates_get_post_daynumber($post_id);
+
+			// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
+			update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber);
+
+			// note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
+			//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true); // true = return single value
+		}
+	}
+
+    //// END SETTERS AND GETTERS \\\\
+
+    //// START RENDERERS \\\\
+
+	/**
 	 * Generate an Alt attribute
 	 *
 	 * @param       string $key
@@ -587,69 +655,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		return $str;
 	}
-
-	/**
-	 * Get tour length in days
-	 *
-	 * @param number $term_id The term ID
-	 * @param string $text_before Translatable text displayed before the tour length
-	 * @param string $text_after Translatable text displayed after the tour length
-	 * @return string $tour_length_days The length of the tour
-	 *
-	 * @version 1.0.0
-	 * @since 0.1.0
-	 */
-	public function get_tourlengthdays( $term_id, $text_before, $text_after ) {
-		// convert shortcode argument to a number
-		if ( isset( $term_id ) ) {
-			$term_id = (int)$term_id;
-		}
-
-		$tour_start_date = $this->get_term_start_date( $term_id );
-		$tour_end_date = $this->get_term_end_date( $term_id );
-		$tour_length_days = $this->get_term_days_elapsed($tour_start_date, $tour_end_date);
-
-		return $text_before . $tour_length_days . $text_after;
-	}
-
-	/**
-	 * Create a custom field when a post is saved,
-	 * which can be queried by the next/previous_post_link_plus plugin
-	 * and used in the Yoast page title via %%cf_wpdtrt_tourdates_daynumber%%,
-	 * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth)
-	 *
-	 * Use the Query Monitor plugin to view the Post type
-	 *
-	 * @link wpdtrt/library/permalink-placeholders.php
-	 * @link wpdtrt-dbth/library/register_post_type_tourdiaries
-	 * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
-	 * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
-	 * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
-	 */
-	public function set_daynumber() {
-
-		global $post;
-
-		// if Update button used in Quick Edit view
-		if ( ! $post ) {
-			return;
-		}
-
-		$post_id = $post->ID;
-
-		if( ! wp_is_post_revision($post) ) {
-
-			$daynumber = wpdtrt_tourdates_get_post_daynumber($post_id);
-
-			// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
-			update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber);
-
-			// note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
-			//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true); // true = return single value
-		}
-	}
-
-	// RENDERERS
 
 	/**
 	 * Render the HTML for a (linked) image
@@ -865,8 +870,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://kellenmace.com/edit-slug-button-missing-in-wordpress/
 	 * @see http://kb.dotherightthing.dan/php/wordpress/missing-permalink-edit-button/
 	 */
-	//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
-
 	public function render_permalink_placeholders($permalink, $post, $leavename) {
 
 		// Get post
@@ -890,7 +893,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		return $permalink;
 	}
 
-	// FILTERS
+    //// END RENDERERS \\\\
+
+    //// START FILTERS \\\\
 
 	/**
 	 * Add the ACF day to the post title
@@ -988,7 +993,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		return $day_html . $title_html;
 	}
 
-	// HELPERS
+    //// END FILTERS \\\\
+
+    //// START HELPERS \\\\
 
 	/**
 	 * Sort term objects by start date
@@ -1046,6 +1053,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	        'wpdtrt_tourdates_cf_daynumber='
 	    );
 	}
+
+    //// END HELPERS \\\\
 }
 
 ?>
