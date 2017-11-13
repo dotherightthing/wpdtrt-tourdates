@@ -207,7 +207,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	        if ( !empty( $term ) && is_object( $term ) ) {
 
 	          $term_id = $term->term_id;
-	          $acf_term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
+	          $acf_term_type = $this->get_acf_term_type( $term_id, $taxonomy );
 
 	          if ( $acf_term_type === $term_type ) {
 	            break;
@@ -234,9 +234,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_post_daynumber($post_id) {
 
-		$tour_start_date = wpdtrt_tourdates_get_term_start_date( $post_id, 'tour' ); // this was wrongly returning the tour leg start date
+		$tour_start_date = $this->get_term_start_date( $post_id, 'tour' ); // this was wrongly returning the tour leg start date
 		$post_date = get_the_date( "Y-n-j 00:01:00", $post_id );
-		$post_daynumber = wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $post_date );
+		$post_daynumber = $this->get_term_days_elapsed( $tour_start_date, $post_date );
 
 		return $post_daynumber;
 	}
@@ -269,10 +269,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		else { // if post
 			// when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
 			// then the term is not passed
-			$term_id = wpdtrt_tourdates_get_post_term_ids( $term_type );
+			$term_id = $this->get_post_term_ids( $term_type );
 		}
 
-		$tour_start_date = wpdtrt_tourdates_get_acf_term_start_date( $term_id, $taxonomy );
+		$tour_start_date = $this->get_acf_term_start_date( $term_id, $taxonomy );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_start_date);
@@ -298,16 +298,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		$taxonomy = get_query_var( 'taxonomy' );
 		$term = get_term_by( 'id', $term_id, $taxonomy );
-		$term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
+		$term_type = $this->get_acf_term_type( $term_id, $taxonomy );
 
 		if ( $term_type === 'tour' ) {
 			$tour_start_day = 1;
 		}
 		else if ( $term_type === 'tour_leg' ) {
 			$parent_term_id = $term->parent;
-			$tour_start_date =      wpdtrt_tourdates_get_term_start_date( $parent_term_id );
-			$tour_leg_start_date =  wpdtrt_tourdates_get_term_start_date( $term_id );
-			$tour_start_day =       wpdtrt_tourdates_get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );
+			$tour_start_date =      $this->get_term_start_date( $parent_term_id );
+			$tour_leg_start_date =  $this->get_term_start_date( $term_id );
+			$tour_start_day =       $this->get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );
 		}
 
 		return $tour_start_day;
@@ -327,7 +327,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_end_date($term_id, $date_format=null) {
 
 		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_end_date = wpdtrt_tourdates_get_acf_term_end_date( $term_id, $taxonomy );
+		$tour_end_date = $this->get_acf_term_end_date( $term_id, $taxonomy );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_end_date);
@@ -347,7 +347,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 */
 	public function get_term_start_month( $term_id ) {
-		$tour_leg_start_month = wpdtrt_tourdates_get_term_start_date($term_id, null, 'F Y');
+		$tour_leg_start_month = $this->get_term_start_date($term_id, null, 'F Y');
 
 		return $tour_leg_start_month;
 	}
@@ -358,7 +358,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @return string $tour_leg_end_month The month when the tour ended (Month YYYY)
 	 */
 	public function get_term_end_month( $term_id ) {
-		$tour_leg_end_month = wpdtrt_tourdates_get_term_end_date($term_id, 'F Y');
+		$tour_leg_end_month = $this->get_term_end_date($term_id, 'F Y');
 
 		return $tour_leg_end_month;
 	}
@@ -379,7 +379,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_leg_count($term_id, $text_before='', $text_after='') {
 
 		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_leg_count = wpdtrt_tourdates_get_acf_tour_category_leg_count( $term_id, $taxonomy );
+		$tour_leg_count = $this->get_acf_tour_category_leg_count( $term_id, $taxonomy );
 
 		if ( $tour_leg_count > 1 ) {
 			$str = $text_before . $tour_leg_count . $text_after;
@@ -571,7 +571,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		if( ! wp_is_post_revision($post) ) {
 
-			$daynumber = wpdtrt_tourdates_get_post_daynumber($post_id);
+			$daynumber = $this->get_post_daynumber($post_id);
 
 			// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
 			update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber);
@@ -816,11 +816,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			'echo' => false
 		);
 
-		$current_daynumber = wpdtrt_tourdates_get_post_daynumber($post->ID);
+		$current_daynumber = $this->get_post_daynumber($post->ID);
 
 		if ( $direction == 'previous' ) {
 			$the_id = previous_post_link_plus( array('return' => 'id') );
-			$adjacent_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
+			$adjacent_daynumber = $this->get_post_daynumber($the_id);
 
 			// Prevent navigation between different tours
 			if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber < $current_daynumber ) ) {
@@ -830,7 +830,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		}
 		else if ( $direction == 'next' ) {
 			$the_id = next_post_link_plus( array('return' => 'id') );
-			$adjacent_daynumber = wpdtrt_tourdates_get_post_daynumber($the_id);
+			$adjacent_daynumber = $this->get_post_daynumber($the_id);
 
 			// Prevent navigation between different tours
 			if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber > $current_daynumber ) ) {
@@ -916,7 +916,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		global $post;
 		$id = $post->ID;
 
-		$day = wpdtrt_tourdates_get_post_daynumber($id);
+		$day = $this->get_post_daynumber($id);
 
 		$day_html = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . '</span><span class="wpdtrt-tourdates-day--period">, </span></span>';
 		$title_html = '<span class="wpdtrt-tourdates-day--title">' . $title . '</span>';
@@ -979,7 +979,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		global $post;
 
-		$parent_day = wpdtrt_tourdates_get_post_daynumber($parent_id);
+		$parent_day = $this->get_post_daynumber($parent_id);
 		$attachment_title = wpdtrt_tourdates_attachment_title_remove_day( $attachment_title );
 		$title_text = 'Gallery image';
 
@@ -1010,10 +1010,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		// @uasort: suppress PHP Warning: uasort(): Array was modified by the user comparison function
 		@uasort( $tour_terms, function( $term_a, $term_b ) {
 			$term_a_id = $term_a->term_id;
-			$term_a_start_date = wpdtrt_tourdates_get_term_start_date( $term_a_id );
+			$term_a_start_date = $this->get_term_start_date( $term_a_id );
 
 			$term_b_id = $term_b->term_id;
-			$term_b_start_date = wpdtrt_tourdates_get_term_start_date( $term_b_id );
+			$term_b_start_date = $this->get_term_start_date( $term_b_id );
 
 			//  compare strings using a 'natural order' algorithm
 			return strnatcmp( $term_a_start_date, $term_b_start_date );
