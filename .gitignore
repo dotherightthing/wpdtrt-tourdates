@@ -1,3 +1,5 @@
-node_modules
 .DS_Store
-*.sublime*
+css
+logs
+node_modules
+vendor

@@ -1,0 +1,11 @@
+/**
+ * Styles for the public front-end
+ *
+ * @package     wpdtrt_tourdates
+ * @since       1.0.0
+ */
+
+@import "vendor/dotherightthing/wpdtrt-plugin/scss/_variables.scss";
+@import "vendor/dotherightthing/wpdtrt-plugin/scss/_extends.scss";
+@import "day";
+@import "navigation";
