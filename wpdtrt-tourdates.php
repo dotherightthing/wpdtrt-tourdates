@@ -120,13 +120,10 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     /**
      * Admin settings
+     *
+     * @todo These need to be added to category pages - #33 
      */
-    $plugin_options = array();
-
-    /**
-     * All options available to Widgets and Shortcodes
-     */
-    $instance_options = array(
+    $plugin_options = array(
       'term_type' => array(
         'type' => 'select',
         'label' => esc_html__('Term type', 'wpdtrt-tourdates'),
@@ -166,6 +163,12 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'tip' => 'Used in country traversal counts.',
         'todo_condition' => 'term_type == "tour"'
       ),
+    );
+
+    /**
+     * All options available to Widgets and Shortcodes
+     */
+    $instance_options = array(
       'term_id' => array(
         'type' => 'number',
         'label' => esc_html__('Term ID', 'wpdtrt-tourdates'),
