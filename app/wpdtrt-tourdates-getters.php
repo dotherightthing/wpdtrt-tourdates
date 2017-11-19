@@ -81,6 +81,12 @@ function wpdtrt_tourdates_get_acf_term_end_date( $term_id, $taxonomy ) {
  */
 function wpdtrt_tourdates_get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
 
+  // TODO avoid this situation in the first place
+  if ( is_array($term_id) ) {
+    $thumbnail_id = 0;
+    return $thumbnail_id;
+  }
+
   $thumbnail_id = get_field('wpdtrt_dbth_acf_tours_term_thumbnail', $taxonomy . '_' . $term_id);
 
   return $thumbnail_id;
@@ -96,6 +102,13 @@ function wpdtrt_tourdates_get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
  * @see https://www.advancedcustomfields.com/resources/get_field/
  */
 function wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy ) {
+
+  // TODO avoid this situation in the first place
+  if ( is_array($term_id) ) {
+    $term_type = '';
+    return $term_type;
+  }
+
   $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
 
   return $term_type;
@@ -221,9 +234,14 @@ function wpdtrt_tourdates_get_term_start_date($id, $term_type=null, $date_format
  */
 function wpdtrt_tourdates_get_term_start_day( $term_id ) {
 
-  $taxonomy = get_query_var( 'taxonomy' );
-  $term = get_term_by( 'id', $term_id, $taxonomy );
-  $term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
+  $taxonomy = get_query_var( 'taxonomy', null );
+  $term_type = '';
+  $tour_start_day = 0;
+
+  if ( isset($taxonomy) ) {
+    $term = get_term_by( 'id', $term_id, $taxonomy );
+    $term_type = wpdtrt_tourdates_get_acf_term_type( $term_id, $taxonomy );
+  }
 
   if ( $term_type === 'tour' ) {
     $tour_start_day = 1;
