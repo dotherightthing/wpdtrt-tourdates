@@ -96,7 +96,6 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
   // sub classes
   require_once(WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-plugin.php');
-  require_once(WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-widgets.php');
 
   // log & trace helpers
   $helpers = new DoTheRightThing\WPDebug\Debug;

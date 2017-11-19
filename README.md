@@ -16,17 +16,7 @@ Example: 10/7/2017-13/7/2017 = Day 1, Day 2, Day 3, Day 4
 
 ## Setup
 
-```
-// 1. Install PHP dependencies
-composer install
-
-// 2. Install Node dependencies into the parent plugin's folder
-npm --prefix ./vendor/dotherightthing/wpdtrt-plugin/ install ./vendor/dotherightthing/wpdtrt-plugin/
-
-// 3. Run the parent plugin's Gulp tasks against the contents of the child plugin's folder
-// 4. Watch for changes to the child plugin's folder
-gulp --gulpfile ./vendor/dotherightthing/wpdtrt-plugin/gulpfile.js --cwd ./
-```
+Please read [DTRT WP Plugin: Set up a child plugin](https://github.com/dotherightthing/wpdtrt-plugin/#set-up-a-child-plugin).
 
 ## Usage
 
