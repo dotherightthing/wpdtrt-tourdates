@@ -185,7 +185,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
       */
     );
 
-    $wpdtrt_tourdates_plugin = new WPDTRT_Blocks_Plugin(
+    $wpdtrt_tourdates_plugin = new WPDTRT_TourDates_Plugin(
       array(
         'url' => WPDTRT_TOURDATES_URL,
         'prefix' => 'wpdtrt_tourdates',
