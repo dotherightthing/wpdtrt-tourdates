@@ -53,8 +53,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders', 10, 3] ); // Custom Post Type
 		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
 		add_action( 'save_post', 		[$this, 'set_daynumber'] );
-		add_filter( 'the_title', 		[$this, 'post_title_add_day'] );
+		add_filter( 'the_title', 		[$this, 'filter_post_title_add_day'] );
 		//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
+
+		//add_filter('post_link', 'replace_taxonomy_in_cpt_permalinks', 10, 3); // Regular post type
+		add_filter('post_type_link', 	[$this, 'replace_taxonomy_in_cpt_permalinks'], 10, 3); // Custom post type
     }
 
     //// END WORDPRESS INTEGRATION \\\\
@@ -72,7 +75,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @todo calculate this instead, allowing for only unique legs
-	 * @todo This is now a category level option rather than ACF
+	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
 	 */
 	public function get_acf_tour_category_leg_count( $term_id, $taxonomy ) {
 
@@ -89,13 +92,14 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @return string $start_date The start date
+	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo This is now a category level option rather than ACF
+	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
 	 */
 	public function get_acf_term_start_date( $term_id, $taxonomy ) {
 
-	  $start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
+	  //$start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
+	  $start_date = '2017-12-25 00:01:00';
 
 	  return $start_date;
 	}
@@ -104,17 +108,18 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the end date field
 	 * @param number $term_id The Term ID
 	 * @param string $taxonomy The taxonomy
-	 * @return string $end_date The end date
+	 * @return string $end_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo This is now a category level option rather than ACF
+	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
 	 */
 	public function get_acf_term_end_date( $term_id, $taxonomy ) {
 
-	  $end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $taxonomy . '_' . $term_id);
+	  //$end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $taxonomy . '_' . $term_id);
+	  $end_date = '2017-12-26 00:01:00';
 
 	  return $end_date;
 	}
@@ -131,7 +136,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @see https://www.advancedcustomfields.com/resources/image/
 	 * @todo Roll into theme as not date specific
-	 * @todo This is now a category level option rather than ACF
+	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
 	 */
 	public function get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
 
@@ -152,7 +157,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo This is now a category level option rather than ACF
+	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
 	 */
 	public function get_acf_term_type( $term_id, $taxonomy ) {
 	  $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);

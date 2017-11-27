@@ -98,7 +98,8 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
   require_once(WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-plugin.php');
 
   // log & trace helpers
-  $helpers = new DoTheRightThing\WPDebug\Debug;
+  global $debug;
+  $debug = new DoTheRightThing\WPDebug\Debug;
 
   /**
    * Plugin initialisaton
@@ -120,7 +121,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
     /**
      * Admin settings
      *
-     * @todo These need to be added to category pages - #33 
+     * @todo These are GLOBAL but need to be added to TAXONOMY pages - #33 
      */
     $plugin_options = array(
       'term_type' => array(
@@ -209,6 +210,35 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
   }
 
   add_action( 'init', 'wpdtrt_tourdates_init', 0 );
+
+  /**
+   * Register Tour Taxonomy
+   * @return object Taxonomy
+   */
+  function wpdtrt_tourdates_taxonomy_tour_init() {
+
+    global $wpdtrt_tourdates_plugin;
+
+    $wpdtrt_tourdates_taxonomy_tour = new DoTheRightThing\WPPlugin\Taxonomy(
+      array(
+        'name' => 'wpdtrt_tourdates_taxonomy_tour',
+        'plugin' => $wpdtrt_tourdates_plugin,
+        'selected_instance_options' => array(),
+        'labels' => array(
+          'slug' => 'tours',
+          'singular' => __('Tour', 'wpdtrt-tourdates'),
+          'plural' => __('Tours', 'wpdtrt-tourdates'),
+          'description' => __('Multiday rides', 'wpdtrt-tourdates'),
+          'posttype' => 'post' // 'tourdiaries'
+        ),
+      )
+    );
+
+    // return a reference for unit testing
+    return $wpdtrt_tourdates_taxonomy_tour;
+  }
+
+  add_action( 'init', 'wpdtrt_tourdates_taxonomy_tour_init', 100 );
 
   /**
    * Register Shortcode 1
