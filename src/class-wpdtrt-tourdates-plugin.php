@@ -51,7 +51,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      */
     protected function wp_setup() {
 		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders', 10, 3] ); // Custom Post Type
-		add_action( 'init', 			[$this, 'rewrite_rules'] );
+		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
 		add_action( 'save_post', 		[$this, 'set_daynumber'] );
 		add_filter( 'the_title', 		[$this, 'post_title_add_day'] );
 		//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
