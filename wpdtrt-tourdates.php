@@ -208,7 +208,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           ),
           'end_date' => array(
             'type' => 'text',
-            'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
+            'label' => esc_html__('End date', 'wpdtrt-tourdates'),
             'tip' => 'Y-n-j 00:01:00',
             'todo_condition' => 'term_type !== "region"'
           ),

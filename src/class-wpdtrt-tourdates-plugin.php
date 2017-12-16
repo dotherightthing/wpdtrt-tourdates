@@ -73,13 +73,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @todo calculate this instead, allowing for only unique legs
-	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
-	public function get_acf_tour_category_leg_count( $term_id, $taxonomy ) {
+	public function get_meta_tour_category_leg_count( $term_id, $taxonomy ) {
 
-	  $leg_count = get_field('wpdtrt_tourdates_acf_tour_category_leg_count', $taxonomy . '_' . $term_id);
+	  $leg_count = get_term_by( $term_id, 'leg_count', $taxonomy );
 
 	  return $leg_count;
 	}
@@ -93,13 +91,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
-	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
-	public function get_acf_term_start_date( $term_id, $taxonomy ) {
+	public function get_meta_term_start_date( $term_id, $taxonomy ) {
 
-	  //$start_date = get_field('wpdtrt_tourdates_acf_tour_category_start_date', $taxonomy . '_' . $term_id);
-	  $start_date = '2017-12-25 00:01:00';
+	  $start_date = get_term_by( $term_id, 'start_date', $taxonomy );
 
 	  return $start_date;
 	}
@@ -112,14 +107,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
-	 *
-	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
-	public function get_acf_term_end_date( $term_id, $taxonomy ) {
+	public function get_meta_term_end_date( $term_id, $taxonomy ) {
 
-	  //$end_date = get_field('wpdtrt_tourdates_acf_tour_category_end_date', $taxonomy . '_' . $term_id);
-	  $end_date = '2017-12-26 00:01:00';
+	  $end_date = get_term_by( $term_id, 'start_date', $taxonomy );
 
 	  return $end_date;
 	}
@@ -135,7 +126,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @see https://www.advancedcustomfields.com/resources/image/
-	 * @todo Roll into theme as not date specific
 	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
@@ -155,12 +145,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
-	 *
-	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
-	public function get_acf_term_type( $term_id, $taxonomy ) {
-	  $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
+	public function get_meta_term_type( $term_id, $taxonomy ) {
+
+	  $term_type = get_term_by( $term_id, 'term_type', $taxonomy );
 
 	  return $term_type;
 	}
@@ -212,7 +200,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	        if ( !empty( $term ) && is_object( $term ) ) {
 
 	          $term_id = $term->term_id;
-	          $acf_term_type = $this->get_acf_term_type( $term_id, $taxonomy );
+	          $acf_term_type = $this->get_meta_term_type( $term_id, $taxonomy );
 
 	          if ( $acf_term_type === $term_type ) {
 	            break;
@@ -277,7 +265,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$term_id = $this->get_post_term_ids( $term_type );
 		}
 
-		$tour_start_date = $this->get_acf_term_start_date( $term_id, $taxonomy );
+		$tour_start_date = $this->get_meta_term_start_date( $term_id, $taxonomy );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_start_date);
@@ -303,7 +291,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		$taxonomy = get_query_var( 'taxonomy' );
 		$term = get_term_by( 'id', $term_id, $taxonomy );
-		$term_type = $this->get_acf_term_type( $term_id, $taxonomy );
+		$term_type = $this->get_meta_term_type( $term_id, $taxonomy );
 
 		if ( $term_type === 'tour' ) {
 			$tour_start_day = 1;
@@ -332,7 +320,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_end_date($term_id, $date_format=null) {
 
 		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_end_date = $this->get_acf_term_end_date( $term_id, $taxonomy );
+		$tour_end_date = $this->get_meta_term_end_date( $term_id, $taxonomy );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_end_date);
@@ -384,7 +372,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_leg_count($term_id, $text_before='', $text_after='') {
 
 		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_leg_count = $this->get_acf_tour_category_leg_count( $term_id, $taxonomy );
+		$tour_leg_count = $this->get_meta_tour_category_leg_count( $term_id, $taxonomy );
 
 		if ( $tour_leg_count > 1 ) {
 			$str = $text_before . $tour_leg_count . $text_after;
