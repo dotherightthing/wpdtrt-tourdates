@@ -229,7 +229,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'singular' => __('Tour', 'wpdtrt-tourdates'),
           'plural' => __('Tours', 'wpdtrt-tourdates'),
           'description' => __('Multiday rides', 'wpdtrt-tourdates'),
-          'posttype' => 'post' // 'tourdiaries'
+          'posttype' => 'tourdiaries'
         ),
       )
     );

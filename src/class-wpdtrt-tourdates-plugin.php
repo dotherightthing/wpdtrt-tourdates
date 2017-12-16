@@ -75,7 +75,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @todo calculate this instead, allowing for only unique legs
-	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
+	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_tour_category_leg_count( $term_id, $taxonomy ) {
 
@@ -94,7 +94,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
+	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_term_start_date( $term_id, $taxonomy ) {
 
@@ -114,7 +114,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
+	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_term_end_date( $term_id, $taxonomy ) {
 
@@ -136,7 +136,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
 	 * @see https://www.advancedcustomfields.com/resources/image/
 	 * @todo Roll into theme as not date specific
-	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
+	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
 
@@ -157,7 +157,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @todo https://pippinsplugins.com/adding-custom-meta-fields-to-taxonomies/
+	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 */
 	public function get_acf_term_type( $term_id, $taxonomy ) {
 	  $term_type = get_field('wpdtrt_tourdates_acf_tour_category_type', $taxonomy . '_' . $term_id);
