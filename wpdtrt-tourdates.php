@@ -224,6 +224,12 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
             'tip' => 'Used in country traversal counts.',
             'todo_condition' => 'term_type == "tour"'
           ),
+          'thumbnail_id' => array(
+            'type' => 'number',
+            'label' => esc_html__('Thumbnail ID', 'wpdtrt-tourdates'),
+            'tip' => 'Media &gt; Library',
+            'todo_condition' => 'term_type == "tour"'
+          ),
         ),
         'labels' => array(
           'slug' => 'tours',

@@ -124,13 +124,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @see https://www.advancedcustomfields.com/resources/get_field/
-	 * @see https://www.advancedcustomfields.com/resources/image/
 	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
+	 * @todo Add a media library button
 	 */
 	public function get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
 
-	  $thumbnail_id = get_field('wpdtrt_dbth_acf_tours_term_thumbnail', $taxonomy . '_' . $term_id);
+	  $thumbnail_id = get_term_by( $term_id, 'thumbnail_id', $taxonomy );
 
 	  return $thumbnail_id;
 	}
