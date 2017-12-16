@@ -95,6 +95,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_meta_term_start_date( $term_id, $taxonomy ) {
 
 	  $start_date = get_term_by( $term_id, 'start_date', $taxonomy );
+	  $start_date .= ' 00:01:00';
 
 	  return $start_date;
 	}
@@ -111,6 +112,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_meta_term_end_date( $term_id, $taxonomy ) {
 
 	  $end_date = get_term_by( $term_id, 'start_date', $taxonomy );
+	  $end_date .= ' 00:01:00';
 
 	  return $end_date;
 	}

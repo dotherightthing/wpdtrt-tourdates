@@ -203,13 +203,13 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'start_date' => array(
             'type' => 'text',
             'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
-            'tip' => 'Y-n-j 00:01:00',
+            'tip' => 'YYYY-M-D',
             'todo_condition' => 'term_type !== "region"'
           ),
           'end_date' => array(
             'type' => 'text',
             'label' => esc_html__('End date', 'wpdtrt-tourdates'),
-            'tip' => 'Y-n-j 00:01:00',
+            'tip' => 'YYYY-M-D',
             'todo_condition' => 'term_type !== "region"'
           ),
           'first_visit' => array(
