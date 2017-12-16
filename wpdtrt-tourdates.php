@@ -121,49 +121,9 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
     /**
      * Admin settings
      *
-     * @todo These are GLOBAL but need to be added to TAXONOMY pages - #33 
+     * Changed to $taxonomy_options and retained for legacy support - may not be reqd
      */
-    $plugin_options = array(
-      'term_type' => array(
-        'type' => 'select',
-        'label' => esc_html__('Term type', 'wpdtrt-tourdates'),
-        'options' => array(
-          'region' => array(
-            'text' => __('Region', 'wpdtrt-tourdates')
-          ),
-          'tour' => array(
-            'text' => __('Tour', 'wpdtrt-tourdates')
-          ),
-          'tour_leg' => array(
-            'text' => __('Tour Leg', 'wpdtrt-tourdates')
-          ),
-        ),
-      ),
-      'start_date' => array(
-        'type' => 'text',
-        'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
-        'tip' => 'Y-n-j 00:01:00',
-        'todo_condition' => 'term_type !== "region"'
-      ),
-      'end_date' => array(
-        'type' => 'text',
-        'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
-        'tip' => 'Y-n-j 00:01:00',
-        'todo_condition' => 'term_type !== "region"'
-      ),
-      'first_visit' => array(
-        'type' => 'checkbox',
-        'label' => esc_html__('First visit on tour', 'wpdtrt-tourdates'),
-        'tip' => 'Used in country traversal counts.',
-        'todo_condition' => 'term_type == "tour_leg"'
-      ),
-      'leg_count' => array(
-        'type' => 'number',
-        'label' => esc_html__('Number of unique tour legs', 'wpdtrt-tourdates'),
-        'tip' => 'Used in country traversal counts.',
-        'todo_condition' => 'term_type == "tour"'
-      ),
-    );
+    $plugin_options = array();
 
     /**
      * All options available to Widgets and Shortcodes
@@ -224,6 +184,47 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'name' => 'wpdtrt_tourdates_taxonomy_tour',
         'plugin' => $wpdtrt_tourdates_plugin,
         'selected_instance_options' => array(),
+        'taxonomy_options' => array(
+          'term_type' => array(
+            'type' => 'select',
+            'label' => esc_html__('Term type', 'wpdtrt-tourdates'),
+            'options' => array(
+              'region' => array(
+                'text' => __('Region', 'wpdtrt-tourdates')
+              ),
+              'tour' => array(
+                'text' => __('Tour', 'wpdtrt-tourdates')
+              ),
+              'tour_leg' => array(
+                'text' => __('Tour Leg', 'wpdtrt-tourdates')
+              ),
+            ),
+          ),
+          'start_date' => array(
+            'type' => 'text',
+            'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
+            'tip' => 'Y-n-j 00:01:00',
+            'todo_condition' => 'term_type !== "region"'
+          ),
+          'end_date' => array(
+            'type' => 'text',
+            'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
+            'tip' => 'Y-n-j 00:01:00',
+            'todo_condition' => 'term_type !== "region"'
+          ),
+          'first_visit' => array(
+            'type' => 'checkbox',
+            'label' => esc_html__('First visit on tour', 'wpdtrt-tourdates'),
+            'tip' => 'Used in country traversal counts.',
+            'todo_condition' => 'term_type == "tour_leg"'
+          ),
+          'leg_count' => array(
+            'type' => 'number',
+            'label' => esc_html__('Number of unique tour legs', 'wpdtrt-tourdates'),
+            'tip' => 'Used in country traversal counts.',
+            'todo_condition' => 'term_type == "tour"'
+          ),
+        ),
         'labels' => array(
           'slug' => 'tours',
           'singular' => __('Tour', 'wpdtrt-tourdates'),
