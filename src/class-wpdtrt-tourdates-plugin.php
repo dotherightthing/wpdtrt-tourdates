@@ -70,10 +70,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @todo calculate this instead, allowing for only unique legs
+	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
 	public function get_meta_tour_category_leg_count( $term_id, $taxonomy ) {
 
-	  $leg_count = get_term_by( $term_id, 'leg_count', $taxonomy );
+	  $leg_count = get_term_meta( $term_id, 'leg_count', true );
 
 	  return $leg_count;
 	}
@@ -87,10 +88,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
+	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
 	public function get_meta_term_start_date( $term_id, $taxonomy ) {
 
-	  $start_date = get_term_by( $term_id, 'start_date', $taxonomy );
+	  $start_date = get_term_meta( $term_id, 'start_date', true );
 	  $start_date .= ' 00:01:00';
 
 	  return $start_date;
@@ -104,10 +106,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
+	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
 	public function get_meta_term_end_date( $term_id, $taxonomy ) {
 
-	  $end_date = get_term_by( $term_id, 'start_date', $taxonomy );
+	  $end_date = get_term_meta( $term_id, 'end_date', true );
 	  $end_date .= ' 00:01:00';
 
 	  return $end_date;
@@ -124,10 +127,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 * @todo Add a media library button
+	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
 	public function get_meta_thumbnail_id( $term_id, $taxonomy ) {
 
-	  $thumbnail_id = get_term_by( $term_id, 'thumbnail_id', $taxonomy );
+	  $thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
 
 	  return $thumbnail_id;
 	}
@@ -142,10 +146,18 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
+	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
 	public function get_meta_term_type( $term_id, $taxonomy ) {
 
-	  $term_type = get_term_by( $term_id, 'term_type', $taxonomy );
+		/*
+		$terms = get_terms( array(
+    		'taxonomy' => $taxonomy,
+    		'hide_empty' => false,
+		) );
+		*/
+
+	  $term_type = get_term_meta( $term_id, 'term_type', true );
 
 	  return $term_type;
 	}
@@ -300,6 +312,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$tour_start_day =       $this->get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );
 		}
 
+		// TODO: this assumes that it has been successfully set
 		return $tour_start_day;
 	}
 
