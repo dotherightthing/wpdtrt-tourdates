@@ -181,9 +181,11 @@ class TourdatesTest extends WP_UnitTestCase {
 		$plugin->set_daynumber();
 		$plugin_daynumber = $plugin->get_post_daynumber( $post_id );
 		$plugin_daytotal = $plugin->get_daytotal();
+		$post_title_incl_day = $plugin->filter_post_title_add_day('My title');
 
 		$this->assertEquals( $plugin_daynumber, 12345 );
 		$this->assertEquals( $plugin_daytotal, 12345 );
+		$this->assertEquals( $post_title_incl_day, '12345' );
 	}
 
 	/**
@@ -275,6 +277,8 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'east-asia' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'east-asia' );
+    	$plugin_tour_legs = get_term_children( $term_id, $this->taxonomy_name );
+  		$plugin_tour_legs_ordered = $plugin->helper_order_tour_terms_by_date( $plugin_tour_legs );
 
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
@@ -286,6 +290,8 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_tour_leg_count, 6 ); // todo test with NZ legs
 		$this->assertEquals( $plugin_tour_leg_name, 'East Asia (2015-2016)' );
 		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+		$this->assertEquals( $plugin_tour_legs, [ $this->tour_leg_term_id ] ); // todo test with multiple legs
+		$this->assertEquals( $plugin_tour_legs_ordered, [ $this->tour_leg_term_id ] ); // todo test with multiple legs
 	}
 
 	/**

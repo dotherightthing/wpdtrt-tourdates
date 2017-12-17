@@ -625,162 +625,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START RENDERERS \\\\
 
 	/**
-	 * Generate an Alt attribute
-	 *
-	 * @param       string $key
-	 *    The key of the JSON object.
-	 * @param       boolean $has_enlargement (optional)
-	 *    Whether the image should link to an enlargement
-	 * @return      string The title
-	 *
-	 * @version 1.0.0
-	 * @since       0.1.0
-	 */
-	public function render_html_title( $key, $has_enlargement = 0 ) {
-
-		// if options have not been stored, exit
-		$wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
-
-		if ( $wpdtrt_tourdates_options === '' ) {
-			return '';
-		}
-
-		// the data set
-		$wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
-
-		// user - map block
-		if ( isset( $wpdtrt_tourdates_data[$key]->{'address'} ) ) {
-
-			$str = 'Map showing the co-ordinates ' . wpdtrt_tourdates_html_latlng( $key );
-
-		// photo - coloured block
-		} else {
-
-			$str = $wpdtrt_tourdates_data[$key]->{'title'};
-
-		}
-
-		if ( $has_enlargement ) {
-			$str .= ". Click to view an enlargement";
-		}
-
-		return $str;
-	}
-
-	/**
-	 * Generate the HTML for the last modified date
-	 *
-	 * @return      string <p class="wpdtrt_soundcloud_pages_date">Last updated 23rd April 2017</p>
-	 *
-	 * @since 0.1.0
-	 * @version 1.0.0
-	 */
-	public function render_html_date() {
-
-		// if options have not been stored, exit
-		$wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
-
-		if ( $wpdtrt_tourdates_options === '' ) {
-			return '';
-		}
-
-		// the data set
-		$last_updated = $wpdtrt_tourdates_options['last_updated'];
-
-		// use the date format set by the user
-		$wp_date_format = get_option('date_format');
-
-		$str = '<p class="wpdtrt-tourdates-date">Data last updated: ' . date( $wp_date_format, $last_updated ) . '. </p>';
-
-		return $str;
-	}
-
-	/**
-	 * Render the HTML for a (linked) image
-	 *
-	 * @param       string $key
-	 *    The key of the corresponding JSON object
-	 * @param       boolean $has_enlargement (optional)
-	 *    Whether the image should link to an enlargement
-	 * @return      string <a href="..."><img src="..." alt="..."></a>
-	 *
-	 * @since 0.1.0
-	 * @version 1.0.0
-	 */
-	public function render_html_image( $key, $has_enlargement = 0 ) {
-
-		// if options have not been stored, exit
-		$wpdtrt_tourdates_options = get_option('wpdtrt_tourdates');
-
-		if ( $wpdtrt_tourdates_options === '' ) {
-			return '';
-		}
-
-		// the data set
-		$wpdtrt_tourdates_data = $wpdtrt_tourdates_options['wpdtrt_tourdates_data'];
-
-		$str = '';
-
-		if ( $has_enlargement ) {
-
-			if ( isset( $wpdtrt_tourdates_data[$key]->{'address'} ) ) {
-
-				$str .= '<a href="';
-				$str .= 'http://maps.googleapis.com/maps/api/staticmap';
-				$str .= '?scale=2';
-				$str .= '&format=jpg';
-				$str .= '&maptype=satellite';
-				$str .= '&zoom=2';
-				$str .= '&markers=' . wpdtrt_tourdates_html_latlng( $key );
-				$str .= '&key=AIzaSyAyMI7z2mnFYdONaVV78weOmB0U2LThZMo';
-				$str .= '&size=600x600';
-				$str .= '">';
-
-			}
-			else {
-
-				$str .= '<a href="';
-				$str .= $wpdtrt_tourdates_data[$key]->{'url'};
-				$str .= '">';
-
-			}
-		}
-
-		$str .= '<img src="';
-
-		// user - map block
-		if ( isset( $wpdtrt_tourdates_data[$key]->{'address'} ) ) {
-
-			$str .= 'http://maps.googleapis.com/maps/api/staticmap';
-			$str .= '?scale=2';
-			$str .= '&format=jpg';
-			$str .= '&maptype=satellite';
-			$str .= '&zoom=0';
-			$str .= '&markers=' . wpdtrt_tourdates_html_latlng( $key );
-			$str .= '&key=AIzaSyAyMI7z2mnFYdONaVV78weOmB0U2LThZMo';
-			$str .= '&size=150x150';
-
-		}
-		else {
-
-			$str .= $wpdtrt_tourdates_data[$key]->{'thumbnailUrl'};
-
-		}
-
-		$str .='" alt="';
-
-		$str .= wpdtrt_tourdates_html_title( $key, $has_enlargement );
-
-		$str .= '. ">';
-
-		if ( $has_enlargement ) {
-			$str .= '</a>';
-		}
-
-		return $str;
-	}
-
-	/**
 	 * Render a previous/next navigation bar
 	 *
 	 * @version 1.0.0
@@ -940,6 +784,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Add the ACF day to the post title
 	 * @see https://wordpress.org/support/topic/the_title-filter-only-for-page-title-display
 	 * @todo: this is outputting into the Primary Navigation menu, need to check !if_menu
+	 * @see TourdatesTest\todo_test_post
 	 */
 
 	public function filter_post_title_add_day( $title, $id = NULL ) {
@@ -1041,6 +886,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @param {array} $tour_terms Array of terms (e.g. tour legs)
 	 * @return {array} $tour_terms Sorted terms
 	 * @see https://stackoverflow.com/a/22231045/6850747
+	 * @see TourdatesTest\test_tour_term
 	 */
 	function helper_order_tour_terms_by_date( $tour_terms ) {
 
