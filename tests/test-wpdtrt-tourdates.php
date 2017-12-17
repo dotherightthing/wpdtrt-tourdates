@@ -167,6 +167,42 @@ class TourdatesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test tourdiaries post type
+	 */
+	public function todo_test_post() {
+
+		$term_id = $this->region_term_id;
+		$taxonomy = $this->taxonomy;
+		$plugin = $taxonomy->get_plugin();
+
+		// plugin calculations
+
+		// $post_id = '';
+		$plugin->set_daynumber();
+		$plugin_daynumber = $plugin->get_post_daynumber( $post_id );
+		$plugin_daytotal = $plugin->get_daytotal();
+
+		$this->assertEquals( $plugin_daynumber, 12345 );
+		$this->assertEquals( $plugin_daytotal, 12345 );
+	}
+
+	/**
+	 * Test location
+	 */
+	public function todo_location() {
+
+		$term_id = $this->region_term_id;
+		$taxonomy = $this->taxonomy;
+		$plugin = $taxonomy->get_plugin();
+
+		// plugin calculations
+		$key = '';
+		$plugin_html_latlng = $plugin->get_html_latlng( $key );
+
+		$this->assertEquals( $plugin_html_latlng, 12345 );
+	}
+
+	/**
 	 * Test region meta
 	 */
 	public function test_region_term() {
@@ -229,15 +265,27 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id );
-		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id ); // todo test other parameters
+		$plugin_end_date = $plugin->get_term_end_date( $term_id ); // todo test other parameters
     	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
     	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
+    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
+    	$plugin_start_month = $plugin->get_term_start_month( $term_id );
+    	$plugin_end_month = $plugin->get_term_end_month( $term_id );
+    	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
+    	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'east-asia' );
+    	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'east-asia' );
 
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
 		$this->assertEquals( $plugin_tour_length_days, 298 );
 		$this->assertEquals( $plugin_tour_length, 298 );
+		$this->assertEquals( $plugin_start_day, 1 );
+		$this->assertEquals( $plugin_start_month, 'September 2015' );
+		$this->assertEquals( $plugin_end_month, 'June 2016' );
+		$this->assertEquals( $plugin_tour_leg_count, 6 ); // todo test with NZ legs
+		$this->assertEquals( $plugin_tour_leg_name, 'East Asia (2015-2016)' );
+		$this->assertEquals( $plugin_tour_leg_id, $term_id );
 	}
 
 	/**
@@ -281,14 +329,30 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id );
-		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id ); // todo test other parameters
+		$plugin_end_date = $plugin->get_term_end_date( $term_id ); // todo test other parameters
     	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
     	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
+    	$plugin_start_month = $plugin->get_term_start_month( $term_id );
+    	$plugin_end_month = $plugin->get_term_end_month( $term_id );
+    	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id ); // todo test with NZ legs
+    	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-2' );
+    	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-2' );
+
+    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+    	//$plugin_start_day = $plugin->get_term_start_day( $term_id );
 
 		$this->assertEquals( $plugin_start_date, '2015-11-29 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-1-17 00:01:00' );
 		$this->assertEquals( $plugin_tour_length_days, 50 );
 		$this->assertEquals( $plugin_tour_length, 50 );
+		$this->assertEquals( $plugin_start_month, 'November 2015' );
+		$this->assertEquals( $plugin_end_month, 'January 2016' );
+		$this->assertEquals( $plugin_tour_leg_count, '' );
+		$this->assertEquals( $plugin_tour_leg_name, 'China' ); // todo: what about (Part 2) ?
+		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+
+    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+		//$this->assertEquals( $plugin_start_day, 0 );
 	}
 }
