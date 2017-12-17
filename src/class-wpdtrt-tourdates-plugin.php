@@ -300,18 +300,17 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see TourdatesTest\test_tour_term
 	 * @see TourdatesTest\test_tour_leg_term
-	 * @todo https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
 	 */
 	public function get_term_start_day( $term_id ) {
 
 		$taxonomy = get_query_var( 'taxonomy' );
 
 		// if called from a unit test
-		if ( !isset( $taxonomy) ) {
+		if ( !isset( $taxonomy ) || ( $taxonomy === '' ) ) {
 			$taxonomy = 'wpdtrt_tourdates_taxonomy_tour';
 		}
 
-		$term = get_term_by( 'id', $term_id, $taxonomy ); // todo
+		$term = get_term_by( 'id', $term_id, $taxonomy );
 
 		$term_type = $this->get_meta_term_type( $term_id );
 
@@ -319,7 +318,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$tour_start_day = 1;
 		}
 		else if ( $term_type === 'tour_leg' ) {
-			$parent_term_id = $term->parent; // todo
+			$parent_term_id = $term->parent;
 			$tour_start_date =      $this->get_term_start_date( $parent_term_id );
 			$tour_leg_start_date =  $this->get_term_start_date( $term_id );
 			$tour_start_day =       $this->get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );

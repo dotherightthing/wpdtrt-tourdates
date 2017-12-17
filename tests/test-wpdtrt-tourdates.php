@@ -507,6 +507,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id ); // todo test with NZ legs
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-1' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-1' );
+    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
 
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2015-9-10 00:01:00' );
@@ -517,14 +518,9 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_tour_leg_count, '' );
 		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 1)' );
 		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+		$this->assertEquals( $plugin_start_day, 1 );
 
 		// plugin calculations - buggy
-
-    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-    	//$plugin_start_day = $plugin->get_term_start_day( $term_id );
-
-    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-		//$this->assertEquals( $plugin_start_day, 0 );
 	}
 
 	/**
@@ -577,6 +573,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id ); // todo test with NZ legs
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-2' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-2' );
+    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
 
 		$this->assertEquals( $plugin_start_date, '2015-11-29 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-1-17 00:01:00' );
@@ -587,13 +584,8 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_tour_leg_count, '' );
 		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 2)' );
 		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+		$this->assertEquals( $plugin_start_day, 89 );
 
 		// plugin calculations - buggy
-
-    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-    	//$plugin_start_day = $plugin->get_term_start_day( $term_id );
-
-    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-		//$this->assertEquals( $plugin_start_day, 0 );
 	}
 }
