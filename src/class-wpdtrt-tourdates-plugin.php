@@ -61,7 +61,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START SETTERS AND GETTERS \\\\
 
 	/**
-	 * Get the value of the leg count field
+	 * Get the value of the leg_count metadata/field attached to a particular term/tour
+	 *
 	 * @param number $term_id The Term ID
 	 * @param string $taxonomy The taxonomy
 	 * @return string $start_date The start date
@@ -80,7 +81,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the value of the start date field
+	 * Get the value of the start_date metadata/field attached to a particular term/tour
+	 *
 	 * @param number $term_id The Term ID
 	 * @param string $taxonomy The taxonomy
 	 *
@@ -99,7 +101,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the value of the end date field
+	 * Get the value of the end_date metadata/field attached to a particular term/tour
+	 *
 	 * @param number $term_id The Term ID
 	 * @param string $taxonomy The taxonomy
 	 * @return string $end_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
@@ -117,7 +120,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the value of the term image field
+	 * Get the value of the thumbnail_id metadata/field attached to a particular term/tour
+	 *
 	 * @param number $term_id The Term ID
 	 * @param string $taxonomy The taxonomy
 	 * @return string $term_thumbnail_id The thumbnail ID
@@ -137,7 +141,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the value of the tour type field
+	 * Get the value of the tour_type metadata/field attached to a particular term/tour
+	 *
 	 *  Used to calculate date offsets.
 	 *
 	 * @param number $id The ID of the term
@@ -172,6 +177,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 * @todo This is now a category level option rather than ACF
+	 * @deprecated ACF is no longer a dependency
 	 */
 	public function get_post_term_ids($term_type) { // // this is returning tour leg start date rather than tour start date
 
@@ -377,7 +383,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 0.1.0
 	 *
 	 * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
-	 * @todo Roll into theme as nothing to do with dates
 	 */
 	public function get_term_leg_count($term_id, $text_before='', $text_after='') {
 
