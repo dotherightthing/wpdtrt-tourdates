@@ -882,29 +882,27 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START HELPERS \\\\
 
 	/**
-	 * Sort term objects by start date
-	 * @param {array} $tour_terms Array of terms (e.g. tour legs)
-	 * @return {array} $tour_terms Sorted terms
+	 * Sort term IDs by start date
+	 * @param {array} $tour_term_ids Array of term IDs (e.g. tour legs)
+	 * @return {array} $tour_term_ids Sorted terms
 	 * @see https://stackoverflow.com/a/22231045/6850747
 	 * @see TourdatesTest\test_tour_term
 	 */
-	function helper_order_tour_terms_by_date( $tour_terms ) {
+	function helper_order_tour_terms_by_date( $tour_term_ids ) {
 
 		// usort: Sort an array with a user-defined comparison function
-		// uasort: and maintain index association
-		// @uasort: suppress PHP Warning: uasort(): Array was modified by the user comparison function
-		@uasort( $tour_terms, function( $term_a, $term_b ) {
-			$term_a_id = $term_a->term_id;
-			$term_a_start_date = $this->get_term_start_date( $term_a_id );
+		// uasort: and maintain index association (not reqd & fails comparison unit test as keys are shuffled)
+		// @usort: suppress PHP Warning: usort(): Array was modified by the user comparison function
+		@usort( $tour_term_ids, function( $term_a_id, $term_b_id ) {
 
-			$term_b_id = $term_b->term_id;
+			$term_a_start_date = $this->get_term_start_date( $term_a_id );
 			$term_b_start_date = $this->get_term_start_date( $term_b_id );
 
-			//  compare strings using a 'natural order' algorithm
+			// compare strings using a 'natural order' algorithm
 			return strnatcmp( $term_a_start_date, $term_b_start_date );
 		});
 
-		return $tour_terms;
+		return $tour_term_ids;
 	}
 
 	/**
