@@ -166,7 +166,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 	  global $post;
 	  $post_id = $post->ID;
-	  $taxonomy = 'tours'; // get_query_var('taxonomy') isn't working
+	  $taxonomy = 'wpdtrt_tourdates_taxonomy_tour'; // get_query_var('taxonomy') isn't working
 
 	  $term_id = null;
 
@@ -246,9 +246,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_term_start_date($id, $term_type=null, $date_format=null) {
 
-		$taxonomy = 'tours'; // get_query_var('taxonomy') isn't working
+		$taxonomy = 'wpdtrt_tourdates_taxonomy_tour'; // get_query_var('taxonomy') isn't working
 
-		// if $id is the ID of a term in the 'tours' taxonomy
+		// if $id is the ID of a term in the 'wpdtrt_tourdates_taxonomy_tour' taxonomy
 		// then this is a tour leg
 		// and we are getting the tour leg date range
 		// term_exists( $term, $taxonomy, $parent )
@@ -422,7 +422,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_leg_name($tour_leg_slug) {
 		$tour_leg_name = '';
 
-		$tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
+		$tour_leg = get_term_by('slug', $tour_leg_slug, 'wpdtrt_tourdates_taxonomy_tour');
 
 		$tour_leg_name = $tour_leg->name;
 
@@ -442,7 +442,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @todo Roll into theme as not date specific
 	 */
 	public function get_term_leg_id($tour_leg_slug) {
-		$tour_leg = get_term_by('slug', $tour_leg_slug, 'tours');
+		$tour_leg = get_term_by('slug', $tour_leg_slug, 'wpdtrt_tourdates_taxonomy_tour');
 
 		$tour_leg_id = $tour_leg->term_id;
 
