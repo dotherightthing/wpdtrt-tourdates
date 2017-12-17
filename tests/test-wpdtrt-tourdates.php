@@ -425,7 +425,6 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'east-asia' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'east-asia' );
     	$plugin_tour_legs = get_term_children( $term_id, $this->taxonomy_name );
-  		$plugin_tour_legs_ordered = $plugin->helper_order_tour_terms_by_date( $plugin_tour_legs );
 
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
@@ -446,6 +445,13 @@ class TourdatesTest extends WP_UnitTestCase {
 			$this->tour_leg_term_id_7,
 			$this->tour_leg_term_id_2
 		]);
+
+		// plugin calculations - buggy
+
+		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/8
+  		$plugin_tour_legs_ordered = $plugin->helper_order_tour_terms_by_date( $plugin_tour_legs );
+
+		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/8
 		$this->assertEquals( $plugin_tour_legs_ordered, [
 			$this->tour_leg_term_id_1,
 			$this->tour_leg_term_id_2,
@@ -508,9 +514,6 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-1' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-1' );
 
-    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-    	//$plugin_start_day = $plugin->get_term_start_day( $term_id );
-
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2015-9-10 00:01:00' );
 		$this->assertEquals( $plugin_tour_length_days, 9 );
@@ -521,8 +524,13 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 1)' );
 		$this->assertEquals( $plugin_tour_leg_id, $term_id );
 
-    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-		//$this->assertEquals( $plugin_start_day, 0 );
+		// plugin calculations - buggy
+
+    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
+
+    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+		$this->assertEquals( $plugin_start_day, 0 );
 	}
 
 	/**
@@ -576,9 +584,6 @@ class TourdatesTest extends WP_UnitTestCase {
     	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-2' );
     	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-2' );
 
-    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-    	//$plugin_start_day = $plugin->get_term_start_day( $term_id );
-
 		$this->assertEquals( $plugin_start_date, '2015-11-29 00:01:00' );
 		$this->assertEquals( $plugin_end_date, '2016-1-17 00:01:00' );
 		$this->assertEquals( $plugin_tour_length_days, 50 );
@@ -589,7 +594,12 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 2)' );
 		$this->assertEquals( $plugin_tour_leg_id, $term_id );
 
-    	//TODO https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
-		//$this->assertEquals( $plugin_start_day, 0 );
+		// plugin calculations - buggy
+
+    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
+
+    	// https://github.com/dotherightthing/wpdtrt-tourdates/issues/7
+		$this->assertEquals( $plugin_start_day, 0 );
 	}
 }
