@@ -64,16 +64,14 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the leg_count metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
-	 * @param string $taxonomy The taxonomy
 	 * @return string $start_date The start date
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
 	 * @todo calculate this instead, allowing for only unique legs
-	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
-	public function get_meta_tour_category_leg_count( $term_id, $taxonomy ) {
+	public function get_meta_tour_category_leg_count( $term_id ) {
 
 	  $leg_count = get_term_meta( $term_id, 'leg_count', true );
 
@@ -84,15 +82,13 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the start_date metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
-	 * @param string $taxonomy The taxonomy
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
 	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
-	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
-	public function get_meta_term_start_date( $term_id, $taxonomy ) {
+	public function get_meta_term_start_date( $term_id ) {
 
 	  $start_date = get_term_meta( $term_id, 'start_date', true );
 	  $start_date .= ' 00:01:00';
@@ -104,14 +100,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the end_date metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
-	 * @param string $taxonomy The taxonomy
 	 * @return string $end_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
-	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
-	public function get_meta_term_end_date( $term_id, $taxonomy ) {
+	public function get_meta_term_end_date( $term_id ) {
 
 	  $end_date = get_term_meta( $term_id, 'end_date', true );
 	  $end_date .= ' 00:01:00';
@@ -123,7 +117,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the thumbnail_id metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
-	 * @param string $taxonomy The taxonomy
 	 * @return string $term_thumbnail_id The thumbnail ID
 	 *
 	 * @version 1.0.0
@@ -131,9 +124,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 * @todo Add a media library button
-	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
-	public function get_meta_thumbnail_id( $term_id, $taxonomy ) {
+	public function get_meta_thumbnail_id( $term_id ) {
 
 	  $thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
 
@@ -146,21 +138,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *  Used to calculate date offsets.
 	 *
 	 * @param number $id The ID of the term
-	 * @param string $taxonomy The taxonomy
 	 * @return string $term_type (tour|tour_leg)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
-	 * @todo: $taxonomy is not used - does this get the term from the taxonomy???
 	 */
-	public function get_meta_term_type( $term_id, $taxonomy ) {
-
-		/*
-		$terms = get_terms( array(
-    		'taxonomy' => $taxonomy,
-    		'hide_empty' => false,
-		) );
-		*/
+	public function get_meta_term_type( $term_id ) {
 
 	  $term_type = get_term_meta( $term_id, 'term_type', true );
 
@@ -215,7 +198,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	        if ( !empty( $term ) && is_object( $term ) ) {
 
 	          $term_id = $term->term_id;
-	          $acf_term_type = $this->get_meta_term_type( $term_id, $taxonomy );
+	          $acf_term_type = $this->get_meta_term_type( $term_id );
 
 	          if ( $acf_term_type === $term_type ) {
 	            break;
@@ -280,7 +263,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$term_id = $this->get_post_term_ids( $term_type );
 		}
 
-		$tour_start_date = $this->get_meta_term_start_date( $term_id, $taxonomy );
+		$tour_start_date = $this->get_meta_term_start_date( $term_id );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_start_date);
@@ -306,7 +289,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		$taxonomy = get_query_var( 'taxonomy' );
 		$term = get_term_by( 'id', $term_id, $taxonomy );
-		$term_type = $this->get_meta_term_type( $term_id, $taxonomy );
+		$term_type = $this->get_meta_term_type( $term_id );
 
 		if ( $term_type === 'tour' ) {
 			$tour_start_day = 1;
@@ -335,8 +318,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_term_end_date($term_id, $date_format=null) {
 
-		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_end_date = $this->get_meta_term_end_date( $term_id, $taxonomy );
+		$tour_end_date = $this->get_meta_term_end_date( $term_id );
 
 		if ( $date_format !== null ) {
 			$date = new DateTime($tour_end_date);
@@ -385,9 +367,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
 	 */
 	public function get_term_leg_count($term_id, $text_before='', $text_after='') {
-
-		$taxonomy = get_query_var( 'taxonomy' );
-		$tour_leg_count = $this->get_meta_tour_category_leg_count( $term_id, $taxonomy );
+		$tour_leg_count = $this->get_meta_tour_category_leg_count( $term_id );
 
 		if ( $tour_leg_count > 1 ) {
 			$str = $text_before . $tour_leg_count . $text_after;
