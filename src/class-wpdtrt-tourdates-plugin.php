@@ -69,6 +69,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
+	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest\test_tour_leg_term
 	 * @todo calculate this instead, allowing for only unique legs
 	 */
 	public function get_meta_tour_category_leg_count( $term_id ) {
@@ -82,11 +84,13 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Get the value of the start_date metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
+	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @return string $start_date Y-n-j 00:01:00 (e.g. 2017-12-25 00:01:00)
+	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_meta_term_start_date( $term_id ) {
 
@@ -104,6 +108,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
+	 *
+	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_meta_term_end_date( $term_id ) {
 
@@ -122,7 +129,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 * @todo Add a media library button
 	 */
 	public function get_meta_thumbnail_id( $term_id ) {
