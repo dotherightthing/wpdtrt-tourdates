@@ -50,14 +50,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      * @todo support this function in child plugin
      */
     protected function wp_setup() {
-		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders', 10, 3] ); // Custom Post Type
+		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders'], 10, 3 ); // Custom Post Type
 		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
 		add_action( 'save_post', 		[$this, 'set_daynumber'] );
 		add_filter( 'the_title', 		[$this, 'filter_post_title_add_day'] );
-		//add_filter('post_link', 		'wpdtrt_tourdates_cf_permalink_placeholders', 10, 3); // Regular post
-
-		//add_filter('post_link', 'replace_taxonomy_in_cpt_permalinks', 10, 3); // Regular post type
-		add_filter('post_type_link', 	[$this, 'replace_taxonomy_in_cpt_permalinks'], 10, 3); // Custom post type
     }
 
     //// END WORDPRESS INTEGRATION \\\\
