@@ -534,7 +534,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 */
-	public function get_tourlengthdays( $term_id, $text_before, $text_after ) {
+	public function get_tourlengthdays( $term_id, $text_before='', $text_after='' ) {
 		// convert shortcode argument to a number
 		if ( isset( $term_id ) ) {
 			$term_id = (int)$term_id;
