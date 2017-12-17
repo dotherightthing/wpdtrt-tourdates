@@ -326,6 +326,27 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
   add_action( 'init', 'wpdtrt_tourdates_shortcode_tourlengthdays_init', 100 );
 
   /**
+   * Register Shortcode 5
+   */
+  function wpdtrt_tourdates_shortcode_thumbnail_init() {
+
+    global $wpdtrt_tourdates_plugin;
+
+    $wpdtrt_tourdates_shortcode_thumbnail = new DoTheRightThing\WPPlugin\Shortcode(
+      array(
+        'name' => 'wpdtrt_tourdates_shortcode_thumbnail',
+        'plugin' => $wpdtrt_tourdates_plugin,
+        'template' => 'thumbnail',
+        'selected_instance_options' => array(
+          'term_id',
+        )
+      )
+    );
+  }
+
+  add_action( 'init', 'wpdtrt_tourdates_shortcode_thumbnail_init', 100 );
+
+  /**
    * Register functions to be run when the plugin is activated.
    *
    * @see https://codex.wordpress.org/Function_Reference/register_activation_hook

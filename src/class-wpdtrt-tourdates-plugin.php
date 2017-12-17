@@ -125,7 +125,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @todo https://www.smashingmagazine.com/2015/12/how-to-use-term-meta-data-in-wordpress/
 	 * @todo Add a media library button
 	 */
-	public function get_acf_term_thumbnail_id( $term_id, $taxonomy ) {
+	public function get_meta_thumbnail_id( $term_id, $taxonomy ) {
 
 	  $thumbnail_id = get_term_by( $term_id, 'thumbnail_id', $taxonomy );
 

@@ -6,7 +6,6 @@
  * @since       0.1.0
  *
  * @package     WPDTRT_Tourdates
- * @subpackage  WPDTRT_Tourdates/partials
  */
 ?>
 
