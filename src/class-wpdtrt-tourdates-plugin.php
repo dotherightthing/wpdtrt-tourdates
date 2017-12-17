@@ -129,6 +129,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
+	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest\test_tour_leg_term
 	 * @todo Add a media library button
 	 */
 	public function get_meta_thumbnail_id( $term_id ) {
@@ -148,6 +150,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
+	 *
+	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_meta_term_type( $term_id ) {
 

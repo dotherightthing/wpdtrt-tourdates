@@ -172,12 +172,20 @@ class TourdatesTest extends WP_UnitTestCase {
 	public function test_region_term() {
 
 		$term_id = $this->region_term_id;
+		$taxonomy = $this->taxonomy;
+		$plugin = $taxonomy->get_plugin();
 
 		// term meta, queried directly
 
 		$meta_term_type = get_term_meta( $term_id, 'term_type', true );
 
 		$this->assertEquals( $meta_term_type, 'region' );
+
+		// term meta, queried via plugin
+
+		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
+
+		$this->assertEquals( $plugin_meta_term_type, 'region' );
 	}
 
 	/**
@@ -207,25 +215,29 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// term meta, queried via plugin
 
+		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
 		$plugin_meta_start_date = $plugin->get_meta_term_start_date( $term_id );
 		$plugin_meta_end_date = $plugin->get_meta_term_end_date( $term_id );
 		$plugin_meta_leg_count = $plugin->get_meta_tour_category_leg_count( $term_id );
+		$plugin_meta_thumbnail_id = $plugin->get_meta_thumbnail_id( $term_id );
 
+		$this->assertEquals( $plugin_meta_term_type, 'tour' );
 		$this->assertEquals( $plugin_meta_start_date, '2015-9-2 00:01:00' );
 		$this->assertEquals( $plugin_meta_end_date, '2016-6-25 00:01:00' );
 		$this->assertEquals( $plugin_meta_leg_count, 6 );
+		$this->assertEquals( $plugin_meta_thumbnail_id, '' );
 
 		// plugin calculations
 
-		$start_date = $plugin->get_term_start_date( $term_id );
-		$end_date = $plugin->get_term_end_date( $term_id );
-    	$tour_length_days = $plugin->get_term_days_elapsed( $start_date, $end_date );
-    	$tour_length = $plugin->get_tourlengthdays( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id );
+		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+    	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
+    	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
 
-		$this->assertEquals( $start_date, '2015-9-2 00:01:00' );
-		$this->assertEquals( $end_date, '2016-6-25 00:01:00' );
-		$this->assertEquals( $tour_length_days, 298 );
-		$this->assertEquals( $tour_length, 298 );
+		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
+		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
+		$this->assertEquals( $plugin_tour_length_days, 298 );
+		$this->assertEquals( $plugin_tour_length, 298 );
 	}
 
 	/**
@@ -251,28 +263,32 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $meta_end_date, '2016-1-17' );
 		$this->assertEquals( $meta_first_visit, true );
 		$this->assertEquals( $meta_leg_count, '' );
-		$this->assertEquals( $meta_thumbnail_id, 926 ); // this won't exist yet
+		$this->assertEquals( $meta_thumbnail_id, 926 ); // this shouldn't exist yet
 
 		// term meta, queried via plugin
 
+		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
 		$plugin_meta_start_date = $plugin->get_meta_term_start_date( $term_id );
 		$plugin_meta_end_date = $plugin->get_meta_term_end_date( $term_id );
 		$plugin_meta_leg_count = $plugin->get_meta_tour_category_leg_count( $term_id );
+		$plugin_meta_thumbnail_id = $plugin->get_meta_thumbnail_id( $term_id );
 
+		$this->assertEquals( $plugin_meta_term_type, 'tour_leg' );
 		$this->assertEquals( $plugin_meta_start_date, '2015-11-29 00:01:00' );
 		$this->assertEquals( $plugin_meta_end_date, '2016-1-17 00:01:00' );
 		$this->assertEquals( $plugin_meta_leg_count, '' );
+		$this->assertEquals( $plugin_meta_thumbnail_id, 926 ); // this shouldn't exist yet
 
 		// plugin calculations
 
-		$start_date = $plugin->get_term_start_date( $term_id );
-		$end_date = $plugin->get_term_end_date( $term_id );
-    	$tour_length_days = $plugin->get_term_days_elapsed( $start_date, $end_date );
-    	$tour_length = $plugin->get_tourlengthdays( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id );
+		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+    	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
+    	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
 
-		$this->assertEquals( $start_date, '2015-11-29 00:01:00' );
-		$this->assertEquals( $end_date, '2016-1-17 00:01:00' );
-		$this->assertEquals( $tour_length_days, 50 );
-		$this->assertEquals( $tour_length, 50 );
+		$this->assertEquals( $plugin_start_date, '2015-11-29 00:01:00' );
+		$this->assertEquals( $plugin_end_date, '2016-1-17 00:01:00' );
+		$this->assertEquals( $plugin_tour_length_days, 50 );
+		$this->assertEquals( $plugin_tour_length, 50 );
 	}
 }
