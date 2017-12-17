@@ -30,10 +30,10 @@ class TourdatesTest extends WP_UnitTestCase {
   		// Make the factory objects available.
         parent::setUp();
 
-        $taxonomy = $this->create_taxonomy();
+        $this->taxonomy = $this->create_taxonomy();
 
 		// store results as properties, for sharing between test methods
-		$this->taxonomy = 'wpdtrt_tourdates_taxonomy_tour'; // $taxonomy->get_name()
+		$this->taxonomy_name = 'wpdtrt_tourdates_taxonomy_tour'; // $taxonomy->get_name()
 		$this->region_term_id = $this->mock_region_term();
 		$this->tour_term_id = $this->mock_tour_term();
 		$this->tour_leg_term_id = $this->mock_tour_leg_term();
@@ -48,9 +48,9 @@ class TourdatesTest extends WP_UnitTestCase {
     public function tearDown() {
 
     	// prevents error presumably due to existing terms being added again
-    	wp_delete_term( $this->region_term_id, $this->taxonomy );
-    	wp_delete_term( $this->tour_term_id, $this->taxonomy );
-    	wp_delete_term( $this->tour_leg_term_id, $this->taxonomy );
+    	wp_delete_term( $this->region_term_id, $this->taxonomy_name );
+    	wp_delete_term( $this->tour_term_id, $this->taxonomy_name );
+    	wp_delete_term( $this->tour_leg_term_id, $this->taxonomy_name );
     }
 
     public function create_taxonomy() {
@@ -70,7 +70,7 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		$term_id = $this->factory->term->create([
 			'name' => 'Asia',
-			'taxonomy' => $this->taxonomy,
+			'taxonomy' => $this->taxonomy_name,
 			'slug' => 'asia'
 		]);
 
@@ -87,7 +87,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	public function mock_tour_term() {
 
 		$term_id = $this->factory->term->create([
-			'taxonomy' => $this->taxonomy,
+			'taxonomy' => $this->taxonomy_name,
 			'name' => 'East Asia (2015-2016)',
 			'slug' => 'east-asia',
 			'parent' => $this->region_term_id,
@@ -112,7 +112,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	public function mock_tour_leg_term() {
 
 		$term_id = $this->factory->term->create([
-			'taxonomy' => $this->taxonomy,
+			'taxonomy' => $this->taxonomy_name,
 			'name' => 'China',
 			'slug' => 'china-2',
 			'parent' => $this->tour_term_id
@@ -135,7 +135,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	 * Checks that we are dealing with the expected config
 	 */
 	public function test_config() {
-		$taxonomy = 		$this->create_taxonomy();
+		$taxonomy = 		$this->taxonomy;
 		$name = 			$taxonomy->get_name();	
 		$instance_options = $taxonomy->get_instance_options();
 		$labels = 			$taxonomy->get_labels();	
