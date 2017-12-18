@@ -16,7 +16,11 @@ Example: 10/7/2017-13/7/2017 = Day 1, Day 2, Day 3, Day 4
 
 ## Setup
 
-Please read [DTRT WP Plugin: Set up a child plugin](https://github.com/dotherightthing/wpdtrt-plugin/#set-up-a-child-plugin).
+Please read [DTRT WP Plugin: Set up a new plugin](https://github.com/dotherightthing/wpdtrt-plugin#set-up-a-new-plugin).
+
+## Maintenance
+
+Please read [DTRT WP Plugin: Maintenance of existing generated plugins](https://github.com/dotherightthing/wpdtrt-plugin#maintenance-of-existing-generated-plugins).
 
 ## Usage
 
