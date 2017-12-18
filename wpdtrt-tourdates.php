@@ -133,6 +133,14 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'type' => 'number',
         'label' => esc_html__('Term ID', 'wpdtrt-tourdates'),
       ),
+      'text_before' => array(
+        'type' => 'text',
+        'label' => esc_html__('Text before', 'wpdtrt-tourdates'),
+      ),
+      'text_after' => array(
+        'type' => 'text',
+        'label' => esc_html__('Text after', 'wpdtrt-tourdates'),
+      ),
       /*
       'posttype' => array(
         'type' => 'text',
@@ -336,6 +344,8 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'template' => 'tourlengthdays',
         'selected_instance_options' => array(
           'term_id',
+          'text_before',
+          'text_after'
         )
       )
     );

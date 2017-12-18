@@ -412,6 +412,18 @@ class TourdatesTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test shortcodes
+	 * 	trim() removes line break added by WordPress
+	 */
+	public function test_shortcodes() {
+
+		// todo https://github.com/dotherightthing/wpdtrt-plugin/issues/43
+		$term_id = $this->tour_leg_term_id_1;
+		$tour_leg_term_id_1_tourlengthdays = do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $term_id .'" text_before="" text_after=" days"]' );
+		$this->assertEquals( trim( $tour_leg_term_id_1_tourlengthdays ), '9 days' );
+	}
+
+	/**
 	 * Test tourdiaries post type
 	 *
 	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
