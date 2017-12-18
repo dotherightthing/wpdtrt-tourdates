@@ -439,8 +439,11 @@ class TourdatesTest extends WP_UnitTestCase {
 		$post_term_id = $plugin->get_post_term_id( $post_id, 'tour_leg' );
 		$this->assertEquals( $post_term_id, $this->tour_leg_term_id_2 );
 
-		//$post_title_incl_day = $plugin->filter_post_title_add_day('My title');
-		//$this->assertEquals( $post_title_incl_day, '12345' );
+		$formatted_title = $plugin->filter_post_title_add_day('Post title', $post_id);
+		$this->assertEquals( $formatted_title, '<span class="wpdtrt-tourdates-day--title">Post title</span>' );
+
+		// todo
+		//$permalink_placeholders = $plugin->render_permalink_placeholders();
 	}
 
 	/**

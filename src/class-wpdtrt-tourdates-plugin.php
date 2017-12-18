@@ -50,6 +50,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      * @todo support this function in child plugin
      */
     protected function wp_setup() {
+
+    	parent::wp_setup();
+
 		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders'], 10, 3 ); // Custom Post Type
 		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
 		add_action( 'save_post', 		[$this, 'save_post_daynumber'], 10, 3 );
@@ -813,6 +816,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://stackoverflow.com/questions/7723457/wordpress-custom-type-permalink-containing-taxonomy-slug
 	 * @see https://kellenmace.com/edit-slug-button-missing-in-wordpress/
 	 * @see http://kb.dotherightthing.dan/php/wordpress/missing-permalink-edit-button/
+	 * @todo TourdatesTest\test_post
 	 */
 	public function render_permalink_placeholders($permalink, $post, $leavename) {
 
@@ -842,26 +846,34 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START FILTERS \\\\
 
 	/**
-	 * Add the ACF day to the post title
+	 * Add the day to the post title
+	 *
+	 * @param string $title The post title
+	 * @param int $post_id The post ID
+	 * @return string
+	 *
 	 * @see https://wordpress.org/support/topic/the_title-filter-only-for-page-title-display
+	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/the_title
 	 * @todo: this is outputting into the Primary Navigation menu, need to check !if_menu
 	 * @see TourdatesTest\test_post
 	 */
 
-	public function filter_post_title_add_day( $title, $id = NULL ) {
+	public function filter_post_title_add_day( $title, $post_id=null ) {
 
 		// http://php.net/manual/en/functions.arguments.php
-		//if ( is_null($id) ) {
+		//if ( is_null($post_id) ) {
 		//  $day = get_field('acf_daynumber');
 		// }
 		//else {
-		// $day = get_post_field('acf_daynumber', $id);
+		// $day = get_post_field('acf_daynumber', $post_id);
 		//}
 
-		global $post;
-		$id = $post->ID;
+		if ( !isset( $post_id ) ) {
+			global $post;
+			$post_id = $post->ID;
+		}
 
-		$day = $this->get_post_daynumber($id);
+		$day = $this->get_post_daynumber( $post_id );
 
 		$day_html = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . '</span><span class="wpdtrt-tourdates-day--period">, </span></span>';
 		$title_html = '<span class="wpdtrt-tourdates-day--title">' . $title . '</span>';
