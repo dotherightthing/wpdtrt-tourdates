@@ -162,18 +162,18 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the ID of the ACF term type
-	 *  so we can get the values of the ACF fields attached to this term
+	 * Get the term tour ID for a specific post
+	 * 	so that we can in turn get the tour daynumber
 	 *
 	 * @param string $term_type The term type (tour|tour_leg)
-	 * @return number $term_id The term ID
+	 * @return number $term_id The term tour ID
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 * @todo This is now a category level option rather than ACF
 	 * @deprecated ACF is no longer a dependency
 	 */
-	public function get_post_term_ids($term_type) { // // this is returning tour leg start date rather than tour start date
+	public function get_post_term_id($term_type) { // this is returning tour leg start date rather than tour start date
 
 	  global $post;
 	  $post_id = $post->ID;
@@ -186,38 +186,25 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	  $terms = get_the_terms( $post_id, $taxonomy );
 
 	  if ( is_array( $terms ) ) {
-	    /**
-	     * Sort terms into hierarchical order
-	     *
-	     * Has parent: $term->parent === n
-	     * No parent: $term->parent === 0
-	     * strnatcmp = Natural string comparison
-	     *
-	     * @see https://developer.wordpress.org/reference/functions/get_the_terms/
-	     * @see https://wordpress.stackexchange.com/questions/172118/get-the-term-list-by-hierarchy-order
-	     * @see https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
-	     * @see https://wpseek.com/function/_get_term_hierarchy/
-	     * @see https://wordpress.stackexchange.com/questions/137926/sorting-attributes-order-when-using-get-the-terms
-	     * @uses WPDTRT helpers/permalinks.php
-	     */
-	    uasort ( $terms , function ( $term_a, $term_b ) {
-	      return strnatcmp( $term_a->parent, $term_b->parent );
-	    });
 
-	    if ( !is_wp_error( $terms ) ) {
+	  	// sort terms into hierarchical order
+	  	// to get the tour rather than the tour_leg
+	    //$terms = $this->helper_order_tour_terms_by_hierarchy( $terms );
+
+	    //if ( !is_wp_error( $terms ) ) {
 	      foreach ( $terms as $term ) {
-	        if ( !empty( $term ) && is_object( $term ) ) {
+	      //  if ( !empty( $term ) && is_object( $term ) ) {
 
 	          $term_id = $term->term_id;
-	          $acf_term_type = $this->get_meta_term_type( $term_id );
+	          $term_term_type = $this->get_meta_term_type( $term_id );
 
-	          if ( $acf_term_type === $term_type ) {
+	          if ( $term_term_type === $term_type ) {
 	            break;
 	          }
-	        }
+	        //}
 	      }
 	    }
-	  }
+	  //}
 
 	  return $term_id;
 	}
@@ -274,7 +261,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		else { // if post
 			// when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
 			// then the term is not passed
-			$term_id = $this->get_post_term_ids( $term_type );
+			$term_id = $this->get_post_term_id( $term_type );
 		}
 
 		$tour_start_date = $this->get_meta_term_start_date( $term_id );
@@ -879,6 +866,43 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// END FILTERS \\\\
 
     //// START HELPERS \\\\
+
+	/**
+	 * Sort terms into hierarchical order
+	 * 	Sort terms into hierarchical order,
+	 * 	so that we can get the tour rather than the tour_leg.
+	 *
+     * Has parent: $term->parent === n
+     * No parent: $term->parent === 0
+     *
+	 * @param {array} $tour_terms Array of terms (e.g. tour legs)
+	 * @return {array} $tour_terms Sorted terms
+	 *
+     * @see https://developer.wordpress.org/reference/functions/get_the_terms/
+     * @see https://wordpress.stackexchange.com/questions/172118/get-the-term-list-by-hierarchy-order
+     * @see https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
+     * @see https://wpseek.com/function/_get_term_hierarchy/
+     * @see https://wordpress.stackexchange.com/questions/137926/sorting-attributes-order-when-using-get-the-terms
+     * @uses WPDTRT helpers/permalinks.php
+	 *
+	 * @todo TourdatesTest\test_tour_term
+	 */
+	function helper_order_tour_terms_by_hierarchy( $tour_terms ) {
+
+		// usort: Sort an array with a user-defined comparison function
+		// uasort: and maintain index association (not reqd & fails comparison unit test as keys are shuffled)
+		// @usort: suppress PHP Warning: usort(): Array was modified by the user comparison function
+		@usort( $tour_term, function( $term_a, $term_b ) {
+
+			$term_a_parent = $term_a->parent;
+			$term_b_parent = $term_b->parent;
+
+			// compare strings using a 'natural order' algorithm
+			return strnatcmp( $term_a_parent, $term_b_parent );
+		});
+
+		return $tour_term_ids;
+	}
 
 	/**
 	 * Sort term IDs by start date
