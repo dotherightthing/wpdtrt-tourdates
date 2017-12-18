@@ -219,7 +219,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @see TourdatesTest\todo_test_post
+	 * @see TourdatesTest\test_post
 	 * @todo Consider rewriting into a shortcode
 	 */
 	public function get_post_daynumber($post_id) {
@@ -237,7 +237,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @param number $id The ID of the post OR term
 	 * @param string $term_type An optional term type, useful when we want to query a tour rather than a tour leg
 	 * @param string $date_format An optional date format
-	 * @return string $tour_start_date The date when the tour started (Y-n-j 00:01:00)
+	 * @return string $term_start_date The date when the tour started (Y-n-j 00:01:00)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
@@ -264,14 +264,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$term_id = $this->get_post_term_id( $term_type );
 		}
 
-		$tour_start_date = $this->get_meta_term_start_date( $term_id );
+		if ( isset( $term_id ) ) {
+			$term_start_date = $this->get_meta_term_start_date( $term_id );
 
-		if ( $date_format !== null ) {
-			$date = new DateTime($tour_start_date);
-			$tour_start_date = date_format($date, $date_format);
+			if ( $date_format !== null ) {
+				$date = new DateTime($term_start_date);
+				$term_start_date = date_format($date, $date_format);
+			}
 		}
 
-		return $tour_start_date;
+		return $term_start_date;
 	}
 
 	/**
@@ -486,7 +488,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 *
-	 * @see TourdatesTest\todo_test_post
+	 * @see TourdatesTest\test_post
 	 */
 	public function get_daytotal() {
 		//$plugin_options = $this->get_plugin_options();
@@ -770,7 +772,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Add the ACF day to the post title
 	 * @see https://wordpress.org/support/topic/the_title-filter-only-for-page-title-display
 	 * @todo: this is outputting into the Primary Navigation menu, need to check !if_menu
-	 * @see TourdatesTest\todo_test_post
+	 * @see TourdatesTest\test_post
 	 */
 
 	public function filter_post_title_add_day( $title, $id = NULL ) {

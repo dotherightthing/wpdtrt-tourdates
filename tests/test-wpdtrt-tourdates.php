@@ -162,6 +162,8 @@ class TourdatesTest extends WP_UnitTestCase {
      */
     public function tearDown() {
 
+    	parent::tearDown();
+
     	// prevents error presumably due to existing terms being added again
     	wp_delete_term( $this->region_term_id, $this->taxonomy_name );
     	wp_delete_term( $this->tour_term_id, $this->taxonomy_name );
@@ -172,6 +174,10 @@ class TourdatesTest extends WP_UnitTestCase {
     	wp_delete_term( $this->tour_leg_term_id_5, $this->taxonomy_name );
     	wp_delete_term( $this->tour_leg_term_id_6, $this->taxonomy_name );
     	wp_delete_term( $this->tour_leg_term_id_7, $this->taxonomy_name );
+
+    	// prevent errors in get_term_start_date
+    	wp_delete_post( $this->post_id, true );
+    	$this->post_id = null;
     }
 
     /**
@@ -235,6 +241,7 @@ class TourdatesTest extends WP_UnitTestCase {
      *
      * @see https://developer.wordpress.org/reference/functions/wp_insert_post/
      * @see https://wordpress.stackexchange.com/questions/37163/proper-formatting-of-post-date-for-wp-insert-post
+     * @see https://codex.wordpress.org/Function_Reference/wp_update_post
      */
     public function create_post( $options ) {
 
@@ -245,7 +252,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	extract( $options, EXTR_IF_EXISTS );
 
  		$post_id = $this->factory->post->create([
-           'post_title'  => $post_title,
+           'post_title' => $post_title,
            'post_date' => $post_date,
            'post_type' => 'tourdiaries',
            'post_status' => 'publish'
