@@ -867,10 +867,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		//else {
 		// $day = get_post_field('acf_daynumber', $post_id);
 		//}
+		global $post;
 
-		if ( !isset( $post_id ) ) {
-			global $post;
+		// a $post_id is required
+		if ( !isset( $post_id ) && isset( $post ) ) {
 			$post_id = $post->ID;
+		}
+		else {
+			// this applies on an archive page
+			// e.g. /tours/asia/east-asia/china-2/
+			return $title;
 		}
 
 		$day = $this->get_post_daynumber( $post_id );
