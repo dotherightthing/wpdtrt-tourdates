@@ -52,7 +52,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     protected function wp_setup() {
 		add_action( 'post_type_link', 	[$this, 'render_permalink_placeholders'], 10, 3 ); // Custom Post Type
 		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
-		add_action( 'save_post', 		[$this, 'set_daynumber'] );
+		add_action( 'save_post', 		[$this, 'save_post_daynumber'], 10, 3 );
 		add_filter( 'the_title', 		[$this, 'filter_post_title_add_day'] );
     }
 
@@ -146,7 +146,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *  Used to calculate date offsets.
 	 *
 	 * @param number $id The ID of the term
-	 * @return string $term_type (tour|tour_leg)
+	 * @return string $term_type Term type (tour|tour_leg)
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
@@ -162,24 +162,43 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the term tour ID for a specific post
-	 * 	so that we can in turn get the tour daynumber
+	 * Get the taxonomy
+	 * 	Different from get_taxonomy()
 	 *
-	 * @param string $term_type The term type (tour|tour_leg)
-	 * @return number $term_id The term tour ID
+	 * @return string $taxonomy The taxonomy
+	 *
+	 * @version 1.0.0
+	 * @since 0.1.0
+	 *
+	 * @see TourdatesTest\test_taxonomy
+	 */
+	public function get_the_taxonomy() {
+
+		$taxonomy = get_query_var( 'taxonomy' );
+
+		// if called from a unit test
+		if ( !isset( $taxonomy ) || ( $taxonomy === '' ) ) {
+			$taxonomy = 'wpdtrt_tourdates_taxonomy_tour';
+		}
+
+		return $taxonomy;
+	}
+
+	/**
+	 * Get the term tour ID for a specific post so that we can in turn get the tour daynumber
+	 *
+	 * @param int $post_id The post ID
+	 * @param string $term_type Term type (tour|tour_leg)
+	 * @return number $term_id The term tour ID || false
 	 *
 	 * @version 1.0.0
 	 * @since 0.1.0
 	 * @todo This is now a category level option rather than ACF
-	 * @deprecated ACF is no longer a dependency
 	 */
-	public function get_post_term_id($term_type) { // this is returning tour leg start date rather than tour start date
+	public function get_post_term_id( $post_id, $term_type ) {
 
-	  global $post;
-	  $post_id = $post->ID;
-	  $taxonomy = 'wpdtrt_tourdates_taxonomy_tour'; // get_query_var('taxonomy') isn't working
-
-	  $term_id = null;
+	  $term_id = false;
+	  $taxonomy = $this->get_the_taxonomy();
 
 	  // get associated taxonomy_terms
 	  // get_the_category() doesn't work with custom post type taxonomies
@@ -224,7 +243,15 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_post_daynumber($post_id) {
 
-		$tour_start_date = $this->get_term_start_date( $post_id, 'tour' ); // this was wrongly returning the tour leg start date
+		$post_daynumber = false;
+		$term_type = 'tour';
+
+		$tour_start_date = $this->get_term_start_date( $post_id, $term_type );
+
+		if ( ! $tour_start_date ) {
+			return $post_daynumber;
+		}
+
 		$post_date = get_the_date( "Y-n-j 00:01:00", $post_id );
 		$post_daynumber = $this->get_term_days_elapsed( $tour_start_date, $post_date );
 
@@ -232,10 +259,59 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
+	 * Get the term ID
+	 *
+	 * @param number $id The ID of the post OR term
+	 * @param string $term_type Term type (tour|tour_leg)
+	 * @return number $term_id || false
+	 *
+	 * @version 1.0.0
+	 * @since 1.0.0
+	 *
+	 * @see TourdatesTest\test_post
+	 * @todo TourdatesTest\test_tour_term
+	 * @todo TourdatesTest\test_tour_leg_term
+	 */
+	public function get_term_id($id, $term_type) {
+
+		$taxonomy = $this->get_the_taxonomy();
+		$term_id = false;
+
+		// if $id is the ID of a term in the $taxonomy
+		// then this is a tour leg
+		// and we are getting the tour leg date range
+		// term_exists( $term, $taxonomy, $parent )
+		if ( term_exists( $id, $taxonomy ) ) {
+
+			$term_term_type = $this->get_meta_term_type( $id );
+
+			// if the supplied ID uses the supplied type, then use the supplied ID
+			if ( $term_type === $term_term_type ) {
+				$term_id = $id;
+			}
+			// else use the hierarchical parent's ID (tour_leg -> tour)
+			else {
+				$term = get_term_by( 'id', $id, $taxonomy );
+				$parent_term_id = $term->parent;
+				$term_id = $parent_term_id;
+			}
+		}
+		// else if it isn't then the $id is the ID of a tour day post
+		// and we are getting the start date for term_days_elapsed daynumber
+		else {
+			// when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
+			// then the term is not passed
+			$term_id = $this->get_post_term_id( $id, $term_type );
+		}
+
+		return $term_id;
+	}
+
+	/**
 	 * Get the first date in a tour
 	 *
 	 * @param number $id The ID of the post OR term
-	 * @param string $term_type An optional term type, useful when we want to query a tour rather than a tour leg
+	 * @param string $term_type Term type (tour|tour_leg)
 	 * @param string $date_format An optional date format
 	 * @return string $term_start_date The date when the tour started (Y-n-j 00:01:00)
 	 *
@@ -245,32 +321,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_term
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
-	public function get_term_start_date($id, $term_type=null, $date_format=null) {
+	public function get_term_start_date($id, $term_type, $date_format=null) {
 
-		$taxonomy = 'wpdtrt_tourdates_taxonomy_tour'; // get_query_var('taxonomy') isn't working
+		$term_start_date = false;
+		$term_id = $this->get_term_id( $id, $term_type );
 
-		// if $id is the ID of a term in the 'wpdtrt_tourdates_taxonomy_tour' taxonomy
-		// then this is a tour leg
-		// and we are getting the tour leg date range
-		// term_exists( $term, $taxonomy, $parent )
-		if ( term_exists( $id, $taxonomy ) ) {
-			$term_id = $id;
-		}
-		// else if it isn't then the $id is the ID of a tour day
-		// and we are getting the start date for term_days_elapsed daynumber
-		else { // if post
-			// when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
-			// then the term is not passed
-			$term_id = $this->get_post_term_id( $term_type );
-		}
+		$term_start_date = $this->get_meta_term_start_date( $term_id );
 
-		if ( isset( $term_id ) ) {
-			$term_start_date = $this->get_meta_term_start_date( $term_id );
-
-			if ( $date_format !== null ) {
-				$date = new DateTime($term_start_date);
-				$term_start_date = date_format($date, $date_format);
-			}
+		if ( $date_format !== null ) {
+			$date = new DateTime($term_start_date);
+			$term_start_date = date_format($date, $date_format);
 		}
 
 		return $term_start_date;
@@ -292,15 +352,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_term_start_day( $term_id ) {
 
-		$taxonomy = get_query_var( 'taxonomy' );
-
-		// if called from a unit test
-		if ( !isset( $taxonomy ) || ( $taxonomy === '' ) ) {
-			$taxonomy = 'wpdtrt_tourdates_taxonomy_tour';
-		}
-
+		$taxonomy = $this->get_the_taxonomy();
 		$term = get_term_by( 'id', $term_id, $taxonomy );
-
 		$term_type = $this->get_meta_term_type( $term_id );
 
 		if ( $term_type === 'tour' ) {
@@ -308,8 +361,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		}
 		else if ( $term_type === 'tour_leg' ) {
 			$parent_term_id = $term->parent;
-			$tour_start_date =      $this->get_term_start_date( $parent_term_id );
-			$tour_leg_start_date =  $this->get_term_start_date( $term_id );
+			$tour_start_date =      $this->get_term_start_date( $parent_term_id, 'tour' );
+			$tour_leg_start_date =  $this->get_term_start_date( $term_id, $term_type );
 			$tour_start_day =       $this->get_term_days_elapsed( $tour_start_date, $tour_leg_start_date );
 		}
 
@@ -320,7 +373,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	/**
 	 * Get the last date in a tour
 	 *
-	 * @param number $term_id The term ID
+	 * @param number $id Post ID or Term ID
+	 * @param string $term_type Term type (tour|tour_leg)
 	 * @param string $date_format An optional PHP date format
 	 * @return string $tour_end_date The date when the tour ended (Y-n-j 00:01:00)
 	 *
@@ -330,7 +384,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_term
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
-	public function get_term_end_date($term_id, $date_format=null) {
+	public function get_term_end_date($id, $term_type, $date_format=null) {
+
+		$term_id = $this->get_term_id( $id, $term_type );
 
 		$tour_end_date = $this->get_meta_term_end_date( $term_id );
 
@@ -355,7 +411,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_term_start_month( $term_id ) {
-		$tour_leg_start_month = $this->get_term_start_date($term_id, null, 'F Y');
+		$term_type = $this->get_meta_term_type( $term_id );
+		$tour_leg_start_month = $this->get_term_start_date($term_id, $term_type, 'F Y');
 
 		return $tour_leg_start_month;
 	}
@@ -370,7 +427,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_term_end_month( $term_id ) {
-		$tour_leg_end_month = $this->get_term_end_date($term_id, 'F Y');
+		$term_type = $this->get_meta_term_type( $term_id );
+		$tour_leg_end_month = $this->get_term_end_date($term_id, $term_type, 'F Y');
 
 		return $tour_leg_end_month;
 	}
@@ -449,10 +507,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_term_leg_name($tour_leg_slug) {
+
 		$tour_leg_name = '';
-
-		$tour_leg = get_term_by('slug', $tour_leg_slug, 'wpdtrt_tourdates_taxonomy_tour');
-
+		$taxonomy = $this->get_the_taxonomy();
+		$tour_leg = get_term_by('slug', $tour_leg_slug, $taxonomy);
 		$tour_leg_name = $tour_leg->name;
 
 		return $tour_leg_name;
@@ -473,8 +531,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_term_leg_id($tour_leg_slug) {
-		$tour_leg = get_term_by('slug', $tour_leg_slug, 'wpdtrt_tourdates_taxonomy_tour');
 
+		$taxonomy = $this->get_the_taxonomy();
+		$tour_leg = get_term_by('slug', $tour_leg_slug, $taxonomy);
 		$tour_leg_id = $tour_leg->term_id;
 
 		return $tour_leg_id;
@@ -483,6 +542,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	/**
 	 * Get the total number of days in a tour
 	 *
+	 * @param int $post_id Optional Post ID for testing
+	 * @param string $term_type Term type (tour|tour_leg)
 	 * @return string
 	 *
 	 * @version 1.0.0
@@ -490,13 +551,18 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see TourdatesTest\test_post
 	 */
-	public function get_daytotal() {
-		//$plugin_options = $this->get_plugin_options();
+	public function get_daytotal( $post_id=null, $term_type ) {
 
-		global $post;
-		$post_id = $post->ID;
-		$tour_start_date = $this->get_term_start_date( $post_id );
-		$tour_end_date = $this->get_term_end_date( $post_id );
+		if ( isset( $post_id ) ) {
+			$post = get_post( $post_id );
+		}
+		else {
+			global $post;
+			$post_id = $post->ID;			
+		}
+
+		$tour_start_date = $this->get_term_start_date( $post_id, $term_type );
+		$tour_end_date = $this->get_term_end_date( $post_id, $term_type );
 		$day_total = $this->get_term_days_elapsed( $tour_start_date, $tour_end_date );
 
 		return $day_total;
@@ -563,8 +629,10 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$term_id = (int)$term_id;
 		}
 
-		$tour_start_date = $this->get_term_start_date( $term_id );
-		$tour_end_date = $this->get_term_end_date( $term_id );
+		$term_type = $this->get_meta_term_type( $term_id );
+
+		$tour_start_date = $this->get_term_start_date( $term_id, $term_type );
+		$tour_end_date = $this->get_term_end_date( $term_id, $term_type );
 		$tour_length_days = $this->get_term_days_elapsed($tour_start_date, $tour_end_date);
 
 		return $text_before . $tour_length_days . $text_after;
@@ -578,34 +646,39 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * Use the Query Monitor plugin to view the Post type
 	 *
+	 * @param int $post_id The post ID.
+	 * @param post $post The post object.
+	 * @param bool $update Whether this is an existing post being updated or not.
+	 *
 	 * @link wpdtrt/library/permalink-placeholders.php
 	 * @link wpdtrt-dbth/library/register_post_type_tourdiaries
 	 * @see https://wordpress.org/support/topic/set-value-in-custom-field-using-post-by-email/
 	 * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
 	 * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
-	 * @see TourdatesTest\todo_test_post
+	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Custom_Post_Type:_.27book.27
+	 * @see TourdatesTest\test_post
 	 */
-	public function set_daynumber() {
+	public function save_post_daynumber( $post_id, $post, $update ) {
 
-		global $post;
-
-		// if Update button used in Quick Edit view
-		if ( ! $post ) {
+		if ( wp_is_post_revision( $post ) ) {
 			return;
 		}
 
-		$post_id = $post->ID;
+		$post_type = get_post_type( $post_id );
 
-		if( ! wp_is_post_revision($post) ) {
-
-			$daynumber = $this->get_post_daynumber($post_id);
-
-			// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
-			update_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber);
-
-			// note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
-			//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true); // true = return single value
+		if ( $post_type !== 'tourdiaries' ) {
+			return;
 		}
+
+		$daynumber = $this->get_post_daynumber( $post_id );
+
+		if ( $daynumber ) {
+			// update_post_meta also runs add_post_meta, if the $meta_key does not already exist
+			update_post_meta( $post_id, 'wpdtrt_tourdates_cf_daynumber', $daynumber );
+		}
+
+		// note: https://developer.wordpress.org/reference/functions/get_post_meta/#comment-1894
+		//$test = get_post_meta($post_id, 'wpdtrt_tourdates_cf_daynumber', true); // true = return single value
 	}
 
     //// END SETTERS AND GETTERS \\\\
@@ -920,8 +993,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		// @usort: suppress PHP Warning: usort(): Array was modified by the user comparison function
 		@usort( $tour_term_ids, function( $term_a_id, $term_b_id ) {
 
-			$term_a_start_date = $this->get_term_start_date( $term_a_id );
-			$term_b_start_date = $this->get_term_start_date( $term_b_id );
+			$term_type_a = $this->get_meta_term_type( $term_a_id );
+			$term_type_b = $this->get_meta_term_type( $term_b_id );
+
+			$term_a_start_date = $this->get_term_start_date( $term_a_id, $term_type_a );
+			$term_b_start_date = $this->get_term_start_date( $term_b_id, $term_type_b );
 
 			// compare strings using a 'natural order' algorithm
 			return strnatcmp( $term_a_start_date, $term_b_start_date );

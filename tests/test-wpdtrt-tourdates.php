@@ -175,9 +175,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	wp_delete_term( $this->tour_leg_term_id_6, $this->taxonomy_name );
     	wp_delete_term( $this->tour_leg_term_id_7, $this->taxonomy_name );
 
-    	// prevent errors in get_term_start_date
     	wp_delete_post( $this->post_id, true );
-    	$this->post_id = null;
     }
 
     /**
@@ -259,6 +257,11 @@ class TourdatesTest extends WP_UnitTestCase {
         ]);
 
         wp_set_object_terms( $post_id, $term_ids, $this->taxonomy_name );
+
+        // republish post - see https://github.com/dotherightthing/wpdtrt-tourdates/issues/1
+        //wp_update_post( array(
+        // 	'ID' => $post_id
+        //) );
 
         return $post_id;
     }
@@ -417,13 +420,9 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		$post_id = $this->post_id;
 	    $post_permalink = get_post_permalink( $post_id );
-
 		$term_id = $this->region_term_id;
 		$taxonomy = $this->taxonomy;
 		$plugin = $taxonomy->get_plugin();
-
-		$this->go_to( $post_permalink );
-		$plugin->set_daynumber();
 
 		// plugin calculations
 
@@ -431,11 +430,30 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->assertEquals( $plugin_daynumber, 21 );
 
 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/1
-		$plugin_daytotal = $plugin->get_daytotal();
+		$plugin_daytotal = $plugin->get_daytotal( $post_id, 'tour' );
 		$this->assertEquals( $plugin_daytotal, 298 );
+
+		$term_id = $plugin->get_term_id( $post_id, 'tour_leg' );
+		$this->assertEquals( $term_id, $this->tour_leg_term_id_2 );
+
+		$post_term_id = $plugin->get_post_term_id( $post_id, 'tour_leg' );
+		$this->assertEquals( $post_term_id, $this->tour_leg_term_id_2 );
 
 		//$post_title_incl_day = $plugin->filter_post_title_add_day('My title');
 		//$this->assertEquals( $post_title_incl_day, '12345' );
+	}
+
+	/**
+	 * Test taxonomy
+	 */
+	public function test_taxonomy() {
+		$term_id = $this->region_term_id;
+		$taxonomy = $this->taxonomy;
+		$taxonomy_name = $this->taxonomy_name;
+		$plugin = $taxonomy->get_plugin();
+
+		$tax = $plugin->get_the_taxonomy();
+		$this->assertEquals( $tax, $taxonomy_name );
 	}
 
 	/**
@@ -448,6 +466,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$plugin = $taxonomy->get_plugin();
 
 		// plugin calculations
+
 		$key = '';
 		$plugin_html_latlng = $plugin->get_html_latlng( $key );
 		$this->assertEquals( $plugin_html_latlng, 12345 );
@@ -521,13 +540,10 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id, 'tour' );
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
 
-		$plugin_start_date_tour = $plugin->get_term_start_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_start_date_tour, '2015-9-2 00:01:00' );
-
-		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+		$plugin_end_date = $plugin->get_term_end_date( $term_id, 'tour' );
 		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
 
     	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
@@ -627,16 +643,13 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id );
+		$plugin_start_date = $plugin->get_term_start_date( $term_id, 'tour' );
 		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
-
-		$plugin_start_date_tour = $plugin->get_term_start_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_start_date_tour, '2015-9-2 00:01:00' );
 
 		$plugin_start_date_tour_leg = $plugin->get_term_start_date( $term_id, 'tour_leg' );
 		$this->assertEquals( $plugin_start_date_tour_leg, '2015-9-2 00:01:00' );
 
-		$plugin_end_date = $plugin->get_term_end_date( $term_id );
+		$plugin_end_date = $plugin->get_term_end_date( $term_id, 'tour_leg' );
 		$this->assertEquals( $plugin_end_date, '2015-9-10 00:01:00' );
 
     	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
@@ -713,24 +726,20 @@ class TourdatesTest extends WP_UnitTestCase {
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id );
-		$this->assertEquals( $plugin_start_date, '2015-11-29 00:01:00' );
-
-		// todo this is being calculated from tour_leg
 		$plugin_start_date_tour = $plugin->get_term_start_date( $term_id, 'tour' );
 		$this->assertEquals( $plugin_start_date_tour, '2015-9-2 00:01:00' );
 
 		$plugin_start_date_tour_leg = $plugin->get_term_start_date( $term_id, 'tour_leg' );
 		$this->assertEquals( $plugin_start_date_tour_leg, '2015-11-29 00:01:00' );
 
-		$plugin_end_date = $plugin->get_term_end_date( $term_id );
-		$this->assertEquals( $plugin_end_date, '2016-1-17 00:01:00' );
+		$plugin_end_date_tour_leg = $plugin->get_term_end_date( $term_id, 'tour_leg' );
+		$this->assertEquals( $plugin_end_date_tour_leg, '2016-1-17 00:01:00' );
 
-    	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
-		$this->assertEquals( $plugin_tour_length_days, 50 );
+    	$plugin_tour_leg_length_days = $plugin->get_term_days_elapsed( $plugin_start_date_tour_leg, $plugin_end_date_tour_leg );
+		$this->assertEquals( $plugin_tour_leg_length_days, 50 );
 
-    	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
-		$this->assertEquals( $plugin_tour_length, 50 );
+    	$plugin_tour_leg_length = $plugin->get_tourlengthdays( $term_id );
+		$this->assertEquals( $plugin_tour_leg_length, 50 );
 
 		// todo test with NZ legs
     	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
