@@ -188,6 +188,9 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'term_type' => array(
             'type' => 'select',
             'label' => esc_html__('Term type', 'wpdtrt-tourdates'),
+            'admin_table' => true,
+            'admin_table_label' => esc_html__('Type', 'wpdtrt-tourdates'),
+            'admin_table_sort' => true,
             'options' => array(
               'region' => array(
                 'text' => __('Region', 'wpdtrt-tourdates')
@@ -203,30 +206,45 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'start_date' => array(
             'type' => 'text',
             'label' => esc_html__('Start date', 'wpdtrt-tourdates'),
+            'admin_table' => true,
+            'admin_table_label' => esc_html__('Start', 'wpdtrt-tourdates'),
+            'admin_table_sort' => true,
             'tip' => 'YYYY-M-D',
             'todo_condition' => 'term_type !== "region"'
           ),
           'end_date' => array(
             'type' => 'text',
             'label' => esc_html__('End date', 'wpdtrt-tourdates'),
+            'admin_table' => true,
+            'admin_table_label' => esc_html__('End', 'wpdtrt-tourdates'),
+            'admin_table_sort' => true,
             'tip' => 'YYYY-M-D',
             'todo_condition' => 'term_type !== "region"'
           ),
           'first_visit' => array(
             'type' => 'checkbox',
             'label' => esc_html__('First visit on tour', 'wpdtrt-tourdates'),
+            'admin_table' => false,
+            'admin_table_label' => esc_html__('First', 'wpdtrt-tourdates'),
+            'admin_table_sort' => false,
             'tip' => 'Used in country traversal counts.',
             'todo_condition' => 'term_type == "tour_leg"'
           ),
           'leg_count' => array(
             'type' => 'number',
             'label' => esc_html__('Number of unique tour legs', 'wpdtrt-tourdates'),
+            'admin_table' => false,
+            'admin_table_label' => esc_html__('Legs', 'wpdtrt-tourdates'),
+            'admin_table_sort' => false,
             'tip' => 'Used in country traversal counts.',
             'todo_condition' => 'term_type == "tour"'
           ),
           'thumbnail_id' => array(
             'type' => 'number',
             'label' => esc_html__('Thumbnail ID', 'wpdtrt-tourdates'),
+            'admin_table' => false,
+            'admin_table_label' => esc_html__('Thumb', 'wpdtrt-tourdates'),
+            'admin_table_sort' => false,
             'tip' => 'Media &gt; Library',
             'todo_condition' => 'term_type == "tour"'
           ),
