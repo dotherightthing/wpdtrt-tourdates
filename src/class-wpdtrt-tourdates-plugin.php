@@ -696,44 +696,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START RENDERERS \\\\
 
 	/**
-	 * Render a previous/next navigation bar
-	 *
-	 * @version 1.0.0
-	 * @since 0.1.0
-	 */
-	public function render_navigation() {
-
-		// post object to get info about the post in which the shortcode appears
-		global $post;
-		$post_id = $post->ID;
-
-		$posttype = $this->get_posttype(); // shortcode option
-		$taxonomy = $this->get_taxonomy(); // shortcode option
-
-		// vars to pass to template partial
-		$previous =   $this->get_navigation_link('previous', $posttype, $taxonomy);
-		$next =       $this->get_navigation_link('next', $posttype, $taxonomy);
-		$daynumber =  $this->get_post_daynumber($post_id);
-
-		/**
-		* ob_start — Turn on output buffering
-		* This stores the HTML template in the buffer
-		* so that it can be output into the content
-		* rather than at the top of the page.
-		*/
-		ob_start();
-
-		require(WPDTRT_TOURDATES_PATH . 'template-parts/content-navigation.php');
-
-		/**
-		* ob_get_clean — Get current buffer contents and delete current output buffer
-		*/
-		$content = ob_get_clean();
-
-		return $content;
-	}
-
-	/**
 	 * Link to next/previous post
 	 * 	Used by $wpdtrt_tourdates_shortcode_navigation
 	 *
@@ -754,6 +716,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			return;
 		}
 
+		// plugin dependency
 		if ( ! function_exists('previous_post_link_plus') ) {
 			return;
 		}
