@@ -19,10 +19,11 @@ if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
 require_once $_tests_dir . '/includes/functions.php';
 
 /**
- * Manually load the plugin being tested.
+ * Manually load the plugin being tested, and any dependencies.
  */
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-tourdates.php';
+	require dirname( dirname( dirname( __FILE__ ) ) ) . '/wp-network/wp-content/plugins/ambrosite-nextprevious-post-link-plus/ambrosite-post-link-plus.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

@@ -143,9 +143,29 @@ class TourdatesTest extends WP_UnitTestCase {
 			'thumbnail_id' => ''
 		) );
 
-	    $this->post_id = $this->create_post( array(
-	    	'post_title' => 'The Hitchhiker',
+	    $this->post_id_1 = $this->create_post( array(
+	    	'post_title' => 'The First Tour Day',
+	    	'post_date' => '2015-09-21 23:00:00',
+	    	'term_ids' => array(
+	    		$this->region_term_id,
+	    		$this->tour_term_id,
+	    		$this->tour_leg_term_id_2
+	    	)
+	    ) );
+
+	    $this->post_id_2 = $this->create_post( array(
+	    	'post_title' => 'The Second Tour Day',
 	    	'post_date' => '2015-09-22 23:00:00',
+	    	'term_ids' => array(
+	    		$this->region_term_id,
+	    		$this->tour_term_id,
+	    		$this->tour_leg_term_id_2
+	    	)
+	    ) );
+
+	    $this->post_id_3 = $this->create_post( array(
+	    	'post_title' => 'The Third Tour Day',
+	    	'post_date' => '2015-09-23 23:00:00',
 	    	'term_ids' => array(
 	    		$this->region_term_id,
 	    		$this->tour_term_id,
@@ -175,7 +195,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	wp_delete_term( $this->tour_leg_term_id_6, $this->taxonomy_name );
     	wp_delete_term( $this->tour_leg_term_id_7, $this->taxonomy_name );
 
-    	wp_delete_post( $this->post_id, true );
+    	wp_delete_post( $this->post_id_2, true );
     }
 
     /**
@@ -414,6 +434,10 @@ class TourdatesTest extends WP_UnitTestCase {
 	/**
 	 * Test shortcodes
 	 * 	trim() removes line break added by WordPress
+	 *
+	 * @todo wpdtrt_tourdates_shortcode_navigation
+	 * @todo wpdtrt_tourdates_shortcode_thumbnail
+	 * @todo Refactor wpdtrt_tourdates_shortcode_summary so that it is easier to test
 	 */
 	public function test_shortcodes() {
 
@@ -421,16 +445,61 @@ class TourdatesTest extends WP_UnitTestCase {
 		$term_id = $this->tour_leg_term_id_1;
 		$tour_leg_term_id_1_tourlengthdays = do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $term_id .'" text_before="" text_after=" days"]' );
 		$this->assertEquals( trim( $tour_leg_term_id_1_tourlengthdays ), '9 days' );
+
+		$post_id = $this->post_id_2;
+	    $post_permalink = get_post_permalink( $post_id );
+		$this->go_to( $post_permalink );
+
+		$post_daynumber = do_shortcode( '[wpdtrt_tourdates_shortcode_daynumber]' );
+		$this->assertEquals( trim( $post_daynumber ), '21' );
+
+		$post_daytotal = do_shortcode( '[wpdtrt_tourdates_shortcode_daytotal]' );
+		$this->assertEquals( trim( $post_daytotal ), '298' );
+
+/*
+		$term_summary = do_shortcode( '[wpdtrt_tourdates_shortcode_summary term_id="' . $this->tour_leg_term_id_5 . '"]' );
+		$this->assertEquals( trim( $term_summary ), '<div class="entry-summary-wrapper">
+<div class="entry-date"></div>
+<div class="entry-summary">
+	<p>
+		Camping my way around Hong Kong.<br/>
+This tour leg lasted 57 days.  		</p>
+</div>
+</div>
+Camping my way around Hong Kong.' );
+*/
+	}
+
+	/**
+	 * Test tourdiaries post type navigation
+	 * 	Note: ambrosite-nextprevious-post-link-plus is loaded in bootstrap.php
+	 *
+	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
+	 */
+	public function test_post_navigation() {
+
+		$taxonomy = $this->taxonomy;
+		$plugin = $taxonomy->get_plugin();
+		$post_id = $this->post_id_2;
+	    $post_permalink = get_post_permalink( $post_id );
+		$this->go_to( $post_permalink );
+
+		$previous_post_link = $plugin->render_navigation_link('previous', 'tourdiaries');
+		$this->assertEquals( trim( $previous_post_link ), '<a href="http://example.org/?tourdiaries=the-first-tour-day" rel="prev" title="Previous: Day 20."><span class="stack--navigation--text says">Previous: Day 20</span> <span class="icon-arrow-left stack--navigation--icon"></span></a>' );
+
+		$next_post_link = $plugin->render_navigation_link('next', 'tourdiaries');
+		$this->assertEquals( trim( $next_post_link ), '<a href="http://example.org/?tourdiaries=the-third-tour-day" rel="next" title="Next: Day 22."><span class="stack--navigation--text says">Next: Day 22</span> <span class="icon-arrow-right stack--navigation--icon"></span></a>' );
 	}
 
 	/**
 	 * Test tourdiaries post type
 	 *
 	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
+	 * @todo $plugin->render_permalink_placeholders()
 	 */
 	public function test_post() {
 
-		$post_id = $this->post_id;
+		$post_id = $this->post_id_2;
 	    $post_permalink = get_post_permalink( $post_id );
 		$term_id = $this->region_term_id;
 		$taxonomy = $this->taxonomy;
@@ -451,11 +520,9 @@ class TourdatesTest extends WP_UnitTestCase {
 		$post_term_id = $plugin->get_post_term_id( $post_id, 'tour_leg' );
 		$this->assertEquals( $post_term_id, $this->tour_leg_term_id_2 );
 
-		$formatted_title = $plugin->filter_post_title_add_day('Post title', $post_id);
-		$this->assertEquals( $formatted_title, '<span class="wpdtrt-tourdates-day--title">Post title</span>' );
-
 		// todo
-		//$permalink_placeholders = $plugin->render_permalink_placeholders();
+		$formatted_title = $plugin->filter_post_title_add_day('Post title', $post_id);
+		$this->assertEquals( $formatted_title, 'Post title' );
 	}
 
 	/**
