@@ -51,6 +51,14 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      */
     protected function wp_setup() {
 
+		parent::set_plugin_dependency(
+			array(
+				'name'      => 'Ambrosite Next/Previous Post Link Plus',
+				'slug'      => 'ambrosite-nextprevious-post-link-plus',
+				'required'  => true
+			)
+		);
+
     	parent::wp_setup();
 
 		add_action( 'init', 			[$this, 'set_rewrite_rules'] );
