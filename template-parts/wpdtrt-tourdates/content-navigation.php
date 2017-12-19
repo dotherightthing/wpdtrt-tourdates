@@ -21,10 +21,10 @@
   $after_title = null; // register_sidebar
   $after_widget = null; // register_sidebar
 
-  // shortcode options
+  // Shortcode options
   $posttype = null;
 
-  // access to plugin
+  // Access to plugin
   $plugin = null;
 
   // Options: display $args + widget $instance settings + access to plugin
@@ -68,6 +68,6 @@
 <!-- stack-navigation -->
 
 <?php
-  // output widget customisations (not output with shortcode)
+  // Output widget customisations (not output with shortcode)
   echo $after_widget;
 ?>

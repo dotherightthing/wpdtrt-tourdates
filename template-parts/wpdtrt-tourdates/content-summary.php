@@ -21,10 +21,10 @@
 	$after_title = null; // register_sidebar
 	$after_widget = null; // register_sidebar
 
-	// shortcode options
+	// Shortcode options
 	$term_id = null;
 
-	// access to plugin
+	// Access to plugin
 	$plugin = null;
 
 	// Options: display $args + widget $instance settings + access to plugin
@@ -44,7 +44,7 @@
 	$taxonomy = $plugin->get_the_taxonomy( $term_id );
 	$summary = '';
 
-	// get the term with the passed ID, rather than the parent page term
+	// Get the term with the passed ID, rather than the parent page term
 	$term = get_term_by( 'id', $term_id, $taxonomy );
 	$tour_slug = $term->slug;
 	$tour_description = $term->description;
@@ -91,6 +91,6 @@
 </div>
 
 <?php
-	// output widget customisations (not output with shortcode)
+	// Output widget customisations (not output with shortcode)
 	echo $after_widget;
 ?>

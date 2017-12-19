@@ -21,12 +21,12 @@
 	$after_title = null; // register_sidebar
 	$after_widget = null; // register_sidebar
 
-	// shortcode options
+	// Shortcode options
 	$term_id = null;
 	$text_before = null;
 	$text_after = null;
 
-	// access to plugin
+	// Access to plugin
 	$plugin = null;
 
 	// Options: display $args + widget $instance settings + access to plugin
@@ -43,6 +43,6 @@
 	$tourlengthdays = $plugin->get_tourlengthdays( $term_id, $text_before, $text_after );
   	echo $tourlengthdays;
 
-	// output widget customisations (not output with shortcode)
+	// Output widget customisations (not output with shortcode)
 	echo $after_widget;
 ?>

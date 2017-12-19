@@ -21,9 +21,9 @@
 	$after_title = null; // register_sidebar
 	$after_widget = null; // register_sidebar
 
-	// shortcode options
+	// Shortcode options
 
-	// access to plugin
+	// Access to plugin
 	$plugin = null;
 
 	// Options: display $args + widget $instance settings + access to plugin
@@ -37,11 +37,12 @@
 	echo $before_widget;
 	echo $before_title . $title . $after_title;
 
+	// Logic
 	global $post;
 	$post_id = $post->ID;
 	$daytotal = $plugin->get_daytotal( $post_id, 'tour' );
 	echo $daytotal;
 
-	// output widget customisations (not output with shortcode)
+	// Output widget customisations (not output with shortcode)
 	echo $after_widget;
 ?>

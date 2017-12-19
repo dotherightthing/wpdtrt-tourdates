@@ -10,6 +10,7 @@
  *
  * @package     WPDTRT_Tourdates
  * @todo        TourdatesTest\test_shortcodes
+ * @todo 		Add background/foreground option
  */
 ?>
 
@@ -24,11 +25,10 @@
 	$after_title = null; // register_sidebar
 	$after_widget = null; // register_sidebar
 
-	// shortcode options
-	// todo add background/foreground option
+	// Shortcode options
 	$term_id = null;
 
-	// access to plugin
+	// Access to plugin
 	$plugin = null;
 
 	// Options: display $args + widget $instance settings + access to plugin
@@ -58,6 +58,6 @@
 <?php
 	endif;
 
-	// output widget customisations (not output with shortcode)
+	// Output widget customisations (not output with shortcode)
 	echo $after_widget;
 ?>
