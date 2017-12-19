@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name:  DTRT Tour Dates
-Plugin URI:   https://github.com/dotherightthing/wpdtrt-soundcloud-pages
-Description:  Display the relative position of content within an assigned date-range.
-Version:      0.1.0
+Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
+Description:  Organise bike touring content by tour dates.
+Version:      1.0.0
 Author:       Dan Smith
 Author URI:   https://profiles.wordpress.org/dotherightthingnz
 License:      GPLv2 or later
@@ -45,10 +45,10 @@ if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
  * @example $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
  * @link https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
  *
- * @since     0.1.0
+ * @since     1.0.0
  * @version   1.0.0
  */
-  define( 'WPDTRT_TOURDATES_VERSION', '0.1' );
+  define( 'WPDTRT_TOURDATES_VERSION', '1.0.0' );
 }
 
 if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
@@ -61,7 +61,7 @@ if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
  * @link https://developer.wordpress.org/reference/functions/plugin_dir_path/
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
  *
- * @since     0.1.0
+ * @since     1.0.0
  * @version   1.0.0
  */
   define( 'WPDTRT_TOURDATES_PATH', plugin_dir_path( __FILE__ ) );
@@ -77,7 +77,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
  * @link https://codex.wordpress.org/Function_Reference/plugin_dir_url
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
  *
- * @since     0.1.0
+ * @since     1.0.0
  * @version   1.0.0
  */
   define( 'WPDTRT_TOURDATES_URL', plugin_dir_url( __FILE__ ) );
@@ -86,7 +86,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 /**
  * Include plugin logic
  *
- * @since     0.1.0
+ * @since     1.0.0
  * @version   1.0.0
  */
 
