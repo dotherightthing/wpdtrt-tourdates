@@ -141,6 +141,11 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'type' => 'text',
         'label' => esc_html__('Text after', 'wpdtrt-tourdates'),
       ),
+      'posttype' => array(
+        'type' => 'text',
+        'label' => esc_html__('Custom Post Type', 'wpdtrt-tourdates'),
+        'tip' => esc_html__('Used for the previous/next navigation bar', 'wpdtrt-tourdates')
+      ),
       /*
       'posttype' => array(
         'type' => 'text',
@@ -285,7 +290,9 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'name' => 'wpdtrt_tourdates_shortcode_navigation',
         'plugin' => $wpdtrt_tourdates_plugin,
         'template' => 'navigation',
-        'selected_instance_options' => array()
+        'selected_instance_options' => array(
+          'posttype'
+        )
       )
     );
   }

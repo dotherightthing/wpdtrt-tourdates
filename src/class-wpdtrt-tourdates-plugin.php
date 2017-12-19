@@ -735,18 +735,32 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 	/**
 	 * Link to next/previous post
-	 * @requires http://www.ambrosite.com/plugins/next-previous-post-link-plus-for-wordpress
-	 * @param $direction string previous|next
-	 * @param $posttype
-	 * @param $taxonomy
+	 * 	Used by $wpdtrt_tourdates_shortcode_navigation
+	 *
+	 * @param string $direction previous|next
+	 * @param string $posttype
+	 * @param string $taxonomy
+	 * @return string HTML hyperlink | ''
+	 *
+	 * @uses http://www.ambrosite.com/plugins/next-previous-post-link-plus-for-wordpress
 	 * @todo Update to limit to the daycontroller category
+	 * @todo Add test
 	 */
-	public function render_navigation_link($direction, $posttype, $taxonomy) {
+	public function render_navigation_link($direction, $posttype) {
 
 		global $post;
-		$id = $post->ID;
 
-		$the_link = false;
+		if ( ! isset( $post ) ) {
+			return;
+		}
+
+		if ( ! function_exists('previous_post_link_plus') ) {
+			return;
+		}
+
+		$post_id = $post->ID;
+		$taxonomy = $this->get_the_taxonomy();
+		$the_link = '';
 
 		if ( $direction == 'previous' ) {
 			$tooltip_prefix = 'Previous';
@@ -770,11 +784,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			'echo' => false
 		);
 
-		$current_daynumber = $this->get_post_daynumber($post->ID);
+		$current_daynumber = $this->get_post_daynumber( $post_id );
 
 		if ( $direction == 'previous' ) {
 			$the_id = previous_post_link_plus( array('return' => 'id') );
-			$adjacent_daynumber = $this->get_post_daynumber($the_id);
+			$adjacent_daynumber = $this->get_post_daynumber( $the_id );
 
 			// Prevent navigation between different tours
 			if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber < $current_daynumber ) ) {
@@ -788,8 +802,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 			// Prevent navigation between different tours
 			if ( ( $adjacent_daynumber > 0 ) && ( $adjacent_daynumber > $current_daynumber ) ) {
-			$the_link = next_post_link_plus( $config );
-			$the_link = str_replace('DAY_NUMBER', $adjacent_daynumber, $the_link);
+				$the_link = next_post_link_plus( $config );
+				$the_link = str_replace('DAY_NUMBER', $adjacent_daynumber, $the_link);
 			}
 		}
 
