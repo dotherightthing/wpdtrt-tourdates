@@ -404,7 +404,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
    * @version   1.0.0
    */
   function wpdtrt_tourdates_activate() {
-    //wpdtrt_tourdates_rewrite_rules();
+    // $this->set_rewrite_rules()
     flush_rewrite_rules();
   }
 
