@@ -6,6 +6,7 @@
  * @since       0.1.0
  *
  * @package     WPDTRT_Tourdates
+ * @see 		TourdatesTest\test_shortcodes
  */
 ?>
 

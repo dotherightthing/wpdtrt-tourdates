@@ -707,6 +707,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @uses http://www.ambrosite.com/plugins/next-previous-post-link-plus-for-wordpress
 	 * @todo Update to limit to the daycontroller category
 	 * @todo Add test
+	 * @see TourdatesTest\test_post_navigation
 	 */
 	public function render_navigation_link($direction, $posttype) {
 
