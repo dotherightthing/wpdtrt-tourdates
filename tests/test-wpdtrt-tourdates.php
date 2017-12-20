@@ -629,19 +629,11 @@ Camping my way around Hong Kong.' );
 		);
 
 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
-		// for call to get_post_term_id()
 		$this->assertEquals(
 			$this->plugin->get_term_id( $this->post_id_4_noregion_notour, 'tour' ),
-			$this->tour_term_id,
-			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
+			0,
+			'No term_id expected, < 3 terms assigned to post ' . $this->post_id_4_noregion_notour
 		);		
-
-		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
-		$this->assertEquals(
-			$this->plugin->get_post_term_id( $this->post_id_4_noregion_notour, 'tour' ),
-			$this->tour_term_id,
-			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
-		);
 
 		// ok here
 		$this->assertEquals(
@@ -651,7 +643,7 @@ Camping my way around Hong Kong.' );
 		);	
 
 		$this->assertEquals(
-			$this->plugin->get_post_term_id( $this->post_id_2, 'tour_leg' ),
+			$this->plugin->get_term_id( $this->post_id_2, 'tour_leg' ),
 			$this->tour_leg_term_id_2,
 			'Wrong term_id returned, for tour_leg assigned to post ' . $this->post_id_2
 		);	

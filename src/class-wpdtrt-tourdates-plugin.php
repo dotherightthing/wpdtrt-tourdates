@@ -195,50 +195,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Get the term tour ID for a specific post so that we can in turn get the tour daynumber
-	 *
-	 * @param int $post_id The post ID
-	 * @param string $term_type Term type (tour|tour_leg)
-	 * @return number $term_id The term tour ID || false
-	 *
-	 * @version 1.0.0
-	 * @since 1.0.0
-	 * @todo This is now a category level option rather than ACF
-	 */
-	public function get_post_term_id( $post_id, $term_type ) {
-
-	  $term_id = false;
-	  $taxonomy = $this->get_the_taxonomy();
-
-	  // get associated taxonomy_terms
-	  // get_the_category() doesn't work with custom post type taxonomies
-	  $terms = get_the_terms( $post_id, $taxonomy );
-
-	  if ( is_array( $terms ) ) {
-
-	  	// sort terms into hierarchical order
-	  	// to get the tour rather than the tour_leg
-	    //$terms = $this->helper_order_tour_terms_by_hierarchy( $terms );
-
-	    //if ( !is_wp_error( $terms ) ) {
-	      foreach ( $terms as $term ) {
-	      //  if ( !empty( $term ) && is_object( $term ) ) {
-
-	          $term_id = $term->term_id;
-	          $term_term_type = $this->get_meta_term_type( $term_id );
-
-	          if ( $term_term_type === $term_type ) {
-	            break;
-	          }
-	        //}
-	      }
-	    }
-	  //}
-
-	  return $term_id;
-	}
-
-	/**
 	 * Get the number of a tour day, relative to the tour start date
 	 * Note that the post has to be published on (for) the target date,
 	 * else this will show the creation date
@@ -274,7 +230,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @param number $id The ID of the post OR term
 	 * @param string $term_type Term type (tour|tour_leg)
-	 * @return number $term_id || false
+	 * @return number $term_id || 0
 	 *
 	 * @version 1.0.0
 	 * @since 1.0.0
@@ -286,6 +242,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_id($id, $term_type) {
 
 		$taxonomy = $this->get_the_taxonomy();
+		$term_id = 0;
 
 		// if $id is the ID of a term in the $taxonomy
 		// then this is a tour leg
@@ -296,22 +253,51 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			$term_term_type = $this->get_meta_term_type( $id );
 
 			// if the supplied ID uses the supplied type, then use the supplied ID
-			if ( $term_type === $term_term_type ) {
+			if ( $term_term_type === $term_type ) {
 				$term_id = $id;
 			}
 			// else use the hierarchical parent's ID (tour_leg -> tour)
-			else {
+			// else use the hierarchical parent's ID (tour -> region)
+			else  {
 				$term = get_term_by( 'id', $id, $taxonomy );
-				$parent_term_id = $term->parent;
-				$term_id = $parent_term_id;
+
+				if ( isset( $term->parent ) ) {
+					$parent_term_id = $term->parent;
+					$term_id = $parent_term_id;
+				}
+				else {
+					global $debug;
+					$debug->log( 'no parent for ' . $id );
+				}
 			}
 		}
 		// else if it isn't then the $id is the ID of a tour day post
 		// and we are getting the start date for term_days_elapsed daynumber
-		else {
-			// when this is called by add_filter( 'the_title', 'wpdtrt_tourdates_post_title_add_day' )
-			// then the term is not passed
-			$term_id = $this->get_post_term_id( $id, $term_type );
+		else if ( $this->helper_post_exists( $id ) ) {
+
+			// get associated taxonomy_terms
+			// get_the_category() doesn't work with custom post type taxonomies
+			$terms = get_the_terms( $id, $taxonomy );
+
+			// if one or more terms were assigned
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				foreach ( $terms as $term ) {
+
+					$tested_term_id = $term->term_id;
+					$term_term_type = $this->get_meta_term_type( $tested_term_id );
+
+					if ( $term_term_type === $term_type ) {
+						$term_id = $tested_term_id;
+						break;
+					}
+				}
+			}
+
+		}
+
+		// get_post_term_id
+		if ( isset( $term_id ) && is_wp_error( $term_id ) ) {
+			echo $term_id->get_error_message();
 		}
 
 		return $term_id;
@@ -332,6 +318,8 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
 	public function get_term_start_date($id, $term_type, $date_format=null) {
+
+		// to test if is post or is term
 
 		$term_id = $this->get_term_id( $id, $term_type );
 
@@ -649,7 +637,51 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	}
 
 	/**
-	 * Create a custom field when a post is saved,
+	 * Only process posts which use our custom post type
+	 *
+	 * @param number $post_id The Post ID
+	 * @return boolean
+	 *
+	 * @see TourdatesTest\test_post
+	 */
+	public function post_has_required_posttype( $post_id ) {
+
+		$post_type = get_post_type( $post_id );
+
+		if ( $post_type !== 'tourdiaries' ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	/**
+	 * the get_post_daynumber() call stack requires access to $term_id
+	 * this requires that 3 terms are assigned: region, tour, tour_leg
+	 *
+	 * @param number $post_id The Post ID
+	 * @return boolean
+	 *
+	 * @see https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+	 * @see TourdatesTest\test_post
+	 */
+	public function post_has_required_terms( $post_id ) {
+
+		$taxonomy = $this->get_the_taxonomy();
+
+		$post_terms = wp_get_post_terms( $post_id, $taxonomy );
+
+		if ( count( $post_terms ) < 3 ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	/**
+	 * Create a custom field when a post is saved, updated, or updated via Quick Edit
 	 * which can be queried by the next/previous_post_link_plus plugin
 	 * and used in the Yoast page title via %%cf_wpdtrt_tourdates_daynumber%%,
 	 * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth)
@@ -674,9 +706,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 			return;
 		}
 
-		$post_type = get_post_type( $post_id );
+		if ( ! $this->post_has_required_posttype( $post_id ) ) {
+			return;
+		}
 
-		if ( $post_type !== 'tourdiaries' ) {
+		// terms might not be added until later (save > edit > update > edit > update..)
+		if ( ! $this->post_has_required_terms( $post_id ) ) {
 			return;
 		}
 
@@ -900,6 +935,20 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// END FILTERS \\\\
 
     //// START HELPERS \\\\
+
+	/**
+	 * Determines if a post, identified by the specified ID, exist
+	 * within the WordPress database.
+	 *
+	 * @param    int $post_id The ID of the post to check
+	 * @return   bool
+	 * @since    1.0.0
+	 *
+	 * @uses 	https://tommcfarlin.com/wordpress-post-exists-by-id/
+	 */
+	public function helper_post_exists( $post_id ) {
+		return is_string( get_post_status( $post_id ) );
+	}
 
 	/**
 	 * Sort terms into hierarchical order
