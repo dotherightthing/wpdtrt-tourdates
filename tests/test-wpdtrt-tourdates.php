@@ -600,8 +600,8 @@ Camping my way around Hong Kong.' );
 	public function test_post_missing_terms() {
 
 		$this->assertEquals(
-			$this->plugin->get_term_id( $this->post_id_4_malformed, 'tour' ),
-			0,
+			$this->plugin->get_term_id( $this->post_id_4_malformed, 'tour' )->get_error_message(),
+			'Tour Dates plugin error: Please assign all three "Tour" levels to $post id = ' . $this->post_id_4_malformed,
 			'No term_id expected, < 3 terms assigned to post ' . $this->post_id_4_malformed
 		);		
 

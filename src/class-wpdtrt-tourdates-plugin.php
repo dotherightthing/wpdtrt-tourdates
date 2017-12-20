@@ -242,7 +242,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_id($id, $term_type) {
 
 		$taxonomy = $this->get_the_taxonomy();
-		$term_id = 0;
 
 		// if $id is the ID of a term in the $taxonomy
 		// then this is a tour leg
@@ -264,10 +263,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 				if ( isset( $term->parent ) ) {
 					$parent_term_id = $term->parent;
 					$term_id = $parent_term_id;
-				}
-				else {
-					global $debug;
-					$debug->log( 'no parent for ' . $id );
 				}
 			}
 		}
@@ -295,9 +290,14 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
 		}
 
-		// get_post_term_id
-		if ( isset( $term_id ) && is_wp_error( $term_id ) ) {
-			echo $term_id->get_error_message();
+		if ( !isset( $term_id ) ) {
+
+			$messages = $this->get_messages();
+			$post_terms_missing_message = $messages['post_terms_missing'];
+			$term_id = new WP_Error(
+				'terms',
+				str_replace( 'N', $id, $post_terms_missing_message )
+			);
 		}
 
 		return $term_id;
@@ -320,9 +320,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_start_date($id, $term_type, $date_format=null) {
 
 		$term_id = $this->get_term_id( $id, $term_type );
-		$term_start_date = '';
 
-		if ( $term_id > 0 ) {
+		if ( is_wp_error( $term_id ) ) {
+			error_log( $term_id->get_error_message() );
+			$term_start_date = '';
+		}
+		else {
 			$term_start_date = $this->get_meta_term_start_date( $term_id );
 
 			if ( $date_format !== null ) {
@@ -386,10 +389,12 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_end_date($id, $term_type, $date_format=null) {
 
 		$term_id = $this->get_term_id( $id, $term_type );
-		$tour_end_date = '';
 
-		if ( $term_id > 0 ) {
-
+		if ( is_wp_error( $term_id ) ) {
+			error_log( $term_id->get_error_message() );
+			$tour_end_date = '';
+		}
+		else {
 			$tour_end_date = $this->get_meta_term_end_date( $term_id );
 
 			if ( $date_format !== null ) {

@@ -173,7 +173,8 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'insufficient_permissions' => __('Sorry, you do not have sufficient permissions to access this page.', 'wpdtrt-tourdates'),
           'options_form_title' => __('General Settings', 'wpdtrt-tourdates'),
           'options_form_description' => __('Please enter your preferences', 'wpdtrt-tourdates'),
-          'options_form_submit' => __('Save Changes', 'wpdtrt-tourdates')
+          'options_form_submit' => __('Save Changes', 'wpdtrt-tourdates'),
+          'post_terms_missing' => __('Tour Dates plugin error: Please assign all three "Tour" levels to $post id = N', 'wpdtrt-tourdates')
         ),
         'plugin_options' => $plugin_options,
         'instance_options' => $instance_options,
