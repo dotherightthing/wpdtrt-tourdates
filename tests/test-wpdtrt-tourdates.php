@@ -1,30 +1,32 @@
 <?php
 /**
- * Unit tests, using PHPUnit and wp-cli.
+ * Unit tests, using PHPUnit, wp-cli, WP_UnitTestCase
+ *
+ * Note that the plugin is 'active' within a WP test environment
+ * so the plugin class has already been instantiated
+ * with the options set in wpdtrt-tourdates.php
+ *
+ * Note: only function names prepended with test_ are run
+ * and $debug logs are output with the test output in Terminal
  *
  * @package wpdtrt_tourdates
  * @see http://kb.dotherightthing.dan/php/wordpress/php-unit-testing-revisited/ - Links
  * @see http://richardsweeney.com/testing-integrations/
  * @see https://gist.github.com/benlk/d1ac0240ec7c44abd393 - Collection of notes on WP_UnitTestCase
  * @see https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory.php
- * @see https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes//factory/class-wp-unittest-factory-for-term.php
+ * @see https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes//factory/
+ * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-pageclass-wp-unittest-factory-for-term.php
+ * @see https://codesymphony.co/writing-wordpress-plugin-unit-tests/#object-factories
  */
 
 /**
- * TourdatesTest unit tests, using PHPUnit, wp-cli, WP_UnitTestCase
- * Note that the plugin is 'active' within a WP test environment
- * so the plugin class has already been instantiated
- * with the options set in wpdtrt-tourdates.php
- * Note: only function names prepended with test_ are run
- * $debug logs are output with the test output in Terminal
+ * WP_UnitTestCase unit tests for wpdtrt_tourdates
  */
 class TourdatesTest extends WP_UnitTestCase {
 
     /**
      * SetUp
      * Automatically called by PHPUnit before each test method is run
-     *
-     * @see https://codesymphony.co/writing-wordpress-plugin-unit-tests/#object-factories
      */
     public function setUp() {
   		// Make the factory objects available.
@@ -58,8 +60,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'thumbnail_id' => ''
 		) );
 
-		// create legs in alphabetical order
-		// so can test sorting into date order
+		// create legs in alphabetical order so we can test resorting into date order
 
 		$this->tour_leg_term_id_1 = $this->mock_tour_leg_term( array(
 			'name' => 'China (Part 1)',
@@ -176,7 +177,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	    ) );
 
 	    // https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
-	    $this->post_id_4_noregion_notour = $this->create_post( array(
+	    $this->post_id_4_malformed = $this->create_post( array(
 	    	'post_title' => 'The Fourth Tour Day',
 	    	'post_date' => '2015-09-24 23:00:00',
 	    	'term_ids' => array(
@@ -209,7 +210,7 @@ class TourdatesTest extends WP_UnitTestCase {
     	wp_delete_post( $this->post_id_1, true );
     	wp_delete_post( $this->post_id_2, true );
     	wp_delete_post( $this->post_id_3, true );
-    	wp_delete_post( $this->post_id_4_noregion_notour, true );
+    	wp_delete_post( $this->post_id_4_malformed, true );
     }
 
     /**
@@ -290,8 +291,8 @@ class TourdatesTest extends WP_UnitTestCase {
            'post_status' => 'publish'
         ]);
 
-        global $debug;
-        $debug->log('Created post ' . $post_title . ' with id of ' . $post_id);
+        //global $debug;
+        //$debug->log('Created post ' . $post_title . ' with id of ' . $post_id);
 
  		// test the state of things after the 'save_post' action
  		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
@@ -538,8 +539,6 @@ Camping my way around Hong Kong.' );
 	/**
 	 * Test tourdiaries post type navigation
 	 * 	Note: ambrosite-nextprevious-post-link-plus is loaded in bootstrap.php
-	 *
-	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
 	 */
 	public function test_post_navigation() {
 
@@ -563,7 +562,6 @@ Camping my way around Hong Kong.' );
 	/**
 	 * Test tourdiaries post type (plural)
 	 *
-	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
 	 * @todo $this->plugin->render_permalink_placeholders()
 	 */
 	public function test_posts() {
@@ -572,7 +570,7 @@ Camping my way around Hong Kong.' );
 			$this->post_id_1,
 			$this->post_id_2,
 			$this->post_id_3,
-			$this->post_id_4_noregion_notour
+			// $this->post_id_4_malformed - see test_post_missing_terms()
 		);
 
 		foreach( $post_ids as $post_id ) {
@@ -580,13 +578,13 @@ Camping my way around Hong Kong.' );
 			// plugin calculations
 
 			$this->assertEquals(
-				$this->plugin->get_term_start_date( $this->post_id, 'tour' ),
+				$this->plugin->get_term_start_date( $post_id, 'tour' ),
 				'2015-9-2 00:01:00',
 				'Wrong start date returned, for tour assigned to post ' . $post_id
 			);
 
 			$this->assertEquals(
-				$this->plugin->get_term_end_date( $this->post_id, 'tour' ),
+				$this->plugin->get_term_end_date( $post_id, 'tour' ),
 				'2016-6-25 00:01:00',
 				'Wrong end date returned, for tour assigned to post ' . $post_id
 			);
@@ -594,9 +592,40 @@ Camping my way around Hong Kong.' );
 	}
 
 	/**
+	 * Test tourdiaries post type which is missing the 3 required terms
+	 *
+	 * @see https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+	 */
+	public function test_post_missing_terms() {
+
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_4_malformed, 'tour' ),
+			0,
+			'No term_id expected, < 3 terms assigned to post ' . $this->post_id_4_malformed
+		);		
+
+		$this->assertEquals(
+			$this->plugin->get_term_start_date( $this->post_id_4_malformed, 'tour' ),
+			'',
+			'Start date not expected, < 3 terms assigned to post ' . $this->post_id_4_malformed
+		);
+
+		$this->assertEquals(
+			$this->plugin->get_term_end_date( $this->post_id_4_malformed, 'tour' ),
+			'',
+			'End date not expected, < 3 terms assigned to post ' . $this->post_id_4_malformed
+		);
+
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_4_malformed, 'tour_leg' ),
+			$this->tour_leg_term_id_2,
+			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_malformed
+		);	
+	}
+
+	/**
 	 * Test tourdiaries post type
 	 *
-	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
 	 * @todo $this->plugin->render_permalink_placeholders()
 	 */
 	public function test_post() {
@@ -627,20 +656,6 @@ Camping my way around Hong Kong.' );
 			$this->tour_term_id,
 			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_2
 		);
-
-		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
-		$this->assertEquals(
-			$this->plugin->get_term_id( $this->post_id_4_noregion_notour, 'tour' ),
-			0,
-			'No term_id expected, < 3 terms assigned to post ' . $this->post_id_4_noregion_notour
-		);		
-
-		// ok here
-		$this->assertEquals(
-			$this->plugin->get_term_id( $this->post_id_4_noregion_notour, 'tour_leg' ),
-			$this->tour_leg_term_id_2,
-			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
-		);	
 
 		$this->assertEquals(
 			$this->plugin->get_term_id( $this->post_id_2, 'tour_leg' ),
