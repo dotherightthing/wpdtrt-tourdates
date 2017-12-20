@@ -262,6 +262,15 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
             'tip' => 'Media &gt; Library',
             'todo_condition' => 'term_type == "tour"'
           ),
+          'disabled' => array(
+            'type' => 'checkbox',
+            'label' => esc_html__('Disabled', 'wpdtrt-tourdates'),
+            'admin_table' => true,
+            'admin_table_label' => esc_html__('X', 'wpdtrt-tourdates'),
+            'admin_table_sort' => true,
+            'tip' => 'Disables terms which have no posts yet',
+            'todo_condition' => 'term_type == "tour_leg"'
+          ),
         ),
         'labels' => array(
           'slug' => 'tours',

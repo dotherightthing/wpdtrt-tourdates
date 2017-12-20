@@ -71,6 +71,42 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     //// START SETTERS AND GETTERS \\\\
 
 	/**
+	 * Get the value of the first_visit metadata/field attached to a particular term/tour
+	 *
+	 * @param number $term_id The Term ID
+	 * @return mixed $first_visit The first_visit checkbox state (checked:1, unchecked:'')
+	 *
+	 * @version 1.0.0
+	 * @since 1.0.0
+	 *
+	 * @see TourdatesTest
+	 */
+	public function get_meta_term_first_visit( $term_id ) {
+
+	  $first_visit = get_term_meta( $term_id, 'first_visit', true );
+
+	  return $first_visit;
+	}
+
+	/**
+	 * Get the value of the disabled metadata/field attached to a particular term/tour
+	 *
+	 * @param number $term_id The Term ID
+	 * @return mixed $disabled The disabled checkbox state (checked:1, unchecked:'')
+	 *
+	 * @version 1.0.0
+	 * @since 1.0.0
+	 *
+	 * @see TourdatesTest
+	 */
+	public function get_meta_term_disabled( $term_id ) {
+
+	  $disabled = get_term_meta( $term_id, 'disabled', true );
+
+	  return $disabled;
+	}
+
+	/**
 	 * Get the value of the leg_count metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID
@@ -79,8 +115,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 * @todo calculate this instead, allowing for only unique legs
 	 */
 	public function get_meta_tour_category_leg_count( $term_id ) {
@@ -99,8 +134,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_meta_term_start_date( $term_id ) {
 
@@ -119,8 +153,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_meta_term_end_date( $term_id ) {
 
@@ -139,8 +172,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 * @todo Add a media library button
 	 */
 	public function get_meta_thumbnail_id( $term_id ) {
@@ -161,8 +193,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_meta_term_type( $term_id ) {
 
@@ -180,7 +211,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_taxonomy
+	 * @see TourdatesTest
 	 */
 	public function get_the_taxonomy() {
 
@@ -204,7 +235,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 * @todo Consider rewriting into a shortcode
 	 */
 	public function get_post_daynumber($post_id) {
@@ -235,9 +266,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_post
-	 * @todo TourdatesTest\test_tour_term
-	 * @todo TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_id($id, $term_type) {
 
@@ -314,8 +343,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_start_date($id, $term_type, $date_format=null) {
 
@@ -348,8 +376,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_start_day( $term_id ) {
 
@@ -382,9 +409,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_post
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_end_date($id, $term_type, $date_format=null) {
 
@@ -415,8 +440,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_start_month( $term_id ) {
 		$term_type = $this->get_meta_term_type( $term_id );
@@ -431,8 +455,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @param number $term_id The term ID
 	 * @return string $tour_leg_end_month The month when the tour ended (Month YYYY)
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_end_month( $term_id ) {
 		$term_type = $this->get_meta_term_type( $term_id );
@@ -452,8 +475,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 * @todo wpdtrt_tourdates_acf_tour_category_leg_count can be determined from filtering child categories to wpdtrt_tourdates_acf_tour_category_first_visit
 	 */
 	public function get_term_leg_count($term_id, $text_before='', $text_after='') {
@@ -481,8 +503,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @since 1.0.0
 	 *
 	 * @see http://www.timeanddate.com/date/durationresult.html?d1=2&m1=9&y1=2015&d2=30&m2=6&y2=2016
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_days_elapsed($start_date, $end_date) {
 		// http://stackoverflow.com/a/3923228
@@ -511,8 +532,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
 	 * @see https://codex.wordpress.org/Function_Reference/get_term_by
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_leg_name($tour_leg_slug) {
 
@@ -535,8 +555,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 *
 	 * @see https://wordpress.stackexchange.com/questions/16394/how-to-get-a-taxonomy-term-name-by-the-slug
 	 * @see https://codex.wordpress.org/Function_Reference/get_term_by
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_term_leg_id($tour_leg_slug) {
 
@@ -557,7 +576,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 */
 	public function get_daytotal( $post_id=null, $term_type ) {
 
@@ -586,7 +605,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\todo_location
+	 * @see TourdatesTest
 	 */
 	public function get_html_latlng( $key ) {
 
@@ -628,8 +647,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
-	 * @see TourdatesTest\test_tour_term
-	 * @see TourdatesTest\test_tour_leg_term
+	 * @see TourdatesTest
 	 */
 	public function get_tourlengthdays( $term_id, $text_before='', $text_after='' ) {
 		// convert shortcode argument to a number
@@ -652,7 +670,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @param number $post_id The Post ID
 	 * @return boolean
 	 *
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 */
 	public function post_has_required_posttype( $post_id ) {
 
@@ -674,7 +692,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @return boolean
 	 *
 	 * @see https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 */
 	public function post_has_required_terms( $post_id ) {
 
@@ -708,7 +726,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://wordpress.stackexchange.com/questions/61148/change-slug-with-custom-field
 	 * @todo meta_key workaround requires each post to be resaved/updated, this is not ideal
 	 * @see https://codex.wordpress.org/Plugin_API/Action_Reference/save_post#Custom_Post_Type:_.27book.27
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 */
 	public function save_post_daynumber( $post_id, $post, $update ) {
 
@@ -750,9 +768,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @return string HTML hyperlink | ''
 	 *
 	 * @uses http://www.ambrosite.com/plugins/next-previous-post-link-plus-for-wordpress
-	 * @todo Update to limit to the daycontroller category
-	 * @todo Add test
-	 * @see TourdatesTest\test_post_navigation
+	 * @see TourdatesTest
 	 */
 	public function render_navigation_link($direction, $posttype) {
 
@@ -837,7 +853,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://wordpress.org/support/topic/the_title-filter-only-for-page-title-display
 	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/the_title
 	 * @todo: this is outputting into the Primary Navigation menu, need to check !if_menu
-	 * @see TourdatesTest\test_post
+	 * @see TourdatesTest
 	 */
 
 	public function filter_post_title_add_day( $title, $post_id=null ) {
@@ -977,8 +993,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
      * @see https://wpseek.com/function/_get_term_hierarchy/
      * @see https://wordpress.stackexchange.com/questions/137926/sorting-attributes-order-when-using-get-the-terms
      * @uses WPDTRT helpers/permalinks.php
-	 *
-	 * @todo TourdatesTest\test_tour_term
+	 * @see TourdatesTest
 	 */
 	function helper_order_tour_terms_by_hierarchy( $tour_terms ) {
 
@@ -1002,7 +1017,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @param {array} $tour_term_ids Array of term IDs (e.g. tour legs)
 	 * @return {array} $tour_term_ids Sorted terms
 	 * @see https://stackoverflow.com/a/22231045/6850747
-	 * @see TourdatesTest\test_tour_term
+	 * @see TourdatesTest
 	 */
 	function helper_order_tour_terms_by_date( $tour_term_ids ) {
 

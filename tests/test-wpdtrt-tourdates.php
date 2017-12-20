@@ -56,7 +56,6 @@ class TourdatesTest extends WP_UnitTestCase {
 			'term_type' => 'tour',
 			'start_date' => '2015-9-2',
 			'end_date' => '2016-6-25',
-			'first_visit' => '',
 			'leg_count' => '6',
 			'thumbnail_id' => ''
 		) );
@@ -72,7 +71,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2015-9-10',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => 926
+			'thumbnail_id' => 926,
+			'disabled' => '' // 0
 		) );
 
 		$this->tour_leg_term_id_4 = $this->mock_tour_leg_term( array(
@@ -82,9 +82,10 @@ class TourdatesTest extends WP_UnitTestCase {
 			'term_type' => 'tour_leg',
 			'start_date' => '2015-11-29',
 			'end_date' => '2016-1-17',
-			'first_visit' => 0,
+			'first_visit' => '', // 0
 			'leg_count' => '',
-			'thumbnail_id' => 926
+			'thumbnail_id' => 926,
+			'disabled' => 1
 		) );
 
 		$this->tour_leg_term_id_5 = $this->mock_tour_leg_term( array(
@@ -96,7 +97,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2016-3-14',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => ''
+			'thumbnail_id' => '',
+			'disabled' => 1
 		) );
 
 		$this->tour_leg_term_id_6 = $this->mock_tour_leg_term( array(
@@ -108,7 +110,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2016-6-12',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => ''
+			'thumbnail_id' => '',
+			'disabled' => 1
 		) );
 
 		$this->tour_leg_term_id_3 = $this->mock_tour_leg_term( array(
@@ -120,7 +123,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2015-11-28',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => ''
+			'thumbnail_id' => '',
+			'disabled' => 1
 		) );
 
 		$this->tour_leg_term_id_7 = $this->mock_tour_leg_term( array(
@@ -132,7 +136,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2016-6-25',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => ''
+			'thumbnail_id' => '',
+			'disabled' => 1
 		) );
 
 		$this->tour_leg_term_id_2 = $this->mock_tour_leg_term( array(
@@ -144,7 +149,8 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date' => '2015-10-5',
 			'first_visit' => 1,
 			'leg_count' => '',
-			'thumbnail_id' => ''
+			'thumbnail_id' => '',
+			'disabled' => '' // 0
 		) );
 
 	    $this->post_id_1 = $this->create_post( array(
@@ -412,6 +418,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$first_visit = null;
 		$leg_count = null;
 		$thumbnail_id = null;
+		$disabled = null;
 
 		extract( $options, EXTR_IF_EXISTS );
 
@@ -428,7 +435,8 @@ class TourdatesTest extends WP_UnitTestCase {
 		update_term_meta($term_id, 'end_date', $end_date);
 		update_term_meta($term_id, 'first_visit', $first_visit);
 		update_term_meta($term_id, 'leg_count', $leg_count);
-		update_term_meta($term_id, 'thumbnail_id', $thumbnail_id); // todo
+		update_term_meta($term_id, 'thumbnail_id', $thumbnail_id);
+		update_term_meta($term_id, 'disabled', $disabled);
 
 		return $term_id;
 	}
@@ -748,12 +756,6 @@ Camping my way around Hong Kong.' );
 		);
 
 		$this->assertEquals(
-			get_term_meta( $this->tour_term_id, 'first_visit', true ),
-			'',
-			'tour has the wrong first_visit state, when queried directly'
-		);
-
-		$this->assertEquals(
 			get_term_meta( $this->tour_term_id, 'leg_count', true ),
 			6,
 			'tour has the wrong leg count, when queried directly'
@@ -1011,15 +1013,29 @@ Camping my way around Hong Kong.' );
 		// 1
 		$this->assertEquals(
 			get_term_meta( $this->tour_leg_term_id_1, 'first_visit', true ),
-			true,
+			1, // checked
 			'tour_leg has wrong value for first_visit, when queried directly'
 		);
 
 		// 4
 		$this->assertEquals(
 			get_term_meta( $this->tour_leg_term_id_4, 'first_visit', true ),
-			0,
+			'', // unchecked
 			'tour_leg has wrong value for first_visit, when queried directly'
+		);
+
+		// 1
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_1, 'disabled', true ),
+			'', // unchecked
+			'tour_leg is disabled, when queried directly'
+		);
+
+		// 7
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_7, 'disabled', true ),
+			1, // checked
+			'tour_leg is not disabled, when queried directly'
 		);
 
 		// term meta, queried via plugin
@@ -1050,6 +1066,34 @@ Camping my way around Hong Kong.' );
 			$this->plugin->get_meta_term_end_date( $this->tour_leg_term_id_4 ),
 			'2016-1-17 00:01:00',
 			'tour_leg has wrong end_date, when queried by plugin'
+		);
+
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_meta_term_first_visit( $this->tour_leg_term_id_1 ),
+			1, // checked
+			'tour_leg has wrong value for first_visit, when queried directly'
+		);
+
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_meta_term_first_visit( $this->tour_leg_term_id_4 ),
+			'', // unchecked
+			'tour_leg has wrong value for first_visit, when queried directly'
+		);
+
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_meta_term_disabled( $this->tour_leg_term_id_1 ),
+			'', // unchecked
+			'tour_leg is disabled, when queried by plugin'
+		);
+
+		// 7
+		$this->assertEquals(
+			$this->plugin->get_meta_term_disabled( $this->tour_leg_term_id_7 ),
+			1, // checked
+			'tour_leg is not disabled, when queried by plugin'
 		);
 
 		// plugin calculations
