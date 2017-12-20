@@ -243,7 +243,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * Note that the post has to be published on (for) the target date,
 	 * else this will show the creation date
 	 * @param number $post_id The post ID
-	 * @return number $post_daynumber The day number
+	 * @return mixed $post_daynumber The day number | false
 	 *
 	 * @version 1.0.0
 	 * @since 1.0.0
@@ -254,8 +254,9 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_post_daynumber($post_id) {
 
 		$post_daynumber = false;
+		$taxonomy = $this->get_the_taxonomy();
 		$term_type = 'tour';
-
+		
 		$tour_start_date = $this->get_term_start_date( $post_id, $term_type );
 
 		if ( ! $tour_start_date ) {
@@ -285,7 +286,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_id($id, $term_type) {
 
 		$taxonomy = $this->get_the_taxonomy();
-		$term_id = false;
 
 		// if $id is the ID of a term in the $taxonomy
 		// then this is a tour leg
@@ -333,7 +333,6 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_term_start_date($id, $term_type, $date_format=null) {
 
-		$term_start_date = false;
 		$term_id = $this->get_term_id( $id, $term_type );
 
 		$term_start_date = $this->get_meta_term_start_date( $term_id );
@@ -391,6 +390,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 *
+	 * @see TourdatesTest\test_post
 	 * @see TourdatesTest\test_tour_term
 	 * @see TourdatesTest\test_tour_leg_term
 	 */
