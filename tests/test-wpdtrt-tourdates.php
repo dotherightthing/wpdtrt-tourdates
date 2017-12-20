@@ -33,6 +33,8 @@ class TourdatesTest extends WP_UnitTestCase {
         $this->taxonomy = $this->create_taxonomy();
         $this->create_customposttype();
 
+        $this->plugin = $this->taxonomy->get_plugin();
+
 		// store results as properties, for sharing between test methods
 
 		$this->taxonomy_name = 'wpdtrt_tourdates_taxonomy_tour'; // $taxonomy->get_name()
@@ -172,6 +174,15 @@ class TourdatesTest extends WP_UnitTestCase {
 	    		$this->tour_leg_term_id_2
 	    	)
 	    ) );
+
+	    // https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+	    $this->post_id_4_noregion_notour = $this->create_post( array(
+	    	'post_title' => 'The Fourth Tour Day',
+	    	'post_date' => '2015-09-24 23:00:00',
+	    	'term_ids' => array(
+	    		$this->tour_leg_term_id_2
+	    	)
+	    ) );
     }
 
     /**
@@ -195,7 +206,10 @@ class TourdatesTest extends WP_UnitTestCase {
     	wp_delete_term( $this->tour_leg_term_id_6, $this->taxonomy_name );
     	wp_delete_term( $this->tour_leg_term_id_7, $this->taxonomy_name );
 
+    	wp_delete_post( $this->post_id_1, true );
     	wp_delete_post( $this->post_id_2, true );
+    	wp_delete_post( $this->post_id_3, true );
+    	wp_delete_post( $this->post_id_4_noregion_notour, true );
     }
 
     /**
@@ -269,6 +283,10 @@ class TourdatesTest extends WP_UnitTestCase {
 
     	extract( $options, EXTR_IF_EXISTS );
 
+		$taxonomy_name = 	$this->taxonomy_name;
+		$taxonomy = 		$this->taxonomy;
+		$plugin = 			$taxonomy->get_plugin();	
+
  		$post_id = $this->factory->post->create([
            'post_title' => $post_title,
            'post_date' => $post_date,
@@ -276,7 +294,33 @@ class TourdatesTest extends WP_UnitTestCase {
            'post_status' => 'publish'
         ]);
 
-        wp_set_object_terms( $post_id, $term_ids, $this->taxonomy_name );
+        global $debug;
+        $debug->log('Created post ' . $post_title . ' with id of ' . $post_id);
+
+ 		// test the state of things after the 'save_post' action
+ 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+		$this->assertFalse(
+			$this->plugin->post_has_required_terms( $post_id ),
+			$post_title . ' should not be assigned terms until wp_set_object_terms()'
+		);
+
+ 		// test the state of things after the 'save_post' action
+ 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+		$this->assertTrue(
+			$this->plugin->post_has_required_posttype( $post_id ),
+			$post_title . ' does not have the required posttype'
+		);
+
+		// set the terms
+        wp_set_object_terms( $post_id, $term_ids, $taxonomy_name );
+
+ 		// test the state of things after the 'save_post' action + and the terms have been set
+ 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+ 		// TODO
+		//$this->assertTrue(
+		//	$this->plugin->post_has_required_terms( $post_id ),
+		//	$post_title . ' has not been assigned the required terms'
+		//);
 
         // republish post - see https://github.com/dotherightthing/wpdtrt-tourdates/issues/1
         //wp_update_post( array(
@@ -406,29 +450,54 @@ class TourdatesTest extends WP_UnitTestCase {
 	 * Checks that we are dealing with the expected config
 	 */
 	public function test_config() {
-		$taxonomy = 		$this->taxonomy;
 		
-		$plugin = 			$taxonomy->get_plugin();	
-		$this->assertTrue( is_object($plugin) );
+		$this->assertTrue(
+			is_object( $this->taxonomy->get_plugin() ),
+			'Taxonomy is not an object'
+		);
 
-		$name = 			$taxonomy->get_name();	
-		$this->assertTrue( is_string($name) );
-		$this->assertEquals( $name, 'wpdtrt_tourdates_taxonomy_tour' );
-		$this->assertTrue( taxonomy_exists( $name ) );
+		$this->assertTrue(
+			is_string( $this->taxonomy->get_name() ),
+			'Taxonomy name is not a string'
+		);
 
-		$instance_options = $taxonomy->get_instance_options();
-		$this->assertTrue( is_array($instance_options) );
-		$this->assertEquals( $instance_options, array() );
+		$this->assertEquals(
+			$this->taxonomy->get_name(),
+			'wpdtrt_tourdates_taxonomy_tour',
+			'Taxonomy name is set to the wrong value'
+		);
 
-		$labels = 			$taxonomy->get_labels();	
-		$this->assertTrue( is_array($labels) );
-		$this->assertEquals( $labels, array(
-          'slug' => 'tours',
-          'singular' => 'Tour',
-          'plural' => 'Tours',
-          'description' => 'Multiday rides',
-          'posttype' => 'tourdiaries'
-        ) );
+		$this->assertTrue(
+			taxonomy_exists( $this->taxonomy->get_name() ),
+			'Taxonomy does not exist'
+		);
+
+		$this->assertTrue(
+			is_array( $this->taxonomy->get_instance_options() ),
+			'Instance options is not an array'
+		);
+
+		$this->assertEquals(
+			$this->taxonomy->get_instance_options(),
+			array(),
+			'Instance options is not an empty array'
+		);
+
+		$this->assertTrue(
+			is_array( $this->taxonomy->get_labels() ),
+			'Labels is not an array'
+		);
+		$this->assertEquals(
+			$this->taxonomy->get_labels(),
+			array(
+	          'slug' => 'tours',
+	          'singular' => 'Tour',
+	          'plural' => 'Tours',
+	          'description' => 'Multiday rides',
+	          'posttype' => 'tourdiaries'
+	        ),
+	        'Labels array contains the wrong values'
+		);
 	}
 
 	/**
@@ -442,19 +511,27 @@ class TourdatesTest extends WP_UnitTestCase {
 	public function test_shortcodes() {
 
 		// todo https://github.com/dotherightthing/wpdtrt-plugin/issues/43
-		$term_id = $this->tour_leg_term_id_1;
-		$tour_leg_term_id_1_tourlengthdays = do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $term_id .'" text_before="" text_after=" days"]' );
-		$this->assertEquals( trim( $tour_leg_term_id_1_tourlengthdays ), '9 days' );
+		$this->assertEquals(
+			trim( do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $this->tour_leg_term_id_1 .'" text_before="" text_after=" days"]' ) ),
+			'9 days',
+			'wpdtrt_tourdates_shortcode_tourlengthdays does not return the correct tourlength'
+		);
 
-		$post_id = $this->post_id_2;
-	    $post_permalink = get_post_permalink( $post_id );
-		$this->go_to( $post_permalink );
+		$this->go_to(
+			get_post_permalink( $this->post_id_2 )
+		);
 
-		$post_daynumber = do_shortcode( '[wpdtrt_tourdates_shortcode_daynumber]' );
-		$this->assertEquals( trim( $post_daynumber ), '21' );
+		$this->assertEquals(
+			trim( do_shortcode( '[wpdtrt_tourdates_shortcode_daynumber]' ) ),
+			'21',
+			'wpdtrt_tourdates_shortcode_daynumber does not return the correct daynumber'
+		);
 
-		$post_daytotal = do_shortcode( '[wpdtrt_tourdates_shortcode_daytotal]' );
-		$this->assertEquals( trim( $post_daytotal ), '298' );
+		$this->assertEquals(
+			trim( do_shortcode( '[wpdtrt_tourdates_shortcode_daytotal]' ) ),
+			'298',
+			'wpdtrt_tourdates_shortcode_daytotal does not return the correct daytotal'
+		);
 
 /*
 		$term_summary = do_shortcode( '[wpdtrt_tourdates_shortcode_summary term_id="' . $this->tour_leg_term_id_5 . '"]' );
@@ -478,64 +555,137 @@ Camping my way around Hong Kong.' );
 	 */
 	public function test_post_navigation() {
 
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-		$post_id = $this->post_id_2;
-	    $post_permalink = get_post_permalink( $post_id );
-		$this->go_to( $post_permalink );
+		$this->go_to(
+			get_post_permalink( $this->post_id_2 )
+		);
 
-		$previous_post_link = $plugin->render_navigation_link('previous', 'tourdiaries');
-		$this->assertEquals( trim( $previous_post_link ), '<a href="http://example.org/?tourdiaries=the-first-tour-day" rel="prev" title="Previous: Day 20."><span class="stack--navigation--text says">Previous: Day 20</span> <span class="icon-arrow-left stack--navigation--icon"></span></a>' );
+		$this->assertEquals(
+			trim( $this->plugin->render_navigation_link('previous', 'tourdiaries') ),
+			'<a href="http://example.org/?tourdiaries=the-first-tour-day" rel="prev" title="Previous: Day 20."><span class="stack--navigation--text says">Previous: Day 20</span> <span class="icon-arrow-left stack--navigation--icon"></span></a>',
+			'Previous rendered navigation link not correct'
+		);
 
-		$next_post_link = $plugin->render_navigation_link('next', 'tourdiaries');
-		$this->assertEquals( trim( $next_post_link ), '<a href="http://example.org/?tourdiaries=the-third-tour-day" rel="next" title="Next: Day 22."><span class="stack--navigation--text says">Next: Day 22</span> <span class="icon-arrow-right stack--navigation--icon"></span></a>' );
+		$this->assertEquals(
+			trim( $this->plugin->render_navigation_link('next', 'tourdiaries') ),
+			'<a href="http://example.org/?tourdiaries=the-third-tour-day" rel="next" title="Next: Day 22."><span class="stack--navigation--text says">Next: Day 22</span> <span class="icon-arrow-right stack--navigation--icon"></span></a>',
+			'Next rendered navigation link not correct'
+		);
+	}
+
+	/**
+	 * Test tourdiaries post type (plural)
+	 *
+	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
+	 * @todo $this->plugin->render_permalink_placeholders()
+	 */
+	public function test_posts() {
+
+		$post_ids = array(
+			$this->post_id_1,
+			$this->post_id_2,
+			$this->post_id_3,
+			$this->post_id_4_noregion_notour
+		);
+
+		foreach( $post_ids as $post_id ) {
+
+			// plugin calculations
+
+			$this->assertEquals(
+				$this->plugin->get_term_start_date( $this->post_id, 'tour' ),
+				'2015-9-2 00:01:00',
+				'Wrong start date returned, for tour assigned to post ' . $post_id
+			);
+
+			$this->assertEquals(
+				$this->plugin->get_term_end_date( $this->post_id, 'tour' ),
+				'2016-6-25 00:01:00',
+				'Wrong end date returned, for tour assigned to post ' . $post_id
+			);
+		}
 	}
 
 	/**
 	 * Test tourdiaries post type
 	 *
 	 * @see https://stackoverflow.com/questions/35442512/how-to-use-wp-unittestcase-go-to-to-simulate-current-page
-	 * @todo $plugin->render_permalink_placeholders()
+	 * @todo $this->plugin->render_permalink_placeholders()
 	 */
 	public function test_post() {
 
-		$post_id = $this->post_id_2;
-	    $post_permalink = get_post_permalink( $post_id );
-		$term_id = $this->region_term_id;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-
 		// plugin calculations
 
-		$plugin_daynumber = $plugin->get_post_daynumber( $post_id );
-		$this->assertEquals( $plugin_daynumber, 21 );
+		$this->assertEquals(
+			$this->plugin->get_post_daynumber( $this->post_id_2 ),
+			21,
+			'Wrong daynumber returned, for post ' . $this->post_id_2
+		);
 
 		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/1
-		$plugin_daytotal = $plugin->get_daytotal( $post_id, 'tour' );
-		$this->assertEquals( $plugin_daytotal, 298 );
+		$this->assertEquals(
+			$this->plugin->get_daytotal( $this->post_id_2, 'tour' ),
+			298,
+			'Wrong daytotal returned, relative to tour assigned to post ' . $this->post_id_2
+		);
 
-		$term_id = $plugin->get_term_id( $post_id, 'tour_leg' );
-		$this->assertEquals( $term_id, $this->tour_leg_term_id_2 );
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_2, 'tour_leg' ),
+			$this->tour_leg_term_id_2,
+			'Wrong term_id returned, for tour_leg assigned to post ' . $this->post_id_2
+		);
 
-		$post_term_id = $plugin->get_post_term_id( $post_id, 'tour_leg' );
-		$this->assertEquals( $post_term_id, $this->tour_leg_term_id_2 );
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_2, 'tour' ),
+			$this->tour_term_id,
+			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_2
+		);
+
+		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+		// for call to get_post_term_id()
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_4_noregion_notour, 'tour' ),
+			$this->tour_term_id,
+			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
+		);		
+
+		// https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
+		$this->assertEquals(
+			$this->plugin->get_post_term_id( $this->post_id_4_noregion_notour, 'tour' ),
+			$this->tour_term_id,
+			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
+		);
+
+		// ok here
+		$this->assertEquals(
+			$this->plugin->get_term_id( $this->post_id_4_noregion_notour, 'tour_leg' ),
+			$this->tour_leg_term_id_2,
+			'Wrong term_id returned, for tour assigned to post ' . $this->post_id_4_noregion_notour
+		);	
+
+		$this->assertEquals(
+			$this->plugin->get_post_term_id( $this->post_id_2, 'tour_leg' ),
+			$this->tour_leg_term_id_2,
+			'Wrong term_id returned, for tour_leg assigned to post ' . $this->post_id_2
+		);	
 
 		// todo
-		$formatted_title = $plugin->filter_post_title_add_day('Post title', $post_id);
-		$this->assertEquals( $formatted_title, 'Post title' );
+		$this->assertEquals(
+			$this->plugin->filter_post_title_add_day('Post title', $this->post_id_2),
+			'Post title',
+			'Post title filter does not add day to title of post ' . $this->post_id_2
+		);
 	}
 
 	/**
 	 * Test taxonomy
 	 */
 	public function test_taxonomy() {
-		$term_id = $this->region_term_id;
-		$taxonomy = $this->taxonomy;
-		$taxonomy_name = $this->taxonomy_name;
-		$plugin = $taxonomy->get_plugin();
 
-		$tax = $plugin->get_the_taxonomy();
-		$this->assertEquals( $tax, $taxonomy_name );
+		$this->assertEquals(
+			$this->plugin->get_the_taxonomy(),
+			$this->taxonomy_name,
+			'Taxonomy has the wrong name'
+		);
 	}
 
 	/**
@@ -543,15 +693,15 @@ Camping my way around Hong Kong.' );
 	 */
 	public function todo_location() {
 
-		$term_id = $this->region_term_id;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-
 		// plugin calculations
-
+		/*
 		$key = '';
-		$plugin_html_latlng = $plugin->get_html_latlng( $key );
-		$this->assertEquals( $plugin_html_latlng, 12345 );
+		$this->assertEquals(
+			$this->plugin->get_html_latlng( $key ),
+			12345,
+			'Wrong lat/lng returned for ' . $key
+		);
+		*/
 	}
 
 	/**
@@ -559,19 +709,21 @@ Camping my way around Hong Kong.' );
 	 */
 	public function test_region_term() {
 
-		$term_id = $this->region_term_id;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-
 		// term meta, queried directly
 
-		$meta_term_type = get_term_meta( $term_id, 'term_type', true );
-		$this->assertEquals( $meta_term_type, 'region' );
+		$this->assertEquals(
+			get_term_meta( $this->region_term_id, 'term_type', true ),
+			'region',
+			'region has the wrong term_type, when queried directly'
+		);
 
 		// term meta, queried via plugin
 
-		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
-		$this->assertEquals( $plugin_meta_term_type, 'region' );
+		$this->assertEquals(
+			$this->plugin->get_meta_term_type( $this->region_term_id ),
+			'region',
+			'region has the wrong term_type, when queried by plugin'
+		);
 	}
 
 	/**
@@ -579,267 +731,426 @@ Camping my way around Hong Kong.' );
 	 */
 	public function test_tour_term() {
 
-		$term_id = $this->tour_term_id;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-
 		// term meta, queried directly
 
-		$meta_term_type = get_term_meta( $term_id, 'term_type', true );
-		$this->assertEquals( $meta_term_type, 'tour' );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'term_type', true ),
+			'tour',
+			'tour has the wrong term_type, when queried directly'
+		);
 
-		$meta_start_date = get_term_meta( $term_id, 'start_date', true );
-		$this->assertEquals( $meta_start_date, '2015-9-2' );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'start_date', true ),
+			'2015-9-2',
+			'tour has the wrong start date, when queried directly'
+		);
 
-		$meta_end_date = get_term_meta( $term_id, 'end_date', true );
-		$this->assertEquals( $meta_end_date, '2016-6-25' );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'end_date', true ),
+			'2016-6-25',
+			'tour has the wrong end date, when queried directly'
+		);
 
-		$meta_first_visit = get_term_meta( $term_id, 'first_visit', true );
-		$this->assertEquals( $meta_first_visit, '' );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'first_visit', true ),
+			'',
+			'tour has the wrong first_visit state, when queried directly'
+		);
 
-		$meta_leg_count = get_term_meta( $term_id, 'leg_count', true );
-		$this->assertEquals( $meta_leg_count, 6 );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'leg_count', true ),
+			6,
+			'tour has the wrong leg count, when queried directly'
+		);
 
-		$meta_thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
-		$this->assertEquals( $meta_thumbnail_id, '' );
+		$this->assertEquals(
+			get_term_meta( $this->tour_term_id, 'thumbnail_id', true ),
+			'',
+			'tour has the wrong thumbnail_id, when queried directly'
+		);
 
 		// term meta, queried via plugin
 
-		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
-		$this->assertEquals( $plugin_meta_term_type, 'tour' );
+		$this->assertEquals(
+			$this->plugin->get_meta_term_type( $this->tour_term_id ),
+			'tour',
+			'tour has the wrong term_type, when queried by plugin'
+		);
 
-		$plugin_meta_start_date = $plugin->get_meta_term_start_date( $term_id );
-		$this->assertEquals( $plugin_meta_start_date, '2015-9-2 00:01:00' );
+		$this->assertEquals(
+			$this->plugin->get_meta_term_start_date( $this->tour_term_id ),
+			'2015-9-2 00:01:00',
+			'tour has the wrong start date, when queried by plugin'
+		);
 
-		$plugin_meta_end_date = $plugin->get_meta_term_end_date( $term_id );
-		$this->assertEquals( $plugin_meta_end_date, '2016-6-25 00:01:00' );
+		$this->assertEquals(
+			$this->plugin->get_meta_term_end_date( $this->tour_term_id ),
+			'2016-6-25 00:01:00',
+			'tour has the wrong end date, when queried by plugin'
+		);
 
-		$plugin_meta_leg_count = $plugin->get_meta_tour_category_leg_count( $term_id );
-		$this->assertEquals( $plugin_meta_leg_count, 6 );
+		$this->assertEquals(
+			$this->plugin->get_meta_tour_category_leg_count( $this->tour_term_id ),
+			6,
+			'tour has the wrong leg count, when queried by plugin'
+		);
 
-		$plugin_meta_thumbnail_id = $plugin->get_meta_thumbnail_id( $term_id );
-		$this->assertEquals( $plugin_meta_thumbnail_id, '' );
+		$this->assertEquals(
+			$this->plugin->get_meta_thumbnail_id( $this->tour_term_id ),
+			'',
+			'tour has the wrong thumbnail_id, when queried by plugin'
+		);
 
 		// plugin calculations
 
-		$plugin_start_date = $plugin->get_term_start_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
+		$this->assertEquals(
+			$this->plugin->get_term_start_date( $this->tour_term_id, 'tour' ),
+			'2015-9-2 00:01:00',
+			'tour has the wrong start date'
+		);
 
-		$plugin_end_date = $plugin->get_term_end_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_end_date, '2016-6-25 00:01:00' );
+		$this->assertEquals(
+			$this->plugin->get_term_end_date( $this->tour_term_id, 'tour' ),
+			'2016-6-25 00:01:00',
+			'tour has the wrong end date'
+		);
 
-    	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
-		$this->assertEquals( $plugin_tour_length_days, 298 );
+		$this->assertEquals(
+			$this->plugin->get_term_days_elapsed(
+				$this->plugin->get_term_start_date( $this->tour_term_id, 'tour' ),
+				$this->plugin->get_term_end_date( $this->tour_term_id, 'tour' )
+			),
+			298,
+			'tour has the wrong number of elapsed days (length)'
+		);
 
-    	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
-		$this->assertEquals( $plugin_tour_length, 298 );
+		$this->assertEquals(
+			$this->plugin->get_tourlengthdays( $this->tour_term_id ),
+			298,
+			'tour has the wrong tour length in days'
+		);
 
-    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
-		$this->assertEquals( $plugin_start_day, 1 );
+		$this->assertEquals(
+			$this->plugin->get_term_start_day( $this->tour_term_id ),
+			1,
+			'tour has the wrong start day'
+		);
 
-    	$plugin_start_month = $plugin->get_term_start_month( $term_id );
-		$this->assertEquals( $plugin_start_month, 'September 2015' );
+		$this->assertEquals(
+			$this->plugin->get_term_start_month( $this->tour_term_id ),
+			'September 2015',
+			'tour has the wrong start month'
+		);
 
-    	$plugin_end_month = $plugin->get_term_end_month( $term_id );
-		$this->assertEquals( $plugin_end_month, 'June 2016' );
+		$this->assertEquals(
+			$this->plugin->get_term_end_month( $this->tour_term_id ),
+			'June 2016',
+			'tour has the wrong end month'
+		);
 
-    	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
-		$this->assertEquals( $plugin_tour_leg_count, 6 ); // todo test with NZ legs
+		// todo test with NZ legs
+		$this->assertEquals(
+			$this->plugin->get_term_leg_count( $this->tour_term_id ),
+			6,
+			'tour has the wrong leg count'
+		);
 
-    	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'east-asia' );
-		$this->assertEquals( $plugin_tour_leg_name, 'East Asia (2015-2016)' );
+		$this->assertEquals(
+			$this->plugin->get_term_leg_name( 'east-asia' ),
+			'East Asia (2015-2016)',
+			'tour has the wrong name'
+		);
 
-    	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'east-asia' );
-		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+		$this->assertEquals(
+			$this->plugin->get_term_leg_id( 'east-asia' ),
+			$this->tour_term_id,
+			'tour has the wrong id'
+		);
 
-    	$plugin_tour_leg_ids = get_term_children( $term_id, $this->taxonomy_name );
-		$this->assertEquals( $plugin_tour_leg_ids, [
+		$this->assertEquals(
+			get_term_children( $this->tour_term_id, $this->taxonomy_name ),
+			[
+				$this->tour_leg_term_id_1,
+				$this->tour_leg_term_id_4,
+				$this->tour_leg_term_id_5,
+				$this->tour_leg_term_id_6,
+				$this->tour_leg_term_id_3,
+				$this->tour_leg_term_id_7,
+				$this->tour_leg_term_id_2
+			],
+			'tour has the wrong tour legs'
+		);
+
+		$this->assertEquals(
+			$this->plugin->helper_order_tour_terms_by_date(
+				[
+					$this->tour_leg_term_id_1,
+					$this->tour_leg_term_id_4,
+					$this->tour_leg_term_id_5,
+					$this->tour_leg_term_id_6,
+					$this->tour_leg_term_id_3,
+					$this->tour_leg_term_id_7,
+					$this->tour_leg_term_id_2
+				]
+			),
+			[
+				$this->tour_leg_term_id_1,
+				$this->tour_leg_term_id_2,
+				$this->tour_leg_term_id_3,
+				$this->tour_leg_term_id_4,
+				$this->tour_leg_term_id_5,
+				$this->tour_leg_term_id_6,
+				$this->tour_leg_term_id_7
+			],
+			'tour has tour legs in the wrong order'
+		);
+	}
+
+	/**
+	 * Test tour_leg terms
+	 */
+	public function test_tour_leg_terms() {
+
+		$tour_leg_ids = array(
 			$this->tour_leg_term_id_1,
-			$this->tour_leg_term_id_4,
-			$this->tour_leg_term_id_5,
-			$this->tour_leg_term_id_6,
-			$this->tour_leg_term_id_3,
-			$this->tour_leg_term_id_7,
-			$this->tour_leg_term_id_2
-		]);
+			$this->tour_leg_term_id_4
+		);
 
-  		$plugin_tour_leg_ids_ordered = $plugin->helper_order_tour_terms_by_date( $plugin_tour_leg_ids );
-		$this->assertEquals( $plugin_tour_leg_ids_ordered, [
-			$this->tour_leg_term_id_1,
-			$this->tour_leg_term_id_2,
-			$this->tour_leg_term_id_3,
-			$this->tour_leg_term_id_4,
-			$this->tour_leg_term_id_5,
-			$this->tour_leg_term_id_6,
-			$this->tour_leg_term_id_7
-		]);
+		foreach( $tour_leg_ids as $tour_leg_id ) {
+
+			// term meta, queried directly
+
+			$this->assertEquals(
+				get_term_meta( $tour_leg_id, 'term_type', true ),
+				'tour_leg'
+			);
+
+			$this->assertEquals(
+				get_term_meta( $tour_leg_id, 'leg_count', true ),
+				''
+			);
+
+			$this->assertEquals(
+				get_term_meta( $tour_leg_id, 'thumbnail_id', true ),
+				926
+			);
+
+			// term meta, queried via plugin
+
+			$this->assertEquals(
+				$this->plugin->get_meta_term_type( $tour_leg_id ),
+				'tour_leg'
+			);
+
+			$this->assertEquals(
+				$this->plugin->get_meta_tour_category_leg_count( $tour_leg_id ),
+				''
+			);
+
+			// todo this shouldn't exist yet
+			$this->assertEquals(
+				$this->plugin->get_meta_thumbnail_id( $tour_leg_id ),
+				926
+			);
+
+			// plugin calculations
+
+			$this->assertEquals(
+				$this->plugin->get_term_start_date( $tour_leg_id, 'tour' ),
+				'2015-9-2 00:01:00'
+			);
+
+			// todo test with NZ legs
+			$this->assertEquals(
+				$this->plugin->get_term_leg_count( $tour_leg_id ),
+				''
+			);
+		}
 	}
 
 	/**
 	 * Test tour_leg term #1
 	 */
-	public function test_tour_leg_term_1() {
-
-		$term_id = $this->tour_leg_term_id_1;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
+	public function test_tour_leg_term() {
 
 		// term meta, queried directly
 
-		$meta_term_type = get_term_meta( $term_id, 'term_type', true );
-		$this->assertEquals( $meta_term_type, 'tour_leg' );
+		// 1
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_1, 'start_date', true ),
+			'2015-9-2'
+		);
 
-		$meta_start_date = get_term_meta( $term_id, 'start_date', true );
-		$this->assertEquals( $meta_start_date, '2015-9-2' );
+		// 4
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_4, 'start_date', true ),
+			'2015-11-29'
+		);
 
-		$meta_end_date = get_term_meta( $term_id, 'end_date', true );
-		$this->assertEquals( $meta_end_date, '2015-9-10' );
+		// 1
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_1, 'end_date', true ),
+			'2015-9-10'
+		);
 
-		$meta_first_visit = get_term_meta( $term_id, 'first_visit', true );
-		$this->assertEquals( $meta_first_visit, true );
+		// 4
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_4, 'end_date', true ),
+			'2016-1-17'
+		);
 
-		$meta_leg_count = get_term_meta( $term_id, 'leg_count', true );
-		$this->assertEquals( $meta_leg_count, '' );
+		// 1
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_1, 'first_visit', true ),
+			true
+		);
 
-		// todo this shouldn't exist yet
-		$meta_thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
-		$this->assertEquals( $meta_thumbnail_id, 926 );
-
-		// term meta, queried via plugin
-
-		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
-		$this->assertEquals( $plugin_meta_term_type, 'tour_leg' );
-
-		$plugin_meta_start_date = $plugin->get_meta_term_start_date( $term_id );
-		$this->assertEquals( $plugin_meta_start_date, '2015-9-2 00:01:00' );
-
-		$plugin_meta_end_date = $plugin->get_meta_term_end_date( $term_id );
-		$this->assertEquals( $plugin_meta_end_date, '2015-9-10 00:01:00' );
-
-		$plugin_meta_leg_count = $plugin->get_meta_tour_category_leg_count( $term_id );
-		$this->assertEquals( $plugin_meta_leg_count, '' );
-
-		// todo this shouldn't exist yet
-		$plugin_meta_thumbnail_id = $plugin->get_meta_thumbnail_id( $term_id );
-		$this->assertEquals( $plugin_meta_thumbnail_id, 926 );
-
-		// plugin calculations
-
-		$plugin_start_date = $plugin->get_term_start_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_start_date, '2015-9-2 00:01:00' );
-
-		$plugin_start_date_tour_leg = $plugin->get_term_start_date( $term_id, 'tour_leg' );
-		$this->assertEquals( $plugin_start_date_tour_leg, '2015-9-2 00:01:00' );
-
-		$plugin_end_date = $plugin->get_term_end_date( $term_id, 'tour_leg' );
-		$this->assertEquals( $plugin_end_date, '2015-9-10 00:01:00' );
-
-    	$plugin_tour_length_days = $plugin->get_term_days_elapsed( $plugin_start_date, $plugin_end_date );
-		$this->assertEquals( $plugin_tour_length_days, 9 );
-    	
-    	$plugin_tour_length = $plugin->get_tourlengthdays( $term_id );
-		$this->assertEquals( $plugin_tour_length, 9 );
-
-    	$plugin_start_month = $plugin->get_term_start_month( $term_id );
-		$this->assertEquals( $plugin_start_month, 'September 2015' );
-
-    	$plugin_end_month = $plugin->get_term_end_month( $term_id );
-		$this->assertEquals( $plugin_end_month, 'September 2015' );
-
-		// todo test with NZ legs
-    	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
-		$this->assertEquals( $plugin_tour_leg_count, '' );
-
-    	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-1' );
-		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 1)' );
-
-    	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-1' );
-		$this->assertEquals( $plugin_tour_leg_id, $term_id );
-
-    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
-		$this->assertEquals( $plugin_start_day, 1 );
-	}
-
-	/**
-	 * Test tour_leg term #4
-	 */
-	public function test_tour_leg_term_4() {
-
-		$term_id = $this->tour_leg_term_id_4;
-		$taxonomy = $this->taxonomy;
-		$plugin = $taxonomy->get_plugin();
-
-		// term meta, queried directly
-
-		$meta_term_type = get_term_meta( $term_id, 'term_type', true );
-		$this->assertEquals( $meta_term_type, 'tour_leg' );
-
-		$meta_start_date = get_term_meta( $term_id, 'start_date', true );
-		$this->assertEquals( $meta_start_date, '2015-11-29' );
-
-		$meta_end_date = get_term_meta( $term_id, 'end_date', true );
-		$this->assertEquals( $meta_end_date, '2016-1-17' );
-
-		$meta_first_visit = get_term_meta( $term_id, 'first_visit', true );
-		$this->assertEquals( $meta_first_visit, 0 );
-
-		$meta_leg_count = get_term_meta( $term_id, 'leg_count', true );
-		$this->assertEquals( $meta_leg_count, '' );
-
-		$meta_thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
-		$this->assertEquals( $meta_thumbnail_id, 926 ); // this shouldn't exist yet
+		// 4
+		$this->assertEquals(
+			get_term_meta( $this->tour_leg_term_id_4, 'first_visit', true ),
+			0
+		);
 
 		// term meta, queried via plugin
 
-		$plugin_meta_term_type = $plugin->get_meta_term_type( $term_id );
-		$this->assertEquals( $plugin_meta_term_type, 'tour_leg' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_meta_term_start_date( $this->tour_leg_term_id_1 ),
+			'2015-9-2 00:01:00'
+		);
 
-		$plugin_meta_start_date = $plugin->get_meta_term_start_date( $term_id );
-		$this->assertEquals( $plugin_meta_start_date, '2015-11-29 00:01:00' );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_meta_term_start_date( $this->tour_leg_term_id_4 ),
+			'2015-11-29 00:01:00'
+		);
 
-		$plugin_meta_end_date = $plugin->get_meta_term_end_date( $term_id );
-		$this->assertEquals( $plugin_meta_end_date, '2016-1-17 00:01:00' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_meta_term_end_date( $this->tour_leg_term_id_1 ),
+			'2015-9-10 00:01:00'
+		);
 
-		$plugin_meta_leg_count = $plugin->get_meta_tour_category_leg_count( $term_id );
-		$this->assertEquals( $plugin_meta_leg_count, '' );
-
-		$plugin_meta_thumbnail_id = $plugin->get_meta_thumbnail_id( $term_id );
-		$this->assertEquals( $plugin_meta_thumbnail_id, 926 ); // this shouldn't exist yet
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_meta_term_end_date( $this->tour_leg_term_id_4 ),
+			'2016-1-17 00:01:00'
+		);
 
 		// plugin calculations
 
-		$plugin_start_date_tour = $plugin->get_term_start_date( $term_id, 'tour' );
-		$this->assertEquals( $plugin_start_date_tour, '2015-9-2 00:01:00' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_start_date( $this->tour_leg_term_id_1, 'tour_leg' ),
+			'2015-9-2 00:01:00'
+		);
 
-		$plugin_start_date_tour_leg = $plugin->get_term_start_date( $term_id, 'tour_leg' );
-		$this->assertEquals( $plugin_start_date_tour_leg, '2015-11-29 00:01:00' );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_start_date( $this->tour_leg_term_id_4, 'tour_leg' ),
+			'2015-11-29 00:01:00'
+		);
 
-		$plugin_end_date_tour_leg = $plugin->get_term_end_date( $term_id, 'tour_leg' );
-		$this->assertEquals( $plugin_end_date_tour_leg, '2016-1-17 00:01:00' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_end_date( $this->tour_leg_term_id_1, 'tour_leg' ),
+			'2015-9-10 00:01:00'
+		);
 
-    	$plugin_tour_leg_length_days = $plugin->get_term_days_elapsed( $plugin_start_date_tour_leg, $plugin_end_date_tour_leg );
-		$this->assertEquals( $plugin_tour_leg_length_days, 50 );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_end_date( $this->tour_leg_term_id_4, 'tour_leg' ),
+			'2016-1-17 00:01:00'
+		);
 
-    	$plugin_tour_leg_length = $plugin->get_tourlengthdays( $term_id );
-		$this->assertEquals( $plugin_tour_leg_length, 50 );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_days_elapsed(
+				$this->plugin->get_term_start_date( $this->tour_leg_term_id_1, 'tour_leg' ),
+				$this->plugin->get_term_end_date( $this->tour_leg_term_id_1, 'tour_leg' )
+			),
+			9
+		);
 
-		// todo test with NZ legs
-    	$plugin_tour_leg_count = $plugin->get_term_leg_count( $term_id );
-		$this->assertEquals( $plugin_tour_leg_count, '' );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_days_elapsed(
+				$this->plugin->get_term_start_date( $this->tour_leg_term_id_4, 'tour_leg' ),
+				$this->plugin->get_term_end_date( $this->tour_leg_term_id_4, 'tour_leg' )
+			),
+			50
+		);
 
-    	$plugin_tour_leg_name = $plugin->get_term_leg_name( 'china-2' );
-		$this->assertEquals( $plugin_tour_leg_name, 'China (Part 2)' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_tourlengthdays( $this->tour_leg_term_id_1 ),
+			9
+		);
 
-    	$plugin_tour_leg_id = $plugin->get_term_leg_id( 'china-2' );
-		$this->assertEquals( $plugin_tour_leg_id, $term_id );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_tourlengthdays( $this->tour_leg_term_id_4 ),
+			50
+		);
 
-    	$plugin_start_day = $plugin->get_term_start_day( $term_id );
-		$this->assertEquals( $plugin_start_day, 89 );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_start_month( $this->tour_leg_term_id_1 ),
+			'September 2015'
+		);
 
-    	$plugin_start_month = $plugin->get_term_start_month( $term_id );
-		$this->assertEquals( $plugin_start_month, 'November 2015' );
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_start_month( $this->tour_leg_term_id_4 ),
+			'November 2015'
+		);
 
-    	$plugin_end_month = $plugin->get_term_end_month( $term_id );
-		$this->assertEquals( $plugin_end_month, 'January 2016' );
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_end_month( $this->tour_leg_term_id_1 ),
+			'September 2015'
+		);
+
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_end_month( $this->tour_leg_term_id_4 ),
+			'January 2016'
+		);
+
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_leg_name( 'china-1' ),
+			'China (Part 1)'
+		);
+
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_leg_name( 'china-2' ),
+			'China (Part 2)'
+		);
+
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_leg_id( 'china-1' ),
+			$this->tour_leg_term_id_1
+		);
+
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_leg_id( 'china-2' ),
+			$this->tour_leg_term_id_4
+		);
+
+		// 1
+		$this->assertEquals(
+			$this->plugin->get_term_start_day( $this->tour_leg_term_id_1 ),
+			1
+		);
+
+		// 4
+		$this->assertEquals(
+			$this->plugin->get_term_start_day( $this->tour_leg_term_id_4 ),
+			89
+		);
 	}
 }
