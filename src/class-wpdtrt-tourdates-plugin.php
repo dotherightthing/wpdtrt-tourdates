@@ -319,15 +319,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 */
 	public function get_term_start_date($id, $term_type, $date_format=null) {
 
-		// to test if is post or is term
-
 		$term_id = $this->get_term_id( $id, $term_type );
+		$term_start_date = '';
 
-		$term_start_date = $this->get_meta_term_start_date( $term_id );
+		if ( $term_id > 0 ) {
+			$term_start_date = $this->get_meta_term_start_date( $term_id );
 
-		if ( $date_format !== null ) {
-			$date = new DateTime($term_start_date);
-			$term_start_date = date_format($date, $date_format);
+			if ( $date_format !== null ) {
+				$date = new DateTime($term_start_date);
+				$term_start_date = date_format($date, $date_format);
+			}
 		}
 
 		return $term_start_date;
@@ -385,12 +386,16 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	public function get_term_end_date($id, $term_type, $date_format=null) {
 
 		$term_id = $this->get_term_id( $id, $term_type );
+		$tour_end_date = '';
 
-		$tour_end_date = $this->get_meta_term_end_date( $term_id );
+		if ( $term_id > 0 ) {
 
-		if ( $date_format !== null ) {
-			$date = new DateTime($tour_end_date);
-			$tour_end_date = date_format($date, $date_format);
+			$tour_end_date = $this->get_meta_term_end_date( $term_id );
+
+			if ( $date_format !== null ) {
+				$date = new DateTime($tour_end_date);
+				$tour_end_date = date_format($date, $date_format);
+			}
 		}
 
 		return $tour_end_date;
