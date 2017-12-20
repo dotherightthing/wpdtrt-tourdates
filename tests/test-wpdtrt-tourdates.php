@@ -2,12 +2,13 @@
 /**
  * Unit tests, using PHPUnit, wp-cli, WP_UnitTestCase
  *
- * Note that the plugin is 'active' within a WP test environment
- * so the plugin class has already been instantiated
- * with the options set in wpdtrt-tourdates.php
+ * The plugin is 'active' within a WP test environment
+ * 	so the plugin class has already been instantiated
+ * 	with the options set in wpdtrt-tourdates.php
  *
- * Note: only function names prepended with test_ are run
- * and $debug logs are output with the test output in Terminal
+ * Only function names prepended with test_ are run.
+ * $debug logs are output with the test output in Terminal
+ * A failed assertion may obscure other failed assertions in the same test.
  *
  * @package wpdtrt_tourdates
  * @see http://kb.dotherightthing.dan/php/wordpress/php-unit-testing-revisited/ - Links
