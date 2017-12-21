@@ -299,7 +299,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		// and we are getting the start date for term_days_elapsed daynumber
 		else if ( $this->helper_post_exists( $id ) ) {
 
-			// https://github.com/dotherightthing/wpdtrt-tourdates/issues/13
+			// https://github.com/dotherightthing/wpdtrt-tourdates/issues/14
 			if ( get_post_type($id) !== 'tourdiaries' ) {
 				$term_id = false;
 			}
