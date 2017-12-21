@@ -299,6 +299,11 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		// and we are getting the start date for term_days_elapsed daynumber
 		else if ( $this->helper_post_exists( $id ) ) {
 
+			// https://github.com/dotherightthing/wpdtrt-tourdates/issues/13
+			if ( get_post_type($id) === 'attachment' ) {
+				$term_id = false;
+			}
+
 			// get associated taxonomy_terms
 			// get_the_category() doesn't work with custom post type taxonomies
 			$terms = get_the_terms( $id, $taxonomy );
