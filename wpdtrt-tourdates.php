@@ -175,6 +175,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'options_form_description' => __('Please enter your preferences', 'wpdtrt-tourdates'),
           'options_form_submit' => __('Save Changes', 'wpdtrt-tourdates'),
           'post_terms_missing' => __('Tour Dates plugin error: Please assign all three "Tour" levels to $post id = N', 'wpdtrt-tourdates')
+          'noscript_warning' => __('Please enable JavaScript', 'wpdtrt-tourdates'),
         ),
         'plugin_options' => $plugin_options,
         'instance_options' => $instance_options,
