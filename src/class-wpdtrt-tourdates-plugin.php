@@ -300,7 +300,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 		else if ( $this->helper_post_exists( $id ) ) {
 
 			// https://github.com/dotherightthing/wpdtrt-tourdates/issues/13
-			if ( get_post_type($id) === 'attachment' ) {
+			if ( get_post_type($id) !== 'tourdiaries' ) {
 				$term_id = false;
 			}
 
