@@ -9,6 +9,7 @@
 	<testsuites>
 		<testsuite>
 			<directory prefix="test-" suffix=".php">./tests/</directory>
+			<directory prefix="test-" suffix=".php">./vendor/dotherightthing/wpdtrt-plugin/tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
