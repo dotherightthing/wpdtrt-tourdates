@@ -13,150 +13,170 @@
 /**
  * Stack banner
  */
-.stack_banner .wpdtrt-tourdates-day {
-	display: block; /* display on new line */
-	position: relative;
-	z-index: 4; /* stack above .entry-title */
-	font-size: .2825em;
-	/* margin-bottom: 1px; for Safari, but then 2px in Chrome */
+.stack_banner {
 
-	/*width: 20%; - why? this causes premature wrapping on attachment page */
-	/* font-size: 1.125em; 18px */
-}
+	.wpdtrt-tourdates-day {
+		display: block; /* display on new line */
+		position: relative;
+		z-index: 4; /* stack above .entry-title */
+		font-size: .2825em;
+		/* margin-bottom: 1px; for Safari, but then 2px in Chrome */
 
-.stack_banner .wpdtrt-tourdates-day--title {
-	/* makes text selectable */
-	position: relative;
-	z-index: 3;
-	font-size: .7em;
-	display: inline-block; /* wrao nicely */
-}
-
-.single-attachment .stack_banner .wpdtrt-tourdates-day--title .wpdtrt-tourdates-day--title {
-	background-color: transparent;
-	font-weight: 500;
-	font-size: 1em;
-}
-
-.stack_banner .wpdtrt-tourdates-day--images-title {
-	line-height: 0;
-	margin-bottom: .5em;
+		/*width: 20%; - why? this causes premature wrapping on attachment page */
+		/* font-size: 1.125em; 18px */
+	}
 
 	.wpdtrt-tourdates-day--title {
-  		font-size: .4em;
+		/* makes text selectable */
+		position: relative;
+		z-index: 3;
+		font-size: .7em;
+		display: inline-block; /* wrao nicely */
+	}
+
+	.wpdtrt-tourdates-day--title {
+		.single-attachment & {
+			background-color: transparent;
+			font-weight: 500;
+			font-size: 1em;
+		}
+	}
+
+	.wpdtrt-tourdates-day--images-title {
+		line-height: 0;
+		margin-bottom: .5em;
+
+		.wpdtrt-tourdates-day--title {
+	  		font-size: .4em;
+		}
+	}
+
+	.wpdtrt-tourdates-day--day,
+	.wpdtrt-tourdates-day--number,
+	.wpdtrt-tourdates-day--title {
+		background: #fff;
+		color: #000;
+		padding: 0.3125rem;
+	  	box-shadow: 0 0 0 4px #fff;
+	}
+
+	.wpdtrt-tourdates-day--day,
+	.wpdtrt-tourdates-day--number {
+		padding-bottom: 0;
+	}
+
+	.wpdtrt-tourdates-day--day {
+		padding-right: 0;
+	}
+
+	.wpdtrt-tourdates-day--number {
+		&::before {
+			content: "#";
+		}
+	}
+
+	.wpdtrt-tourdates-day--period {
+		display: none;
 	}
 }
 
-.stack_banner .wpdtrt-tourdates-day--day,
-.stack_banner .wpdtrt-tourdates-day--number,
-.stack_banner .wpdtrt-tourdates-day--title {
-	background: #fff;
-	color: #000;
-	padding: 0.3125rem;
-  	box-shadow: 0 0 0 4px #fff;
-}
-
-.stack_banner .wpdtrt-tourdates-day--day,
-.stack_banner .wpdtrt-tourdates-day--number {
-	padding-bottom: 0;
-}
-
-.stack_banner .wpdtrt-tourdates-day--day {
-	padding-right: 0;
-}
-
-.stack_banner .wpdtrt-tourdates-day--number:before {
-	content: "#";
-}
-
-.stack_banner .wpdtrt-tourdates-day--period {
-	display: none;
-}
-
 /**
-* <= 710px
-*/
+ * <= 710px
+ */
 
 @media screen and (max-width: 44.375em) {
 
-	.stack_banner .wpdtrt-tourdates-day {
-		font-size: 0.45em; /* 18px */
+	.stack_banner {
+		.wpdtrt-tourdates-day {
+			font-size: 0.45em; // 18px
+		}
 	}
 }
 
 /**
-* 14.1 - >= 568px
-*/
+ * 14.1 - >= 568px
+ */
 
 @media screen and (min-width: 35.5em) {
 
-	.stack_banner .wpdtrt-tourdates-day--title {
-		padding-bottom: 0;
+	.stack_banner {
+		.wpdtrt-tourdates-day--title {
+			padding-bottom: 0;
+		}
 	}
 }
 
 /**
-* 14.3 - >= 910px
-* This is the breakpoint that the MENU button switches to an inline menu
-*/
+ * 14.3 - >= 910px
+ * This is the breakpoint that the MENU button switches to an inline menu
+ */
 
 @media screen and (min-width: 56.875em) {
 
-	.stack_banner .wpdtrt-tourdates-day {
-    	margin-bottom: -.55em; /* both! */
+	.stack_banner {
+		.wpdtrt-tourdates-day {
+    		margin-bottom: -.55em; // both!
+    	}
  	}
 }
 
 /**
  * Stack link page
  */
-.stack_link_page .wpdtrt-tourdates-day {
-	display: block;
-	color: inherit;
-	font-size: 1em;
-	text-transform: uppercase;
-	padding-bottom: 0.6em;
-}
 
-.stack_link_page .stack--text h3 > .wpdtrt-tourdates-day > *,
-.stack_link_page .wpdtrt-tourdates-day--title,
-.stack_link_page .wpdtrt-tourdates-day--month,
-.stack_link_page .wpdtrt-tourdates-day--location {
-	background-color: #fff;
-	color: #000;
-	box-shadow: 0 0 0 4px #fff;
-}
+.stack_link_page {
+	.wpdtrt-tourdates-day {
+		display: block;
+		color: inherit;
+		font-size: 1em;
+		text-transform: uppercase;
+		padding-bottom: 0.6em;
+	}
 
-.stack_link_page.stack_link_category .wpdtrt-tourdates-day--location {
- 	color: #666;
-}
+	.stack--text h3 > .wpdtrt-tourdates-day > *,
+	.wpdtrt-tourdates-day--title,
+	.wpdtrt-tourdates-day--month,
+	.wpdtrt-tourdates-day--location {
+		background-color: #fff;
+		color: #000;
+		box-shadow: 0 0 0 4px #fff;
+	}
 
-.stack_link_page .wpdtrt-tourdates-day--day-range,
-.stack_link_page .wpdtrt-tourdates-day--number {
-	&::before {
- 		content: "#";
- 	}
-}
+	&.stack_link_category {
+		.wpdtrt-tourdates-day--location {
+ 			color: #666;
+ 		}
+	}
 
-.stack_link_page .wpdtrt-tourdates-day--period {
-	/* extends .says */
-	clip: rect(1px, 1px, 1px, 1px);
-	height: 1px;
-	overflow: hidden;
-	position: absolute !important;
-	width: 1px;
-	/* many screen reader and browser combinations announce broken words as they would appear visually */
-	word-wrap: normal !important;
-}
+	.wpdtrt-tourdates-day--day-range,
+	.wpdtrt-tourdates-day--number {
+		&::before {
+	 		content: "#";
+	 	}
+	}
 
-.stack_link_page .wpdtrt-tourdates-day--title {
-	display: inline-block;
-	font-size: 2em;
-	font-weight: 600;
-	line-height: 1;
-	padding-bottom: .2em;
-}
+	.wpdtrt-tourdates-day--period {
+		// extends .says
+		clip: rect(1px, 1px, 1px, 1px);
+		height: 1px;
+		overflow: hidden;
+		position: absolute !important;
+		width: 1px;
+		// many screen reader and browser combinations announce broken words as they would appear visually
+		word-wrap: normal !important;
+	}
 
-.stack_link_page a:focus .wpdtrt-tourdates-day--title {
- 	text-decoration: underline; /* TODO: this is a temp A11y fix */
+	.wpdtrt-tourdates-day--title {
+		display: inline-block;
+		font-size: 2em;
+		font-weight: 600;
+		line-height: 1;
+		padding-bottom: .2em;
+	}
+
+	a:focus {
+		.wpdtrt-tourdates-day--title {
+	 		text-decoration: underline; // TODO: this is a temp A11y fix
+	 	}
+	}
 }
