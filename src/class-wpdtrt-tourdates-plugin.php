@@ -1052,6 +1052,7 @@ class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 	 * @see https://www.pmg.com/blog/a-mostly-complete-guide-to-the-wordpress-rewrite-api/
 	 * @see https://www.addedbytes.com/articles/for-beginners/url-rewriting-for-beginners/
 	 * @see http://codex.wordpress.org/Rewrite_API
+	 * @see https://www.daggerhart.com/wordpress-rewrite-api-examples/
 	 *
 	 * @since       1.0.0
 	 * @version     1.0.0
