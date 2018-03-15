@@ -36,11 +36,12 @@ matrix:
 # https://docs.travis-ci.com/user/caching#Caching-directories-(Bundler%2C-dependencies)
 # https://github.com/wp-cli/sample-plugin/blob/master/.travis.yml
 # https://johnblackbourn.com/reducing-travis-ci-build-times-for-wordpress-projects/
+# ~/files - https://blog.wyrihaximus.net/2015/07/composer-cache-on-travis/
 cache:
   directories:
 #   - node_modules
 #   - vendor
-    - $HOME/.composer/cache
+    - $HOME/.composer/cache/files
     - $HOME/.npm 
 
 # Install a Second Programming Language (Node, to run Gulp tasks)
