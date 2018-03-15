@@ -13,3 +13,4 @@ Please read [DTRT WP Plugin: Maintenance of existing generated plugins](https://
 ## Usage
 
 Please read the [WordPress readme.txt](readme.txt) for usage instructions.
+
