@@ -41,7 +41,7 @@ cache:
   directories:
 #   - node_modules
 #   - vendor
-    - $HOME/.composer/cache/files
+#    - $HOME/.composer/cache/files
     - $HOME/.npm 
 
 # Install a Second Programming Language (Node, to run Gulp tasks)
