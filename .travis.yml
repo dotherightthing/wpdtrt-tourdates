@@ -57,10 +57,10 @@ before_install:
 # Install dependencies
 # https://docs.travis-ci.com/user/customizing-the-build/#Customizing-the-Installation-Step
 install:
-  - composer install --no-interaction
+  - composer install --no-interaction # also run via gulpfile.js
   - npm --prefix ./vendor/dotherightthing/wpdtrt-plugin/ install ./vendor/dotherightthing/wpdtrt-plugin/
-# - npm install bower -g
-# - bower install
+  - npm install bower -g
+# - bower install - run via gulpfile.js
   - npm install gulp-cli -g
   # https://www.sitepoint.com/php-continuous-integration-travis-ci/
   # https://getcomposer.org/doc/03-cli.md
