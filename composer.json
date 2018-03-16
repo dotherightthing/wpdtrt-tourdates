@@ -2,7 +2,7 @@
 	"name": "dotherightthingnz/wpdtrt-tourdates",
 	"description": "Display the relative position of content within an assigned date-range",
 	"type": "library",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Dan Smith",
