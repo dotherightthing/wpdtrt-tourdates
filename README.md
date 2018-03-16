@@ -1,6 +1,6 @@
 # DTRT WP Tour Dates
 
-[![GitHub tags](https://img.shields.io/github/tag/dotherightthing/wpdtrt-tourdates.svg)](https://github.com/dotherightthing/wpdtrt-tourdates/tags) [![Build Status](https://travis-ci.org/dotherightthing/wpdtrt-tourdates.svg?branch=master)](https://travis-ci.org/dotherightthing/wpdtrt-tourdates) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-tourdates.svg)](https://github.com/dotherightthing/wpdtrt-tourdates/issues)
+[![GitHub tags](https://img.shields.io/github/tag/dotherightthing/wpdtrt-tourdates.svg)](https://github.com/dotherightthing/wpdtrt-tourdates/tags) [![Build Status](https://travis-ci.org/dotherightthing/wpdtrt-tourdates.svg?branch=wpplugin)](https://travis-ci.org/dotherightthing/wpdtrt-tourdates) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-tourdates.svg)](https://github.com/dotherightthing/wpdtrt-tourdates/issues)
 
 Organise bike touring content by tour dates.
 
