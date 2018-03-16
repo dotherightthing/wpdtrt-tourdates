@@ -58,6 +58,7 @@ before_install:
 # Install dependencies
 # https://docs.travis-ci.com/user/customizing-the-build/#Customizing-the-Installation-Step
 install:
+  - composer update # updates lockfile with latest dependencies
   - composer install --no-interaction # also run via gulpfile.js
   - npm --prefix ./vendor/dotherightthing/wpdtrt-plugin/ install ./vendor/dotherightthing/wpdtrt-plugin/
   - npm install bower -g
