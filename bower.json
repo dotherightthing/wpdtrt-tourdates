@@ -4,13 +4,18 @@
   "description": "Organise bike touring content by tour dates.",
   "main": "readme.txt",
   "authors": [
-    "Dan Smith <dev@dotherightthing.co.nz>"
+    {
+      "name": "Dan Smith",
+      "email": "dev@dotherightthing.co.nz"
+    }
   ],
+  "dependencies": {},
   "license": "All Rights Reserved",
   "homepage": "https://github.com/dotherightthing/wpdtrt-tourdates",
   "ignore": [
     "**/.*",
-    "bower_components"
+    "node_modules",
+    "vendor"
   ],
   "private": true
 }
