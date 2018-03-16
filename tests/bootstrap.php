@@ -23,7 +23,7 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-tourdates.php';
-	require dirname( dirname( dirname( __FILE__ ) ) ) . '/wp-network/wp-content/plugins/ambrosite-nextprevious-post-link-plus/ambrosite-post-link-plus.php';
+	require dirname( dirname( __FILE__ ) ) . '/vendor/ambrosite/nextprevious-post-link-plus/ambrosite-post-link-plus.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

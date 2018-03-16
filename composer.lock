@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffc45dc6cf2e55221d45a9ee6a63e83d",
+    "content-hash": "13667161ded9c469a0c93575b042c506",
     "packages": [
         {
             "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "7a9ddde1757b6bf019cb7684d690740c0f0a9d73"
+                "reference": "9e0c5618a99faa709eed1813b1a3806547c9098d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/7a9ddde1757b6bf019cb7684d690740c0f0a9d73",
-                "reference": "7a9ddde1757b6bf019cb7684d690740c0f0a9d73",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/9e0c5618a99faa709eed1813b1a3806547c9098d",
+                "reference": "9e0c5618a99faa709eed1813b1a3806547c9098d",
                 "shasum": ""
             },
             "require": {
@@ -44,10 +44,10 @@
             ],
             "description": "Base classes for a plugin, plugin shortcode, and plugin widget.",
             "support": {
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.1.1",
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.1.2",
                 "issues": "https://github.com/dotherightthing/wpdtrt-plugin/issues"
             },
-            "time": "2018-03-15T02:23:18+00:00"
+            "time": "2018-03-16T01:54:12+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -149,6 +149,16 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "ambrosite/nextprevious-post-link-plus",
+            "version": "2.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
+                "reference": "trunk/"
+            },
+            "type": "library"
+        },
         {
             "name": "cilex/cilex",
             "version": "1.1.0",
