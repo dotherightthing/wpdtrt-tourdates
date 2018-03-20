@@ -12,4 +12,4 @@ jQuery(document).ready(function($){
 
 	var config = wpdtrt_tourdates_config;
 
-})
+});
