@@ -4,20 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a92c965ce23c28edec0931df2aa6129",
+    "content-hash": "de7d7f33abd3c9cc9d753391e67f4863",
     "packages": [
         {
+            "name": "ambrosite/nextprevious-post-link-plus",
+            "version": "2.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
+                "reference": "trunk/"
+            },
+            "type": "library"
+        },
+        {
             "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.1.5",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "e202554d199dc00033abc75b2e6f6adcad907861"
+                "reference": "c4617e8d6ba06b696b3f67acffd08a0918099a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/e202554d199dc00033abc75b2e6f6adcad907861",
-                "reference": "e202554d199dc00033abc75b2e6f6adcad907861",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/c4617e8d6ba06b696b3f67acffd08a0918099a56",
+                "reference": "c4617e8d6ba06b696b3f67acffd08a0918099a56",
                 "shasum": ""
             },
             "require": {
@@ -29,7 +39,8 @@
                 "dotherightthing/wpdtrt-debug": "^1.0.0",
                 "phpdocumentor/phpdocumentor": "2.*",
                 "phpunit/phpunit": "^5.7",
-                "tgmpa/tgm-plugin-activation": "^2.6"
+                "psy/psysh": "~0.6",
+                "wp-cli/wp-cli": "~0.22"
             },
             "type": "library",
             "autoload": {
@@ -45,10 +56,10 @@
             ],
             "description": "Base classes for a plugin, plugin shortcode, and plugin widget.",
             "support": {
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.1.5",
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.1",
                 "issues": "https://github.com/dotherightthing/wpdtrt-plugin/issues"
             },
-            "time": "2018-03-16T22:54:24+00:00"
+            "time": "2018-03-20T00:23:36+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -150,16 +161,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "ambrosite/nextprevious-post-link-plus",
-            "version": "2.4.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
-                "reference": "trunk/"
-            },
-            "type": "library"
-        },
         {
             "name": "cilex/cilex",
             "version": "1.1.0",
