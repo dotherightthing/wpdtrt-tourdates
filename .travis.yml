@@ -59,7 +59,7 @@ before_install:
 # https://docs.travis-ci.com/user/customizing-the-build/#Customizing-the-Installation-Step
 # Note: Remember to run composer update on local dev to get latest updates to dependencies
 install:
-  - composer install --no-interaction # also run via gulpfile.js
+  - composer install --no-interaction # loads parent plugin class, which in turn runs an install via gulpfile.js
   - npm --prefix ./vendor/dotherightthing/wpdtrt-plugin/ install ./vendor/dotherightthing/wpdtrt-plugin/
   - npm install # child plugin
   - npm install bower -g
