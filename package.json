@@ -1,0 +1,31 @@
+{
+  "name": "wpdtrt-tourdates",
+  "version": "1.2.1",
+  "description": "Display the relative position of content within an assigned date-range",
+  "main": "index.php",
+  "person": {
+    "name": "Dan Smith",
+    "email": "dev@dotherightthing.co.nz",
+    "url": "https://profiles.wordpress.org/dotherightthingnz"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dotherightthing/wpdtrt-tourdates.git"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/dotherightthing/wpdtrt-tourdates",
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates",
+  "dependencies": {
+    "bower": "^1.8.2"
+  }
+}
