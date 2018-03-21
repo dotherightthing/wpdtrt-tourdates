@@ -1,5 +1,5 @@
 {
-	"name": "dotherightthingnz/wpdtrt-tourdates",
+	"name": "dotherightthing/wpdtrt-tourdates",
 	"description": "Display the relative position of content within an assigned date-range",
 	"type": "library",
     "minimum-stability": "stable",
