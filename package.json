@@ -12,6 +12,7 @@
     "gulp": "^3.9.1"
   },
   "scripts": {
+    "postinstall": "cd ./vendor/dotherightthing/wpdtrt-plugin && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
