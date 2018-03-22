@@ -39,8 +39,8 @@ require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
   * Determine the correct path to the autoloader
   * @see https://github.com/dotherightthing/wpdtrt-plugin/issues/51
   */
-if( ! defined( 'WPDTRT_CHILD_PLUGIN' ) ) {
-  define( 'WPDTRT_CHILD_PLUGIN', true );
+if( ! defined( 'WPDTRT_PLUGIN_CHILD' ) ) {
+  define( 'WPDTRT_PLUGIN_CHILD', true );
 }
 
 if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
