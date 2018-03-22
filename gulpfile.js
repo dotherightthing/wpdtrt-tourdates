@@ -8,7 +8,6 @@
  *    gulp dist --gulpfile ./vendor/dotherightthing/wpdtrt-plugin/gulpfile.js --cwd ./
  *
  * @package     Wpdtrt_Tourdates
- * @since       1.0.0
- * @version     1.0.0
+ * @version     1.0.2
  */
  
