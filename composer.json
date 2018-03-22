@@ -2,16 +2,25 @@
 	"name": "dotherightthing/wpdtrt-tourdates",
 	"description": "Display the relative position of content within an assigned date-range",
 	"type": "library",
-    "minimum-stability": "stable",
-    "config": {
-        "vendor-dir": "vendor"
-    },
+    "keywords": ["cycle-touring", "travel"],
+    "license": "ISC",
     "authors": [
         {
             "name": "Dan Smith",
-            "email": "dev@dotherightthing.co.nz"
+            "email": "dev@dotherightthing.co.nz",
+            "homepage": "http://dotherightthing.co.nz",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "email": "support@dotherightthing.co.nz",
+        "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues"
+    },
+    "require": {
+        "dotherightthing/wpdtrt-plugin": "^1.0.0",
+        "ambrosite/nextprevious-post-link-plus": "2.4.*"
+    },
+    "minimum-stability": "stable",
     "repositories": [
         {
             "type": "vcs",
@@ -34,8 +43,7 @@
             }
         }
     ],
-    "require": {
-        "dotherightthing/wpdtrt-plugin": "^1.0.0",
-        "ambrosite/nextprevious-post-link-plus": "2.4.0"
+    "config": {
+        "vendor-dir": "vendor"
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "94ce961366aad84538159e580218aaec",
+    "content-hash": "97fed5ccc16f36ad8bddc948aa8be58f",
     "packages": [
         {
             "name": "ambrosite/nextprevious-post-link-plus",
