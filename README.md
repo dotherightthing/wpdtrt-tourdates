@@ -4,18 +4,10 @@
 
 Organise bike touring content by tour dates.
 
-## Setup
+## Setup and Maintenance
 
-See also [DTRT WP Plugin: Set up a new plugin](https://github.com/dotherightthing/wpdtrt-plugin#set-up-a-new-plugin).
+Please read [DTRT WP Plugin: Setup and Maintenance](https://github.com/dotherightthing/wpdtrt-plugin#setup-and-maintenance).
 
-1. `composer install` - install `dotherightthing/wpdtrt-plugin`
-2. `npm install` - install `gulp` and dependencies of `dotherightthing/wpdtrt-plugin`
-3. `gulp dist --gulpfile ./vendor/dotherightthing/wpdtrt-plugin/gulpfile.js --cwd ./` - run tests and prepare `release.zip`
+## WordPress Installation and Usage
 
-## Maintenance
-
-Please read [DTRT WP Plugin: Maintenance of existing generated plugins](https://github.com/dotherightthing/wpdtrt-plugin#maintenance-of-existing-generated-plugins).
-
-## Usage
-
-Please read the [WordPress readme.txt](readme.txt) for usage instructions.
+Please read the [WordPress readme.txt](readme.txt).
