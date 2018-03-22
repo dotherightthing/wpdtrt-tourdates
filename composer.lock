@@ -18,16 +18,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-debug",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-debug.git",
-                "reference": "d2ac61adb44ef84069d2aed673ff76b75296ae05"
+                "reference": "38036744142f6397d3ed23191de68ffd5b2156b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-debug/zipball/d2ac61adb44ef84069d2aed673ff76b75296ae05",
-                "reference": "d2ac61adb44ef84069d2aed673ff76b75296ae05",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-debug/zipball/38036744142f6397d3ed23191de68ffd5b2156b6",
+                "reference": "38036744142f6397d3ed23191de68ffd5b2156b6",
                 "shasum": ""
             },
             "require": {
@@ -39,18 +39,28 @@
                     "DoTheRightThing\\WPDebug\\": "src"
                 }
             },
+            "license": [
+                "ISC"
+            ],
             "authors": [
                 {
                     "name": "Dan Smith",
-                    "email": "dev@dotherightthing.co.nz"
+                    "email": "dev@dotherightthing.co.nz",
+                    "homepage": "http://dotherightthing.co.nz",
+                    "role": "Developer"
                 }
             ],
             "description": "Debugging utilities for use in themes and plugins.",
+            "keywords": [
+                "debug",
+                "utility"
+            ],
             "support": {
-                "source": "https://github.com/dotherightthing/wpdtrt-debug/tree/1.0.0",
-                "issues": "https://github.com/dotherightthing/wpdtrt-debug/issues"
+                "email": "support@dotherightthing.co.nz",
+                "issues": "https://github.com/dotherightthing/wpdtrt-debug/issues",
+                "source": "https://github.com/dotherightthing/wpdtrt-debug/tree/1.0.2"
             },
-            "time": "2017-11-12T23:38:07+00:00"
+            "time": "2018-03-22T09:48:20+00:00"
         },
         {
             "name": "dotherightthing/wpdtrt-plugin",
