@@ -54,16 +54,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.2.9",
+            "version": "1.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "c593a6fdb956fc4bff7e56708a90c282728c0ccb"
+                "reference": "10d76b0390bcf68b3c0d679f07fa882c127f3c39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/c593a6fdb956fc4bff7e56708a90c282728c0ccb",
-                "reference": "c593a6fdb956fc4bff7e56708a90c282728c0ccb",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/10d76b0390bcf68b3c0d679f07fa882c127f3c39",
+                "reference": "10d76b0390bcf68b3c0d679f07fa882c127f3c39",
                 "shasum": ""
             },
             "require": {
@@ -78,23 +78,38 @@
                 "wp-cli/wp-cli": "~0.22"
             },
             "type": "library",
+            "extra": [
+                {
+                    "require-after-phpdoc": "tgmpa/tgm-plugin-activation:2.6.*"
+                }
+            ],
             "autoload": {
                 "psr-4": {
                     "DoTheRightThing\\WPPlugin\\": "src"
                 }
             },
+            "license": [
+                "ISC"
+            ],
             "authors": [
                 {
                     "name": "Dan Smith",
-                    "email": "dev@dotherightthing.co.nz"
+                    "email": "dev@dotherightthing.co.nz",
+                    "homepage": "http://dotherightthing.co.nz",
+                    "role": "Developer"
                 }
             ],
             "description": "Base classes for a plugin, plugin shortcode, and plugin widget.",
+            "keywords": [
+                "boilerplate",
+                "framework"
+            ],
             "support": {
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.9",
-                "issues": "https://github.com/dotherightthing/wpdtrt-plugin/issues"
+                "email": "support@dotherightthing.co.nz",
+                "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues",
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.11"
             },
-            "time": "2018-03-21T10:17:48+00:00"
+            "time": "2018-03-22T02:43:24+00:00"
         },
         {
             "name": "gamajo/template-loader",
