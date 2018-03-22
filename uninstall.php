@@ -20,22 +20,21 @@
  *
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#file-organization
  * @link https://developer.wordpress.org/plugins/the-basics/uninstall-methods/#method-2-uninstall-php
- * @since      0.1.0
  *
- * @package    WPDTRT_Tourdates
+ * @package     wpdtrt_tourdates
+ * @since       1.0.0
+ * @version     1.0.0
  */
 
 // if uninstall.php is not called by WordPress, die
 if ( ! defined('WP_UNINSTALL_PLUGIN') ) {
-  die;
+	die;
 }
 
-$option_name = "wpdtrt-tourdates";
-
-delete_option($option_name);
+delete_option('wpdtrt_tourdates');
 
 // for site options in Multisite
-delete_site_option($option_name);
+delete_site_option('wpdtrt_tourdates');
 
 // drop a custom database table
 //global $wpdb;

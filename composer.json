@@ -1,0 +1,49 @@
+{
+	"name": "dotherightthing/wpdtrt-tourdates",
+	"description": "Display the relative position of content within an assigned date-range",
+	"type": "library",
+    "keywords": ["cycle-touring", "travel"],
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Dan Smith",
+            "email": "dev@dotherightthing.co.nz",
+            "homepage": "http://dotherightthing.co.nz",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@dotherightthing.co.nz",
+        "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues"
+    },
+    "require": {
+        "dotherightthing/wpdtrt-plugin": "^1.0.0",
+        "ambrosite/nextprevious-post-link-plus": "2.4.*"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:dotherightthing/wpdtrt-debug.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:dotherightthing/wpdtrt-plugin.git"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ambrosite/nextprevious-post-link-plus",
+                "version": "2.4.0",
+                "source": {
+                    "type": "svn",
+                    "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
+                    "reference": "trunk/"
+                }
+            }
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}
