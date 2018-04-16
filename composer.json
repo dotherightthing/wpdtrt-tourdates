@@ -17,30 +17,17 @@
         "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin": "^1.0.0",
+        "dotherightthing/wpdtrt-plugin": "1.2.20",
         "ambrosite/nextprevious-post-link-plus": "2.4.*"
     },
     "minimum-stability": "stable",
     "repositories": [
         {
-            "type": "vcs",
-            "url":  "git@github.com:dotherightthing/wpdtrt-debug.git"
+            "type": "composer",
+            "url": "https://repo.packagist.com/dotherightthing/"
         },
         {
-            "type": "vcs",
-            "url":  "git@github.com:dotherightthing/wpdtrt-plugin.git"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "ambrosite/nextprevious-post-link-plus",
-                "version": "2.4.0",
-                "source": {
-                    "type": "svn",
-                    "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
-                    "reference": "trunk/"
-                }
-            }
+            "packagist.org": false
         }
     ],
     "config": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "97fed5ccc16f36ad8bddc948aa8be58f",
+    "content-hash": "072d67b81650e218c792f893fb318e20",
     "packages": [
         {
             "name": "ambrosite/nextprevious-post-link-plus",
@@ -28,7 +28,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/dotherightthing/wpdtrt-debug/zipball/38036744142f6397d3ed23191de68ffd5b2156b6",
                 "reference": "38036744142f6397d3ed23191de68ffd5b2156b6",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/dotherightthing/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.6.30"
@@ -64,17 +70,23 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.2.15",
+            "version": "1.2.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "d724036208c162f149ef90c1276cac269be2cd7c"
+                "reference": "4736199203baac97d1ab8501c5631b10643708a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/d724036208c162f149ef90c1276cac269be2cd7c",
-                "reference": "d724036208c162f149ef90c1276cac269be2cd7c",
-                "shasum": ""
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/4736199203baac97d1ab8501c5631b10643708a0",
+                "reference": "4736199203baac97d1ab8501c5631b10643708a0",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/dotherightthing/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "dotherightthing/wpdtrt-debug": "^1.0.0",
@@ -82,7 +94,7 @@
                 "php": ">=5.6.30"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "2.*",
+                "phpdocumentor/phpdocumentor": "2.9.0",
                 "phpunit/phpunit": "^5.7",
                 "psy/psysh": "~0.6",
                 "wp-cli/wp-cli": "~0.22"
@@ -98,6 +110,7 @@
                     "DoTheRightThing\\WPPlugin\\": "src"
                 }
             },
+            "notification-url": "https://repo.packagist.com/dotherightthing/downloads/",
             "license": [
                 "ISC"
             ],
@@ -117,9 +130,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.15"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.20"
             },
-            "time": "2018-03-25T05:21:18+00:00"
+            "time": "2018-04-16T12:38:01+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -133,7 +146,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/GaryJones/Gamajo-Template-Loader/zipball/05057216f60baebfc4939e1a2b9aae6e89d25c91",
                 "reference": "05057216f60baebfc4939e1a2b9aae6e89d25c91",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/dotherightthing/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.2.4"
