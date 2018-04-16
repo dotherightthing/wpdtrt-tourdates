@@ -2,7 +2,7 @@
   "name": "wpdtrt-tourdates",
   "version": "1.0.4",
   "description": "Organise bike touring content by tour dates.",
-  "main": "readme.txt",
+  "main": "wpdtrt-tourdates.php",
   "authors": [
     {
       "name": "Dan Smith",
