@@ -85,7 +85,7 @@ script:
 # https://docs.travis-ci.com/user/notifications/
 notifications:
   email: false
-  slack: dotherightthing:Wu2ypwc2wIFZVqVqc2jRkbWw
+  slack: $SLACK_AUTH
 
 # Deploy code to Github as a 'release'
 # This is run after a tagged commit triggers a successful build
@@ -98,7 +98,7 @@ notifications:
 deploy:
   provider: releases
   api_key:
-    secure: J+MsfSieQwAGhCMnNmLvPwUbz3pgWk5g4bKm1ArWTpLlI+n1rzYyjTZHGWnCpyzC9M0doFkZexnVgc0ckHtXG48D/KS2KKovhx3Q7Zd1I/xiqBipmj+qdaVtbGBPFnVT30rkmHOpWSwg6sN0wvdk7fIxprCV+Bd/V6v7fGOxEt/8yU3kqSdvWp9+5yyXISwthVtMtpJH2HVnYGXFS5mdIsRUQEq13kv1OJZftAYKWrCO/8F0ts0DqgTS8vtoAx85cdvoIMY6T8avZXL9jk9LKFTHe49aJu0pPvIPaTEc+NvcUd/82n/VJw92ZGnxyzEy8QyQ6Gx1ehFlp31nTy8Jo3HvUMOwoJJ0PPvvsjI0XIbDa77Q8+Jx7+MU4psqVt4FVFT8rtOxHzL/okxZLKYSRiyn16GeMlpwVOUpuBW6npyHNpj/7J+rRicHwrbOCX0mJugDGQkEL2Kz9d29tHwNc2R+YO/dnPe3SAtBZ4rXsHjmaTg6se1Y0j3kl1Opr7sVeV/6+6qYI5APWaoeSKrIZeOL0Alar6AMSDgS5oKs1PZ4Xf/5HVv8m5XWE+/whrXkzdHlE4GPwSkLn6PodyNmYPpsMzRkqXOWmvUG/oaan96yxqmrkeIW0Wh08a+xcdhGMvv7B7MkLPYAfUzPb6qnlLVjLNy00PJLQaRoSMXl4zs=
+    secure: $GITHUB_AUTH
   file: 'release.zip'
   # prevent Travis CI from resetting the working directory
   # which deletes all changes made during the build 
