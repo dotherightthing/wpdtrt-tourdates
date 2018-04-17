@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "072d67b81650e218c792f893fb318e20",
+    "content-hash": "c691a5b5b44451d773d90a62b062be39",
     "packages": [
         {
             "name": "ambrosite/nextprevious-post-link-plus",
@@ -70,16 +70,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.2.20",
+            "version": "1.2.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "4736199203baac97d1ab8501c5631b10643708a0"
+                "reference": "36f1fd84008413c5a3488ebe3f90d34c97e48d97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/4736199203baac97d1ab8501c5631b10643708a0",
-                "reference": "4736199203baac97d1ab8501c5631b10643708a0",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/36f1fd84008413c5a3488ebe3f90d34c97e48d97",
+                "reference": "36f1fd84008413c5a3488ebe3f90d34c97e48d97",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -130,9 +130,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.20"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.2.22"
             },
-            "time": "2018-04-16T12:38:01+00:00"
+            "time": "2018-04-17T04:43:52+00:00"
         },
         {
             "name": "gamajo/template-loader",
