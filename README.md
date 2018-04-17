@@ -13,3 +13,7 @@ Please read [DTRT WP Plugin: Setup and Maintenance](https://github.com/dotherigh
 ## WordPress Installation and Usage
 
 Please read the [WordPress readme.txt](readme.txt).
+
+## Dependencies
+
+1. The bicycle navigation is built on top of [Ambrosite Next/Previous Post Link Plus](https://wordpress.org/plugins/ambrosite-nextprevious-post-link-plus/)
