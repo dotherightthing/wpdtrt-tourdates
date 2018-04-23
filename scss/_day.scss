@@ -1,37 +1,36 @@
-/**
- * Styles for the tourdates components of the archive page links
- *
- * This file contains CSS.
- *
- * @link        http://dotherightthing.co.nz
- * @since       1.0.0
- *
- * @package     WPDTRT_Tourdates
- * @subpackage  WPDTRT_Tourdates/scss
- */
+//
+// Styles for the tourdates components of the archive page links
+//
+// This file contains CSS.
+//
+// @link        http://dotherightthing.co.nz
+// @since       1.0.0
+//
+// @package     WPDTRT_Tourdates
+// @subpackage  WPDTRT_Tourdates/scss
+//
 
-/**
- * Stack banner
- */
+// Stack banner
+
 .stack_banner {
 
 	.wpdtrt-tourdates-day {
-		display: block; /* display on new line */
+		display: block; // display on new line
 		position: relative;
-		z-index: 4; /* stack above .entry-title */
+		z-index: 4; // stack above .entry-title
 		font-size: .2825em;
-		/* margin-bottom: 1px; for Safari, but then 2px in Chrome */
+		// margin-bottom: 1px; for Safari, but then 2px in Chrome
 
-		/*width: 20%; - why? this causes premature wrapping on attachment page */
-		/* font-size: 1.125em; 18px */
+		// width: 20%; - why? this causes premature wrapping on attachment page
+		// font-size: 1.125em; 18px
 	}
 
 	.wpdtrt-tourdates-day--title {
-		/* makes text selectable */
+		// makes text selectable
 		position: relative;
 		z-index: 3;
 		font-size: .7em;
-		display: inline-block; /* wrao nicely */
+		display: inline-block; // wrap nicely
 	}
 
 	.wpdtrt-tourdates-day--title {
@@ -54,10 +53,10 @@
 	.wpdtrt-tourdates-day--day,
 	.wpdtrt-tourdates-day--number,
 	.wpdtrt-tourdates-day--title {
-		background: #fff;
-		color: #000;
+		background: $wpdtrt-tourdates-day-bg-color;
+		color: $wpdtrt-tourdates-day-text-color;
 		padding: 0.3125rem;
-	  	box-shadow: 0 0 0 4px #fff;
+	  	box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
 	}
 
 	.wpdtrt-tourdates-day--day,
@@ -80,9 +79,7 @@
 	}
 }
 
-/**
- * <= 710px
- */
+// <= 710px
 
 @media screen and (max-width: 44.375em) {
 
@@ -93,9 +90,7 @@
 	}
 }
 
-/**
- * 14.1 - >= 568px
- */
+// 14.1 - >= 568px
 
 @media screen and (min-width: 35.5em) {
 
@@ -106,10 +101,8 @@
 	}
 }
 
-/**
- * 14.3 - >= 910px
- * This is the breakpoint that the MENU button switches to an inline menu
- */
+// 14.3 - >= 910px
+// This is the breakpoint that the MENU button switches to an inline menu
 
 @media screen and (min-width: 56.875em) {
 
@@ -120,9 +113,7 @@
  	}
 }
 
-/**
- * Stack link page
- */
+// Stack link page
 
 .stack_link_page {
 	.wpdtrt-tourdates-day {
@@ -137,14 +128,14 @@
 	.wpdtrt-tourdates-day--title,
 	.wpdtrt-tourdates-day--month,
 	.wpdtrt-tourdates-day--location {
-		background-color: #fff;
-		color: #000;
-		box-shadow: 0 0 0 4px #fff;
+		background-color: $wpdtrt-tourdates-day-bg-color;
+		color: $wpdtrt-tourdates-day-text-color;
+		box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
 	}
 
 	&.stack_link_category {
 		.wpdtrt-tourdates-day--location {
- 			color: #666;
+ 			color: $wpdtrt-tourdates-day-text-color--location;
  		}
 	}
 

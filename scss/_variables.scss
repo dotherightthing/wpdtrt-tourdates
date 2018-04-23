@@ -1,0 +1,35 @@
+//
+// Variables
+//
+// @package     wpdtrt_tourdates
+// @version 	0.0.1
+// @since       0.7.6
+//
+
+@import "vendor/dotherightthing/wpdtrt-plugin/node_modules/include-media/dist/_include-media";
+
+// -------------------------------------------------------------------
+// Breakpoints
+// -------------------------------------------------------------------
+
+// $breakpoints for include-media
+// Usage: @include media(">phone", "<=tablet") { ... }
+// Usage: @include media("<=1150px") { ... }
+// See https://include-media.com/
+
+$breakpoints: (
+    phone: 320px,
+    phone_large: 400px,
+    tablet_small: 550px,
+    tablet: 710px,
+    desktop: 910px
+);
+
+// -------------------------------------------------------------------
+// Colors
+// http://hex2rgba.devoth.com/
+// -------------------------------------------------------------------
+
+$wpdtrt-tourdates-day-bg-color: rgba(255, 255, 255, 1);
+$wpdtrt-tourdates-day-text-color: rgba(0, 0, 0, 1);
+$wpdtrt-tourdates-day-text-color--location: rgba(102, 102, 102, 1);
