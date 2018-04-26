@@ -190,6 +190,8 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
           'demo_shortcode_title' => __('Demo shortcode', 'wpdtrt-tourdates'),
           'demo_data_description' => __('This demo was generated from the following data', 'wpdtrt-tourdates'),
           'demo_date_last_updated' => __('Data last updated', 'wpdtrt-tourdates'),
+          'demo_data_length' => __('results', 'wpdtrt-tourdates'),
+          'demo_data_displayed_length' => __('results displayed', 'wpdtrt-tourdates'),
         ),
         'plugin_options' => $plugin_options,
         'instance_options' => $instance_options,
