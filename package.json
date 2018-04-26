@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "wpdtrt-tourdates",
   "version": "1.0.6",
   "description": "Display the relative position of content within an assigned date-range",
@@ -11,6 +12,9 @@
   "devDependencies": {
     "gulp": "^3.9.1"
   },
+  "workspaces": [
+    "vendor/dotherightthing/wpdtrt-plugin/"
+  ],
   "scripts": {
     "postinstall": "cd ./vendor/dotherightthing/wpdtrt-plugin && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,8 +29,5 @@
   ],
   "license": "ISC",
   "homepage": "https://github.com/dotherightthing/wpdtrt-tourdates",
-  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates",
-  "dependencies": {
-    "bower": "^1.8.2"
-  }
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates"
 }

@@ -1,7 +1,7 @@
 {
-	"name": "dotherightthing/wpdtrt-tourdates",
-	"description": "Display the relative position of content within an assigned date-range",
-	"type": "library",
+    "name": "dotherightthing/wpdtrt-tourdates",
+    "description": "Display the relative position of content within an assigned date-range",
+    "type": "library",
     "keywords": ["cycle-touring", "travel"],
     "license": "ISC",
     "authors": [
