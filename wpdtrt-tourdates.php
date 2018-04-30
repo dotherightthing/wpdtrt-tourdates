@@ -3,7 +3,7 @@
 Plugin Name:  DTRT Tour Dates
 Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
 Description:  Organise bike touring content by tour dates.
-Version:      1.0.6
+Version:      1.0.7
 Author:       Dan Smith
 Author URI:   https://profiles.wordpress.org/dotherightthingnz
 License:      GPLv2 or later
@@ -56,7 +56,7 @@ if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
  * @since     1.0.0
  * @version   1.0.0
  */
-  define( 'WPDTRT_TOURDATES_VERSION', '1.0.6' );
+  define( 'WPDTRT_TOURDATES_VERSION', '1.0.7' );
 }
 
 if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {

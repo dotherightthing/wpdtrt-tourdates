@@ -4,9 +4,9 @@ Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
 Tags: cycle-touring, travel,
 Requires at least: 4.8.2
-Tested up to: 4.8.2
+Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,19 @@ A day number is assigned to each post as it is (re)published.
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.0.7 =
+* Migrate Bower & NPM to Yarn
+* Update Node from 6.11.2 to 8.11.1
+* Add messages required by shortcode demo
+* Add SCSS partials for project-specific extends and variables
+* Change tag badge to release badge
+* Fix default .pot file
+* Document dependencies
+* Update wpdtrt-plugin
+
+= 1.0.6 =
+* Use environmental variables in build
 
 = 1.0.5 =
 * Use Private Packagist
