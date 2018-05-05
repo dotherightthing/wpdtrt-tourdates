@@ -173,6 +173,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
         'prefix' => 'wpdtrt_tourdates',
         'slug' => 'wpdtrt-tourdates',
         'menu_title' => __('Tour Dates', 'wpdtrt-tourdates'),
+        'settings_title' => __('Settings', 'wpdtrt-tourdates'),
         'developer_prefix' => 'DTRT',
         'path' => WPDTRT_TOURDATES_PATH,
         'messages' => array(
