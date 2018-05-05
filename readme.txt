@@ -6,7 +6,7 @@ Tags: cycle-touring, travel,
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ A day number is assigned to each post as it is (re)published.
 
 == Changelog ==
 
+= 1.0.8 =
+* Update wpdtrt-plugin to 1.3.6
+
 = 1.0.7 =
 * Migrate Bower & NPM to Yarn
 * Update Node from 6.11.2 to 8.11.1
@@ -70,7 +73,7 @@ A day number is assigned to each post as it is (re)published.
 * Change tag badge to release badge
 * Fix default .pot file
 * Document dependencies
-* Update wpdtrt-plugin
+* Update wpdtrt-plugin to 1.3.1
 
 = 1.0.6 =
 * Use environmental variables in build
