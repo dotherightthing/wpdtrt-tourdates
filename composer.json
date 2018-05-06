@@ -17,8 +17,7 @@
         "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin": "^1.0.0",
-        "ambrosite/nextprevious-post-link-plus": "2.4.*"
+        "dotherightthing/wpdtrt-plugin": "^1.0.0"
     },
     "minimum-stability": "stable",
     "repositories": [
@@ -32,5 +31,8 @@
     ],
     "config": {
         "vendor-dir": "vendor"
+    },
+    "require-dev": {
+        "ambrosite/nextprevious-post-link-plus": "2.4.*"
     }
 }
