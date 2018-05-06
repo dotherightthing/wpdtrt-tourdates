@@ -56,7 +56,7 @@ if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
  * @since     1.0.0
  * @version   1.0.0
  */
-  define( 'WPDTRT_TOURDATES_VERSION', '1.0.8' );
+  define( 'WPDTRT_TOURDATES_VERSION', '1.0.9' );
 }
 
 if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
@@ -211,7 +211,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_taxonomy_tour = new DoTheRightThing\WPPlugin\Taxonomy(
+    $wpdtrt_tourdates_taxonomy_tour = new DoTheRightThing\WPPlugin\r_1_4_6\Taxonomy(
       array(
         'name' => 'wpdtrt_tourdates_taxonomy_tour',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -313,7 +313,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_navigation = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_navigation = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_navigation',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -334,7 +334,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_daynumber = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_daynumber = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_daynumber',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -353,7 +353,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_daytotal = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_daytotal = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_daytotal',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -372,7 +372,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_tourlengthdays = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_tourlengthdays = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_tourlengthdays',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -395,7 +395,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_thumbnail = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_thumbnail = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_thumbnail',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -416,7 +416,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_summary = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_tourdates_shortcode_summary = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_summary',
         'plugin' => $wpdtrt_tourdates_plugin,
