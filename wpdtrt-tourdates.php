@@ -1,16 +1,16 @@
 <?php
-/*
-Plugin Name:  DTRT Tour Dates
-Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
-Description:  Organise bike touring content by tour dates.
-Version:      1.0.8
-Author:       Dan Smith
-Author URI:   https://profiles.wordpress.org/dotherightthingnz
-License:      GPLv2 or later
-License URI:  http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  wpdtrt-tourdates
-Domain Path:  /languages
-*/
+/**
+ * Plugin Name:  DTRT Tour Dates
+ * Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
+ * Description:  Organise bike touring content by tour dates.
+ * Version:      1.0.8
+ * Author:       Dan Smith
+ * Author URI:   https://profiles.wordpress.org/dotherightthingnz
+ * License:      GPLv2 or later
+ * License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:  wpdtrt-tourdates
+ * Domain Path:  /languages
+ */
 
 require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
