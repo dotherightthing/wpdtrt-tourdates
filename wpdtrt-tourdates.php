@@ -12,7 +12,18 @@
  * Domain Path:  /languages
  */
 
-require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
+/**
+ * Autoload namespaced package classes
+ * @see https://github.com/dotherightthing/wpdtrt-plugin/wiki/Options:-Adding-WordPress-plugin-dependencies
+ */
+if ( defined( 'WPDTRT_TOURDATES_TEST_DEPENDENCY' ) ) {
+  $projectRootPath = realpath(__DIR__ . '/../../..') . '/';
+}
+else {
+  $projectRootPath = '';
+}
+
+require_once $projectRootPath . "vendor/autoload.php";
 
 /**
  * Constants
@@ -100,7 +111,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
   // base class
   // redundant, but includes the composer-generated autoload file if not already included
-  require_once(WPDTRT_TOURDATES_PATH . 'vendor/dotherightthing/wpdtrt-plugin/index.php');
+  require_once($projectRootPath . 'vendor/dotherightthing/wpdtrt-plugin/index.php');
 
   // sub classes
   require_once(WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-plugin.php');
