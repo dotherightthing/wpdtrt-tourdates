@@ -6,7 +6,7 @@ Tags: cycle-touring, travel,
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ A day number is assigned to each post as it is (re)published.
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.0.10 =
+* Update WordPress plugin header format so that gulp bump can update the version
+* Demote ambrosite/nextprevious-post-link-plus to require-dev (test dependency)
+* Fix path to autoloader when loaded as a test dependency
 
 = 1.0.9 =
 * Include release number in wpdtrt-plugin namespaces
