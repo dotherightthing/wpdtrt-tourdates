@@ -7,16 +7,6 @@
     "content-hash": "c691a5b5b44451d773d90a62b062be39",
     "packages": [
         {
-            "name": "ambrosite/nextprevious-post-link-plus",
-            "version": "2.4.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
-                "reference": "trunk/"
-            },
-            "type": "library"
-        },
-        {
             "name": "dotherightthing/wpdtrt-debug",
             "version": "1.0.2",
             "source": {
