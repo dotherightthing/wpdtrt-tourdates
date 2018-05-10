@@ -16,7 +16,7 @@
  * @since       1.0.0
  * @version 	1.0.0
  */
-class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\r_1_4_6\Plugin {
+class WPDTRT_TourDates_Plugin extends DoTheRightThing\WPPlugin\r_1_4_14\Plugin {
 
     /**
      * Hook the plugin in to WordPress

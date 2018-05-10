@@ -3,7 +3,7 @@
  * Plugin Name:  DTRT Tour Dates
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
  * Description:  Organise bike touring content by tour dates.
- * Version:      1.0.10
+ * Version:      1.0.11
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/dotherightthingnz
  * License:      GPLv2 or later
@@ -67,7 +67,7 @@ if( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
  * @since     1.0.0
  * @version   1.0.0
  */
-  define( 'WPDTRT_TOURDATES_VERSION', '1.0.10' );
+  define( 'WPDTRT_TOURDATES_VERSION', '1.0.11' );
 }
 
 if( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
@@ -222,7 +222,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_taxonomy_tour = new DoTheRightThing\WPPlugin\r_1_4_6\Taxonomy(
+    $wpdtrt_tourdates_taxonomy_tour = new DoTheRightThing\WPPlugin\r_1_4_14\Taxonomy(
       array(
         'name' => 'wpdtrt_tourdates_taxonomy_tour',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -324,7 +324,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_navigation = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_navigation = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_navigation',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -345,7 +345,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_daynumber = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_daynumber = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_daynumber',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -364,7 +364,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_daytotal = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_daytotal = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_daytotal',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -383,7 +383,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_tourlengthdays = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_tourlengthdays = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_tourlengthdays',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -406,7 +406,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_thumbnail = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_thumbnail = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_thumbnail',
         'plugin' => $wpdtrt_tourdates_plugin,
@@ -427,7 +427,7 @@ if( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
 
     global $wpdtrt_tourdates_plugin;
 
-    $wpdtrt_tourdates_shortcode_summary = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
+    $wpdtrt_tourdates_shortcode_summary = new DoTheRightThing\WPPlugin\r_1_4_14\Shortcode(
       array(
         'name' => 'wpdtrt_tourdates_shortcode_summary',
         'plugin' => $wpdtrt_tourdates_plugin,
