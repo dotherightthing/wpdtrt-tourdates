@@ -1,0 +1,123 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M810 874c82 0 150-66 150-148s-68-150-150-150-148 68-148 150 66 148 148 148zM810 512c120 0 214 94 214 214s-94 212-214 212-212-92-212-212 92-214 212-214zM460 448l94 98v264h-84v-212l-138-120c-18-12-24-34-24-60 0-22 6-42 24-60l120-120c12-18 34-24 60-24s46 6 68 24l82 82c38 38 88 64 152 64v86c-90 0-160-34-216-90l-34-34zM214 874c82 0 148-66 148-148s-66-150-148-150-150 68-150 150 68 148 150 148zM214 512c120 0 212 94 212 214s-92 212-212 212-214-92-214-212 94-214 214-214zM662 234c-46 0-86-38-86-84s40-86 86-86 84 40 84 86-38 84-84 84z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "directions_bike"
+        ],
+        "grid": 24
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 1,
+        "id": 1,
+        "prevSize": 24,
+        "code": 59652,
+        "name": "directions_bike"
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
+          "M992 512l-480-480v288h-512v384h512v288z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "arrow-right",
+          "right",
+          "next"
+        ],
+        "defaultCode": 59956,
+        "grid": 16
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "arrow-right, right3",
+        "name": "arrow-right",
+        "id": 6,
+        "order": 6,
+        "prevSize": 32,
+        "code": 59956
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 8
+    },
+    {
+      "icon": {
+        "paths": [
+          "M32 512l480 480v-288h512v-384h-512v-288z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "arrow-left",
+          "left",
+          "previous"
+        ],
+        "defaultCode": 59960,
+        "grid": 16
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "arrow-left, left3",
+        "name": "arrow-left",
+        "id": 8,
+        "order": 30,
+        "prevSize": 32,
+        "code": 59960
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 10
+    }
+  ],
+  "height": 1024,
+  "metadata": {
+    "name": "icomoon"
+  },
+  "preferences": {
+    "showGlyphs": true,
+    "showCodes": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215
+    },
+    "historySize": 100
+  }
+}
