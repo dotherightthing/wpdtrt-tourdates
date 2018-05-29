@@ -223,7 +223,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	 * Create the 'tour' taxonomy
 	 */
 	public function create_taxonomy() {
-		$taxonomy = wpdtrt_tourdates_taxonomy_tour_init();
+		$taxonomy = wpdtrt_tourdates_taxonomy_init();
 
 		return $taxonomy;
 	}
