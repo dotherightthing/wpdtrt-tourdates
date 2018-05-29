@@ -101,6 +101,7 @@ require_once $project_root_path . 'vendor/autoload.php';
 // remove the includes you don't need, edit the files you do need.
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-plugin.php';
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-shortcode.php';
+require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-taxonomy.php';
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-widget.php';
 
 // log & trace helpers.
@@ -128,6 +129,7 @@ add_action( 'init', 'wpdtrt_tourdates_shortcode_navigation_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_shortcode_summary_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_shortcode_tourlengthdays_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_shortcode_thumbnail_init', 100 );
+add_action( 'init', 'wpdtrt_tourdates_taxonomy_init', 100 );
 add_action( 'widgets_init', 'wpdtrt_tourdates_widget_init', 10 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_tourdates_helper_deactivate' );
