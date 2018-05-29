@@ -102,7 +102,6 @@ require_once $project_root_path . 'vendor/autoload.php';
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-plugin.php';
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-shortcode.php';
 require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-taxonomy.php';
-require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -130,7 +129,6 @@ add_action( 'init', 'wpdtrt_tourdates_shortcode_summary_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_shortcode_tourlengthdays_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_shortcode_thumbnail_init', 100 );
 add_action( 'init', 'wpdtrt_tourdates_taxonomy_init', 100 );
-add_action( 'widgets_init', 'wpdtrt_tourdates_widget_init', 10 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_tourdates_helper_deactivate' );
 
@@ -529,17 +527,7 @@ function wpdtrt_tourdates_widget_init() {
 	global $wpdtrt_tourdates_plugin;
 
 	$wpdtrt_tourdates_widget = new WPDTRT_Tourdates_Widget(
-		array(
-			'name'                      => 'wpdtrt_tourdates_widget',
-			'title'                     => __( 'Tourdates Widget', 'wpdtrt-tourdates' ),
-			'description'               => __( 'Widget description.', 'wpdtrt-tourdates' ),
-			'plugin'                    => $wpdtrt_tourdates_plugin,
-			'template'                  => 'tourdates',
-			'selected_instance_options' => array(
-				'number',
-				'enlargement',
-			),
-		)
+		array()
 	);
 
 	register_widget( $wpdtrt_tourdates_widget );
