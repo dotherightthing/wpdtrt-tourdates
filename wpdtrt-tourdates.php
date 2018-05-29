@@ -411,10 +411,26 @@ function wpdtrt_tourdates_taxonomy_init() {
 
 	$wpdtrt_tourdates_taxonomy = new WPDTRT_Tourdates_Taxonomy(
 		array(
-			'name'                      => 'wpdtrt_tourdates_taxonomy_tour',
-			'plugin'                    => $wpdtrt_tourdates_plugin,
-			'selected_instance_options' => array(),
-			'taxonomy_options'          => array(
+			'name'                       => 'wpdtrt_tourdates_taxonomy_tour',
+			'singular_name'              => __( 'Tour' ),
+			'menu_name'                  => __( 'Tours' ),
+			'all_items'                  => __( 'All Tours' ),
+			'add_new_item'               => __( 'Add New Tour' ),
+			'edit_item'                  => __( 'Edit Tour' ),
+			'view_item'                  => __( 'View Tour' ),
+			'update_item'                => __( 'Update Tour' ),
+			'new_item_name'              => __( 'New Tour Name' ),
+			'parent_item'                => __( 'Parent tour' ),
+			'parent_item_colon'          => __( 'Parent tour:' ),
+			'search_items'               => __( 'Search tours' ),
+			'popular_items'              => __( 'Popular tours' ),
+			'separate_items_with_commas' => __( 'Separate tours with commas' ),
+			'add_or_remove_items'        => __( 'Add or remove tours' ),
+			'choose_from_most_used'      => __( 'Choose from the most used tours' ),
+			'not_found'                  => __( 'No tours found' ),
+			'plugin'                     => $wpdtrt_tourdates_plugin,
+			'selected_instance_options'  => array(),
+			'taxonomy_options'           => array(
 				'term_type'    => array(
 					'type'              => 'select',
 					'label'             => esc_html__( 'Term type', 'wpdtrt-tourdates' ),
@@ -488,7 +504,7 @@ function wpdtrt_tourdates_taxonomy_init() {
 					'todo_condition'    => 'term_type == "tour_leg"',
 				),
 			),
-			'labels'                    => array(
+			'labels'                     => array(
 				'slug'                 => 'tours',
 				'singular'             => __( 'Tour', 'wpdtrt-tourdates' ),
 				'plural'               => __( 'Tours', 'wpdtrt-tourdates' ),
