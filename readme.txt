@@ -102,6 +102,23 @@ A day number is assigned to each post as it is (re)published.
 = 1.0.5 =
 * Use Private Packagist
 
+= 1.0.4 =
+* Update dependencies
+
+= 1.0.3 =
+* Update dependencies
+
+= 1.0.2 =
+* Fix constant which informs include path
+* Add project logo to README
+
+= 1.0.1 =
+* Update dependencies
+* Update documentation
+* Update API key to troubleshoot Github authentication
+* Replace `--pluginrole` CLI arg with directory check
+* Properly exclude `node_modules` from release zip
+
 = 1.0.0 =
 * Use wpdtrt-plugin
 
