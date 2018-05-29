@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c691a5b5b44451d773d90a62b062be39",
+    "content-hash": "29aaa5e02c2b2c681e88abd1a484bf74",
     "packages": [
         {
             "name": "dotherightthing/wpdtrt-debug",
@@ -35,6 +35,7 @@
                     "DoTheRightThing\\WPDebug\\": "src"
                 }
             },
+            "notification-url": "https://repo.packagist.com/dotherightthing/downloads/",
             "license": [
                 "ISC"
             ],
@@ -59,17 +60,17 @@
             "time": "2018-03-22T09:48:20+00:00"
         },
         {
-            "name": "dotherightthing/wpdtrt-plugin",
-            "version": "1.4.15",
+            "name": "dotherightthing/wpdtrt-plugin-boilerplate",
+            "version": "1.4.22",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dotherightthing/wpdtrt-plugin.git",
-                "reference": "17e74be066c6967668d322abfe84a20f7e1a8472"
+                "url": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate.git",
+                "reference": "b17bb71ebab272c258c854aa5295ddf72b421a79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin/zipball/17e74be066c6967668d322abfe84a20f7e1a8472",
-                "reference": "17e74be066c6967668d322abfe84a20f7e1a8472",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/b17bb71ebab272c258c854aa5295ddf72b421a79",
+                "reference": "b17bb71ebab272c258c854aa5295ddf72b421a79",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -97,7 +98,7 @@
             ],
             "autoload": {
                 "psr-4": {
-                    "DoTheRightThing\\WPPlugin\\r_1_4_15\\": "src"
+                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_4_22\\": "src"
                 }
             },
             "notification-url": "https://repo.packagist.com/dotherightthing/downloads/",
@@ -112,7 +113,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Base classes for a plugin, plugin shortcode, and plugin widget.",
+            "description": "Boilerplate for WordPress plugin development.",
             "keywords": [
                 "boilerplate",
                 "framework"
@@ -120,9 +121,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin/tree/1.4.15"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.4.22"
             },
-            "time": "2018-05-11T00:47:44+00:00"
+            "time": "2018-05-21T23:43:01+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -153,7 +154,7 @@
                     "class-gamajo-template-loader.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "https://repo.packagist.com/dotherightthing/downloads/",
             "license": [
                 "GPL-2.0+"
             ],
@@ -174,7 +175,31 @@
             "time": "2017-03-24T17:28:34+00:00"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "ambrosite/nextprevious-post-link-plus",
+            "version": "2.4.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ambrosite-nextprevious-post-link-plus/",
+                "reference": "trunk/"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.packagist.com/dotherightthing/dists/ambrosite/nextprevious-post-link-plus/2.4.0.0/4e3a55e2a9734425e24eb78aa4793941.zip",
+                "reference": "trunk/",
+                "shasum": null,
+                "mirrors": [
+                    {
+                        "url": "https://repo.packagist.com/dotherightthing/dists/%package%/%version%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "type": "library",
+            "notification-url": "https://repo.packagist.com/dotherightthing/downloads/"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],

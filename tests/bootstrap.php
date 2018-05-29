@@ -2,7 +2,7 @@
 /**
  * PHPUnit bootstrap file
  *
- * @package Wpdtrt_Tourdates
+ * @package WPDTRT_Tourdates
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
