@@ -71,6 +71,9 @@ A day number is assigned to each post as it is (re)published.
 * Fix taxonomy name, class and i18n strings
 * Migrate icons from wpdtrt-dbth
 * Prefer stable versions but allow dev versions
+* Fix config test
+* Don't run PHP Unit directly from Travis
+* Disable missing terms test
 
 = 1.0.12 =
 * Update wpdtrt-plugin to 1.4.15
