@@ -64,9 +64,12 @@ A day number is assigned to each post as it is (re)published.
 
 = 1.0.13 =
 * Update wpdtrt-plugin to wpdtrt-plugin-boilerplate
-* Update wpdtrt-plugin-boilerplate to 1.4.22
+* Update wpdtrt-plugin-boilerplate to 1.4.24
 * Fix package name
 * Fixes for PHPCS
+* Remove redundant widget
+* Fix taxonomy name, class and i18n strings
+* Migrate icons from wpdtrt-dbth
 
 = 1.0.12 =
 * Update wpdtrt-plugin to 1.4.15
