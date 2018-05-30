@@ -70,6 +70,7 @@ A day number is assigned to each post as it is (re)published.
 * Remove redundant widget
 * Fix taxonomy name, class and i18n strings
 * Migrate icons from wpdtrt-dbth
+* Prefer stable versions but allow dev versions
 
 = 1.0.12 =
 * Update wpdtrt-plugin to 1.4.15
