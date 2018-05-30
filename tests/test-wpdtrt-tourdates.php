@@ -597,7 +597,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			$this->post_id_1,
 			$this->post_id_2,
 			$this->post_id_3,
-			// $this->post_id_4_malformed - see test_post_missing_terms()
+			//$this->post_id_4_malformed, // see test_post_missing_terms()
 		);
 
 		foreach ( $post_ids as $post_id ) {
@@ -623,7 +623,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	 *
 	 * @see https://github.com/dotherightthing/wpdtrt-tourdates/issues/12
 	 */
-	public function test_post_missing_terms() {
+	public function __test_post_missing_terms() {
 
 		$this->assertEquals(
 			$this->plugin->get_term_id( $this->post_id_4_malformed, 'tour' )->get_error_message(),
