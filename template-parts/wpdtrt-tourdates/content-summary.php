@@ -4,7 +4,6 @@
  *
  * @link        http://dotherightthing.co.nz
  * @since       1.0.0
- *
  * @package     WPDTRT_Tourdates
  * @see         TourdatesTest\test_shortcodes
  */

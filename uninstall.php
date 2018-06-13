@@ -18,12 +18,11 @@
  * Remove Options from {$wpdb->prefix}_options: Yes
  * Remove Tables from wpdb: Yes
  *
- * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#file-organization
- * @link https://developer.wordpress.org/plugins/the-basics/uninstall-methods/#method-2-uninstall-php
- *
  * @package     wpdtrt_tourdates
  * @since       1.0.0
  * @version     1.0.0
+ * @see https://developer.wordpress.org/plugins/the-basics/best-practices/#file-organization
+ * @see https://developer.wordpress.org/plugins/the-basics/uninstall-methods/#method-2-uninstall-php
  */
 
 // if uninstall.php is not called by WordPress, die

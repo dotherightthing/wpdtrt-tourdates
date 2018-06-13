@@ -273,8 +273,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	/**
 	 * Create post
 	 *
-	 * @param string $post_title Post title
-	 * @param string $post_date Post date
+	 * @param array $options Post options
 	 * @param array $term_ids Taxonomy term IDs
 	 * @return number $post_id
 	 * @see https://developer.wordpress.org/reference/functions/wp_insert_post/
@@ -337,6 +336,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	/**
 	 * Mock a region
 	 *
+	 * @param array $options Region term options
 	 * @return number $term_id
 	 */
 	public function mock_region_term( $options ) {
@@ -368,6 +368,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	/**
 	 * Mock a tour
 	 *
+	 * @param array $options Tour term options
 	 * @return number $term_id
 	 */
 	public function mock_tour_term( $options ) {
@@ -405,6 +406,7 @@ class TourdatesTest extends WP_UnitTestCase {
 	/**
 	 * Mock a tour_leg
 	 *
+	 * @param array $options Tour leg options
 	 * @return number $term_id
 	 */
 	public function mock_tour_leg_term( $options ) {

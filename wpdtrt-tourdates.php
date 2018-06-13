@@ -300,6 +300,9 @@ function wpdtrt_tourdates_rewrite_init() {
  * ===== Shortcode config =====
  */
 
+/**
+ * Register Shortcode for Day Number
+ */
 function wpdtrt_tourdates_shortcode_daynumber_init() {
 
 	global $wpdtrt_tourdates_plugin;
@@ -314,6 +317,9 @@ function wpdtrt_tourdates_shortcode_daynumber_init() {
 	);
 }
 
+/**
+ * Register Shortcode for Day Total
+ */
 function wpdtrt_tourdates_shortcode_daytotal_init() {
 
 	global $wpdtrt_tourdates_plugin;
@@ -328,8 +334,9 @@ function wpdtrt_tourdates_shortcode_daytotal_init() {
 	);
 }
 
-
-
+/**
+ * Register Shortcode for Navigation
+ */
 function wpdtrt_tourdates_shortcode_navigation_init() {
 
 	global $wpdtrt_tourdates_plugin;
@@ -346,6 +353,9 @@ function wpdtrt_tourdates_shortcode_navigation_init() {
 	);
 }
 
+/**
+ * Register Shortcode for Summary
+ */
 function wpdtrt_tourdates_shortcode_summary_init() {
 
 	global $wpdtrt_tourdates_plugin;
@@ -362,6 +372,9 @@ function wpdtrt_tourdates_shortcode_summary_init() {
 	);
 }
 
+/**
+ * Register Shortcode for Thumbnail
+ */
 function wpdtrt_tourdates_shortcode_thumbnail_init() {
 
 	global $wpdtrt_tourdates_plugin;
@@ -378,6 +391,9 @@ function wpdtrt_tourdates_shortcode_thumbnail_init() {
 	);
 }
 
+/**
+ * Register Shortcode for Tour Length in Days
+ */
 function wpdtrt_tourdates_shortcode_tourlengthdays_init() {
 
 	global $wpdtrt_tourdates_plugin;

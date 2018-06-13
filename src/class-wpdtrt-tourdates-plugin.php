@@ -187,7 +187,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * Get the value of the tour_type metadata/field attached to a particular term/tour.
 	 * Used to calculate date offsets.
 	 *
-	 * @param number $id The ID of the term
+	 * @param number $term_id The ID of the term
 	 * @return string $term_type Term type (tour|tour_leg)
 	 * @version 1.0.0
 	 * @since 1.0.0
@@ -772,6 +772,9 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	/**
 	 * Add the day to an attachment image page
 	 *
+	 * @param   string $attachment_title Attachment title
+	 * @param   string $parent_title Parent title
+	 * @param   number $parent_id Parent ID
 	 * @deprecated Not currently used
 	 */
 	public function filter_attachment_title_add_day( $attachment_title, $parent_title, $parent_id ) {
@@ -803,6 +806,8 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	/**
 	 * Remove the day from an attachment image page
 	 *
+	 * @param string $attachment_title Attachment title
+	 * @param string $fallback Fallback
 	 * @deprecated Not currently used
 	 */
 	public function filter_attachment_title_remove_day( $attachment_title = '', $fallback = '' ) {

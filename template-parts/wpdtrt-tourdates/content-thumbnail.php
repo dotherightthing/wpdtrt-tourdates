@@ -7,7 +7,6 @@
  * @see         http://www.mikejohnsondesign.com/add-wordpress-featured-image-as-background-image/
  * @see         https://wordpress.org/support/topic/insert-featured-image-in-div-style-background
  * @see         https://developer.wordpress.org/reference/functions/wp_get_attachment_image_src/
- *
  * @package     WPDTRT_Tourdates
  * @todo        TourdatesTest\test_shortcodes
  * @todo        Add background/foreground option
