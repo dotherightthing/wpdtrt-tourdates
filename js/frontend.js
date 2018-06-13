@@ -3,7 +3,6 @@
  *
  * PHP variables are provided in wpdtrt_tourdates_config.
  *
- * @package     wpdtrt_tourdates
  * @version 	1.0.0
  * @since       1.0.0
  */
