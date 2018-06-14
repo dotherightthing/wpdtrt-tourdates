@@ -8,7 +8,7 @@ Organise bike touring content by tour dates.
 
 ## Setup and Maintenance
 
-Please read [DTRT WP Plugin: Setup and Maintenance](https://github.com/dotherightthing/wpdtrt-plugin-boilerplate#setup-and-maintenance).
+Please read [DTRT WordPress Plugin Boilerplate: Workflows](https://github.com/dotherightthing/wpdtrt-plugin-boilerplate-boilerplate/wiki/Workflows).
 
 ## WordPress Installation and Usage
 
