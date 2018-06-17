@@ -441,8 +441,11 @@ function wpdtrt_tourdates_taxonomy_init() {
 						'region'   => array(
 							'text' => __( 'Region', 'wpdtrt-tourdates' ),
 						),
+						'short_tour' => array(
+							'text' => __( 'Tour with only one leg', 'wpdtrt-tourdates' ),
+						),
 						'tour'     => array(
-							'text' => __( 'Tour', 'wpdtrt-tourdates' ),
+							'text' => __( 'Tour with multiple legs', 'wpdtrt-tourdates' ),
 						),
 						'tour_leg' => array(
 							'text' => __( 'Tour Leg', 'wpdtrt-tourdates' ),
