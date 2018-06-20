@@ -630,12 +630,22 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 
 		$taxonomy   = $this->get_the_taxonomy();
 		$post_terms = wp_get_post_terms( $post_id, $taxonomy );
+		$post_term_types = array();
 
-		if ( count( $post_terms ) < 3 ) {
-			return false;
-		} else {
-			return true;
+		foreach ($post_terms as $term) {
+			$term_type = $this->get_meta_term_type( $term->term_id );
+			$post_term_types[$term_type] = true;
 		}
+
+		if ( array_key_exists( 'tour_leg', $post_term_types ) && array_key_exists( 'tour', $post_term_types ) && array_key_exists( 'region', $post_term_types ) ) {
+			$required_terms = true;
+		} elseif ( array_key_exists( 'tour', $post_term_types ) && array_key_exists( 'region', $post_term_types ) ) {
+			$required_terms = true;
+		} else {
+			$required_terms = false;
+		}
+
+		return $required_terms;
 	}
 
 	/**
