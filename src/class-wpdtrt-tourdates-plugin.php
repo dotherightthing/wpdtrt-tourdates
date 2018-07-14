@@ -12,7 +12,7 @@
  *
  * @since   1.0.0
  */
-class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_4_25\Plugin {
+class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_4_38\Plugin {
 
 	/**
 	 * Supplement plugin initialisation.

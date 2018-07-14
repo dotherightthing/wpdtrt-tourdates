@@ -5,9 +5,10 @@
 // TEMPLATE: template-parts/wpdtrt-tourdates-navigation
 //
 
-.wpdtrt-tourdates-navigation--text,
-.site-header-main .wpdtrt-tourdates-navigation {
-    font-family: "Helvetica Neue", sans-serif;
+.site-header-main {
+    .wpdtrt-tourdates-navigation {
+        font-family: 'Helvetica Neue', sans-serif;
+    }
 }
 
 .wpdtrt-tourdates-navigation--current {
@@ -16,6 +17,7 @@
 
 .wpdtrt-tourdates-navigation--text {
     display: inline-block;
+    font-family: 'Helvetica Neue', sans-serif;
     line-height: 1.5;
 }
 
@@ -85,10 +87,14 @@
 
 @media screen and (min-width: 44.375em) {
 
-    .stack_banner .wpdtrt-tourdates-navigation::after {
-        content: '';
-        display: table;
-        clear: both;
-        width: 100%;
+    .stack_banner {
+        .wpdtrt-tourdates-navigation {
+            &::after {
+                content: '';
+                display: table;
+                clear: both;
+                width: 100%;
+            }
+        }
     }
 }

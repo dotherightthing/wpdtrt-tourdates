@@ -3,7 +3,7 @@
  * Plugin Name:  DTRT Tour Dates
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
  * Description:  Organise bike touring content by tour dates.
- * Version:      1.0.14
+ * Version:      1.0.15
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/dotherightthingnz
  * License:      GPLv2 or later
@@ -43,7 +43,7 @@ if ( ! defined( 'WPDTRT_TOURDATES_VERSION' ) ) {
 	 * @see $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
 	 * @see https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
 	 */
-	define( 'WPDTRT_TOURDATES_VERSION', '1.0.14' );
+	define( 'WPDTRT_TOURDATES_VERSION', '1.0.15' );
 }
 
 if ( ! defined( 'WPDTRT_TOURDATES_PATH' ) ) {
@@ -75,7 +75,7 @@ if ( ! defined( 'WPDTRT_TOURDATES_URL' ) ) {
  */
 
 /**
- * Determine the correct path, from wpdtrt-plugin-boilerplate to the PSR-4 autoloader
+ * Determine the correct path to the PSR-4 autoloader.
  *
  * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/51
  */
@@ -84,7 +84,7 @@ if ( ! defined( 'WPDTRT_PLUGIN_CHILD' ) ) {
 }
 
 /**
- * Determine the correct path, from wpdtrt-foobar to the PSR-4 autoloader
+ * Determine the correct path to the PSR-4 autoloader.
  *
  * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/104
  * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-WordPress-plugin-dependencies
@@ -428,6 +428,7 @@ function wpdtrt_tourdates_taxonomy_init() {
 	$wpdtrt_tourdates_taxonomy = new WPDTRT_Tourdates_Taxonomy(
 		array(
 			'name'                      => 'wpdtrt_tourdates_taxonomy_tour',
+			'register'					=> true,
 			'plugin'                    => $wpdtrt_tourdates_plugin,
 			'selected_instance_options' => array(),
 			'taxonomy_options'          => array(

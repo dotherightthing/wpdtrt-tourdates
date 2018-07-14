@@ -1,12 +1,11 @@
-
 === DTRT Tour Dates ===
 Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
-Tags: cycle-touring, travel,
+Tags: cycle-touring, travel
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.0.14
+Stable tag: 1.0.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +60,10 @@ A day number is assigned to each post as it is (re)published.
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.0.15 =
+* Update wpdtrt-plugin-boilerplate to 1.4.38
+* Sync with generator-wpdtrt-plugin-boilerplate 0.7.25
 
 = 1.0.14 =
 * Update wpdtrt-plugin-boilerplate to 1.4.25

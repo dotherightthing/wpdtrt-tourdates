@@ -1,4 +1,5 @@
 .DS_Store
+.yo-rc.json
 composer.phar
 css
 docs
@@ -7,3 +8,4 @@ logs
 node_modules
 release.zip
 vendor
+wp-content

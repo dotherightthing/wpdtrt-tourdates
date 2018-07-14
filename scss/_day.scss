@@ -122,6 +122,7 @@
         padding-bottom: .6em;
     }
 
+    // sass-lint:disable force-element-nesting
     .stack--text h3 > .wpdtrt-tourdates-day > *,
     .wpdtrt-tourdates-day--title,
     .wpdtrt-tourdates-day--month,
@@ -130,6 +131,7 @@
         color: $wpdtrt-tourdates-day-text-color;
         box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
     }
+    // sass-lint:enable force-element-nesting
 
     &.stack_link_category {
         .wpdtrt-tourdates-day--location {
@@ -163,9 +165,11 @@
         padding-bottom: .2em;
     }
 
-    a:focus {
-        .wpdtrt-tourdates-day--title {
-            text-decoration: underline; // TODO: this is a temp A11y fix
+    a {
+        &:focus {
+            .wpdtrt-tourdates-day--title {
+                text-decoration: underline; // TODO: this is a temp A11y fix
+            }
         }
     }
 }
