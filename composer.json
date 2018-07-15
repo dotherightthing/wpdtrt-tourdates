@@ -26,6 +26,17 @@
         "wp-cli/wp-cli" : "~0.22",
         "wpackagist-plugin/ambrosite-nextprevious-post-link-plus": "2.4.*"
     },
+    "extras": {
+        "require-wp": [
+            {
+                "name": "Ambrosite Next/Previous Post Link Plus",
+                "host": "wpackagist",
+                "repository": "wpackagist-plugin/ambrosite-nextprevious-post-link-plus",
+                "file": "ambrosite-post-link-plus.php",
+                "description": "Provides the base for the bicycle navigation"
+            }
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [

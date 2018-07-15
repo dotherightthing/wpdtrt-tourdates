@@ -23,7 +23,8 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-tourdates.php';
-	require dirname( dirname( __FILE__ ) ) . '/wp-content/ambrosite-nextprevious-post-link-plus/ambrosite-post-link-plus.php';
+
+	WPDTRT_Tourdates_Plugin::set_wp_composer_dependencies( '../composer.json', 'wpunit' );
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
