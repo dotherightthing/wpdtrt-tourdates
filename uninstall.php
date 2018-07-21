@@ -25,16 +25,12 @@
  * @see https://developer.wordpress.org/plugins/the-basics/uninstall-methods/#method-2-uninstall-php
  */
 
-// if uninstall.php is not called by WordPress, die
+// if uninstall.php is not called by WordPress, die.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	die;
 }
 
 delete_option( 'wpdtrt_tourdates' );
 
-// for site options in Multisite
+// for site options in Multisite.
 delete_site_option( 'wpdtrt_tourdates' );
-
-// drop a custom database table
-//global $wpdb;
-//$wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}mytable");

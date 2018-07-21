@@ -9,37 +9,37 @@
  */
 
 // Predeclare variables
-
+//
 // Internal WordPress arguments available to widgets
-// This allows us to use the same template for shortcodes and front-end widgets
-$before_widget = null; // register_sidebar
-$before_title  = null; // register_sidebar
+// This allows us to use the same template for shortcodes and front-end widgets.
+$before_widget = null; // register_sidebar.
+$before_title  = null; // register_sidebar.
 $title         = null;
-$after_title   = null; // register_sidebar
-$after_widget  = null; // register_sidebar
+$after_title   = null; // register_sidebar.
+$after_widget  = null; // register_sidebar.
 
-// Shortcode options
+// Shortcode options.
 $term_id = null;
 
-// Access to plugin
+// Access to plugin.
 $plugin = null;
 
-// Options: display $args + widget $instance settings + access to plugin
+// Options: display $args + widget $instance settings + access to plugin.
 $options = get_query_var( 'options' );
 
 // Overwrite variables from array values
-// @link http://kb.network.dan/php/wordpress/extract/
+// @link http://kb.network.dan/php/wordpress/extract/.
 extract( $options, EXTR_IF_EXISTS );
 
-// WordPress widget options (widget, not shortcode)
+// WordPress widget options (widget, not shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
 
-// Logic
+// Logic.
 $taxonomy = $plugin->get_the_taxonomy( $term_id );
 $summary  = '';
 
-// Get the term with the passed ID, rather than the parent page term
+// Get the term with the passed ID, rather than the parent page term.
 $term             = get_term_by( 'id', $term_id, $taxonomy );
 $tour_slug        = $term->slug;
 $tour_description = $term->description;
@@ -88,5 +88,5 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 </div>
 
 <?php
-// Output widget customisations (not output with shortcode)
+// Output widget customisations (not output with shortcode).
 echo $after_widget;

@@ -1,5 +1,13 @@
 <?php
 /**
+ * DTRT Tour Dates
+ *
+ * @package     WPDTRT_Tourdates
+ * @author      Dan Smith
+ * @copyright   2018 Do The Right Thing
+ * @license     GPL-2.0+
+ *
+ * @wordpress-plugin
  * Plugin Name:  DTRT Tour Dates
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-tourdates
  * Description:  Organise bike touring content by tour dates.
@@ -100,8 +108,8 @@ require_once $project_root_path . 'vendor/autoload.php';
 if ( is_admin() ) {
 	// This replaces the TGMPA autoloader
 	// @see dotherightthing/generator-wpdtrt-plugin-boilerplate#77
-	// @see dotherightthing/wpdtrt-plugin-boilerplate#136
-	require_once( $project_root_path . 'vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php');
+	// @see dotherightthing/wpdtrt-plugin-boilerplate#136.
+	require_once( $project_root_path . 'vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php' );
 }
 
 // sub classes, not loaded via PSR-4.
@@ -112,7 +120,7 @@ require_once WPDTRT_TOURDATES_PATH . 'src/class-wpdtrt-tourdates-taxonomy.php';
 
 // log & trace helpers.
 global $debug;
-$debug = new DoTheRightThing\WPDebug\Debug;
+$debug = new DoTheRightThing\WPDebug\Debug();
 
 /**
  * ===== WordPress Integration =====
@@ -180,7 +188,7 @@ function wpdtrt_tourdates_helper_deactivate() {
  */
 function wpdtrt_tourdates_plugin_init() {
 	// pass object reference between classes via global
-	// because the object does not exist until the WordPress init action has fired
+	// because the object does not exist until the WordPress init action has fired.
 	global $wpdtrt_tourdates_plugin;
 
 	/**
@@ -213,6 +221,7 @@ function wpdtrt_tourdates_plugin_init() {
 			'label' => esc_html__( 'Custom Post Type', 'wpdtrt-tourdates' ),
 			'tip'   => esc_html__( 'Used for the previous/next navigation bar', 'wpdtrt-tourdates' ),
 		),
+
 		/*
 		'posttype' => array(
 			'type'  => 'text',
@@ -423,7 +432,7 @@ function wpdtrt_tourdates_taxonomy_init() {
 	$wpdtrt_tourdates_taxonomy = new WPDTRT_Tourdates_Taxonomy(
 		array(
 			'name'                      => 'wpdtrt_tourdates_taxonomy_tour',
-			'register'					=> true,
+			'register'                  => true,
 			'plugin'                    => $wpdtrt_tourdates_plugin,
 			'selected_instance_options' => array(),
 			'taxonomy_options'          => array(
