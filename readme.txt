@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.0.16
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,6 +60,10 @@ A day number is assigned to each post as it is (re)published.
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.1.0 =
+* Update wpdtrt-plugin-boilerplate to 1.5.0
+* Sync with generator-wpdtrt-plugin-boilerplate 0.8.0
 
 = 1.0.16 =
 * Update wpdtrt-plugin-boilerplate to 1.4.39
