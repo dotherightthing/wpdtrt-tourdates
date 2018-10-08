@@ -23,57 +23,62 @@
 
         // width: 20%; - why? this causes premature wrapping on attachment page
         // font-size: 1.125em; 18px
-    }
 
-    .wpdtrt-tourdates-day--title {
-        // makes text selectable
-        display: inline-block; // wrap nicely
-        position: relative;
-        z-index: 3;
-        font-size: .7em;
+        &--images-title {
+            line-height: 0;
+            margin-bottom: .5em;
 
-        .single-attachment & {
-            background-color: transparent;
-            font-size: 1em;
-            font-weight: 500;
+            .wpdtrt-tourdates-day--title {
+                font-size: .4em;
+            }
         }
-    }
 
-    .wpdtrt-tourdates-day--images-title {
-        line-height: 0;
-        margin-bottom: .5em;
-
-        .wpdtrt-tourdates-day--title {
-            font-size: .4em;
+        &--day,
+        &--number,
+        &--title {
+            background: $wpdtrt-tourdates-day-bg-color;
+            color: $wpdtrt-tourdates-day-text-color;
+            padding: 1px 5px 5px;
+            box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
         }
-    }
 
-    .wpdtrt-tourdates-day--day,
-    .wpdtrt-tourdates-day--number,
-    .wpdtrt-tourdates-day--title {
-        background: $wpdtrt-tourdates-day-bg-color;
-        color: $wpdtrt-tourdates-day-text-color;
-        padding: .3125rem;
-        box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
-    }
+        &--title {
+            // makes text selectable
+            display: inline-block; // wrap nicely
+            position: relative;
+            z-index: 3;
+            font-size: .7em;
 
-    .wpdtrt-tourdates-day--day,
-    .wpdtrt-tourdates-day--number {
-        padding-bottom: 0;
-    }
+            &__subtitle {
+                display: inline-block;
+                color: #666;
+            }
 
-    .wpdtrt-tourdates-day--day {
-        padding-right: 0;
-    }
-
-    .wpdtrt-tourdates-day--number {
-        &::before {
-            content: '#';
+            .single-attachment & {
+                background-color: transparent;
+                font-size: 1em;
+                font-weight: 500;
+            }
         }
-    }
 
-    .wpdtrt-tourdates-day--period {
-        display: none;
+        &--day,
+        &--number {
+            padding-bottom: 0;
+        }
+
+        &--day {
+            padding-right: 0;
+        }
+
+        &--number {
+            &::before {
+                content: '#';
+            }
+        }
+
+        &--period {
+            display: none;
+        }
     }
 }
 
@@ -93,8 +98,10 @@
 @media screen and (min-width: 35.5em) {
 
     .stack_banner {
-        .wpdtrt-tourdates-day--title {
-            padding-bottom: 0;
+        .wpdtrt-tourdates-day {
+            &--title {
+                padding-bottom: 0;
+            }
         }
     }
 }
@@ -139,30 +146,32 @@
         }
     }
 
-    .wpdtrt-tourdates-day--day-range,
-    .wpdtrt-tourdates-day--number {
-        &::before {
-            content: '#';
+    .wpdtrt-tourdates-day {
+        &--day-range,
+        &--number {
+            &::before {
+                content: '#';
+            }
         }
-    }
 
-    .wpdtrt-tourdates-day--period {
-        // extends .says
-        position: absolute !important;
-        width: 1px;
-        height: 1px;
-        clip: rect(1px, 1px, 1px, 1px);
-        // many screen reader and browser combinations announce broken words as they would appear visually
-        word-wrap: normal !important;
-        overflow: hidden;
-    }
+        &--period {
+            // extends .says
+            position: absolute !important;
+            width: 1px;
+            height: 1px;
+            clip: rect(1px, 1px, 1px, 1px);
+            // many screen reader and browser combinations announce broken words as they would appear visually
+            word-wrap: normal !important;
+            overflow: hidden;
+        }
 
-    .wpdtrt-tourdates-day--title {
-        display: inline-block;
-        font-size: 2em;
-        line-height: 1;
-        font-weight: 600;
-        padding-bottom: .2em;
+        &--title {
+            display: inline-block;
+            font-size: 2em;
+            line-height: 1;
+            font-weight: 600;
+            padding-bottom: .2em;
+        }
     }
 
     a {

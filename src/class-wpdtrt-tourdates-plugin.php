@@ -863,9 +863,19 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 			return $title;
 		}
 
+		$title_parts = explode( ': ', $title );
+
+		if ( count( $title_parts ) > 1 ) {
+			$title_html_1 = $title_parts[0] . ': ';
+			$title_html_2 = '<span class="wpdtrt-tourdates-day--title__subtitle">' . $title_parts[1] . '</span>';
+		} else {
+			$title_html_1 = $title;
+			$title_html_2 = '';
+		}
+
 		$day               = $this->get_post_daynumber( $post_id );
 		$day_html          = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . '</span><span class="wpdtrt-tourdates-day--period">, </span></span>';
-		$title_html        = '<span class="wpdtrt-tourdates-day--title">' . $title . '</span>';
+		$title_html        = '<span class="wpdtrt-tourdates-day--title">' . $title_html_1 . $title_html_2 . '</span>';
 		$simple_title_html = $title;
 
 		// if in the loop / rendering the post
