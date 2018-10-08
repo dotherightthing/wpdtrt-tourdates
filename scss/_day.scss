@@ -38,8 +38,12 @@
         &--title {
             background: $wpdtrt-tourdates-day-bg-color;
             color: $wpdtrt-tourdates-day-text-color;
-            padding: 1px 5px 5px;
+            padding: 5px;
             box-shadow: 0 0 0 4px $wpdtrt-tourdates-day-bg-color;
+        }
+
+        &--location {
+            color: #666;
         }
 
         &--title {
@@ -71,6 +75,8 @@
         }
 
         &--number {
+            padding-left: 0;
+
             &::before {
                 content: '#';
             }
@@ -121,14 +127,6 @@
 // Stack link page
 
 .stack_link_page {
-    .wpdtrt-tourdates-day {
-        display: block;
-        color: inherit;
-        font-size: 1em;
-        text-transform: uppercase;
-        padding-bottom: .6em;
-    }
-
     // sass-lint:disable force-element-nesting
     .stack--text h3 > .wpdtrt-tourdates-day > *,
     .wpdtrt-tourdates-day--title,
@@ -147,11 +145,23 @@
     }
 
     .wpdtrt-tourdates-day {
+        display: block;
+        color: inherit;
+        font-size: 1em;
+        text-transform: uppercase;
+        padding-bottom: .6em;
+
         &--day-range,
         &--number {
             &::before {
                 content: '#';
             }
+        }
+
+        &--day,
+        &--number,
+        &--title {
+            padding-top: 1px;
         }
 
         &--period {

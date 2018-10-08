@@ -873,8 +873,10 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 			$title_html_2 = '';
 		}
 
+		$location = get_field( 'acf_location' );
+
 		$day               = $this->get_post_daynumber( $post_id );
-		$day_html          = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . '</span><span class="wpdtrt-tourdates-day--period">, </span></span>';
+		$day_html          = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . ': <span class="wpdtrt-tourdates-day--location">' . $location . '</span></span><span class="wpdtrt-tourdates-day--period">, </span></span>';
 		$title_html        = '<span class="wpdtrt-tourdates-day--title">' . $title_html_1 . $title_html_2 . '</span>';
 		$simple_title_html = $title;
 
