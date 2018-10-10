@@ -45,7 +45,6 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		// add actions and filters here.
 		add_action( 'init', array( $this, 'set_rewrite_rules' ) );
 		add_action( 'save_post', array( $this, 'save_post_daynumber' ), 10, 3 );
-		add_filter( 'the_title', array( $this, 'filter_post_title_add_day' ) );
 	}
 
 	/**
@@ -829,80 +828,6 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Add the day to the post title
-	 *
-	 * @param string $title The post title.
-	 * @param int    $post_id The post ID.
-	 * @return string
-	 *
-	 * @see https://wordpress.org/support/topic/the_title-filter-only-for-page-title-display
-	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/the_title
-	 * @todo: this is outputting into the Primary Navigation menu, need to check !if_menu
-	 * @see TourdatesTest
-	 */
-	public function filter_post_title_add_day( $title, $post_id = null ) {
-
-		// http://php.net/manual/en/functions.arguments.php
-		// if ( is_null($post_id) ) {
-		// $day = get_field('acf_daynumber');
-		// }
-		// else {
-		// $day = get_post_field('acf_daynumber', $post_id);
-		// }.
-		global $post;
-
-		// a $post_id is required.
-		if ( ! isset( $post_id ) && isset( $post ) ) {
-			$post_id = $post->ID;
-		} else {
-			// this applies on an archive page
-			// e.g. /tours/asia/east-asia/china-2/.
-			return $title;
-		}
-
-		$title_parts = explode( ': ', $title );
-
-		if ( count( $title_parts ) > 1 ) {
-			$title_html_1 = $title_parts[0] . ': ';
-			$title_html_2 = '<span class="wpdtrt-tourdates-day--title__subtitle">' . $title_parts[1] . '</span>';
-		} else {
-			$title_html_1 = $title;
-			$title_html_2 = '';
-		}
-
-		$location = get_field( 'acf_location' );
-
-		$day               = $this->get_post_daynumber( $post_id );
-		$day_html          = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $day . ': <span class="wpdtrt-tourdates-day--location">' . $location . '</span></span><span class="wpdtrt-tourdates-day--period">, </span></span>';
-		$title_html        = '<span class="wpdtrt-tourdates-day--title">' . $title_html_1 . $title_html_2 . '</span>';
-		$simple_title_html = $title;
-
-		// if in the loop / rendering the post
-		// || is_active_widget(false, 'widget_recent_entries').
-		if ( $day && in_the_loop() && is_single() && ! is_admin() && ( ! is_active_widget() || is_active_widget( false, 'widget_recent_entries' ) ) ) {
-
-			return $day_html . $title_html;
-
-		} elseif ( $day && in_the_loop() && ( is_archive() || is_search() || is_home() ) && ( ! is_active_widget() || is_active_widget( false, 'widget_recent_entries' ) ) ) {
-
-			// if is category listings or similar.
-			if ( is_admin() ) { // excludes media library.
-				return $title;
-			} else {
-				return $day_html . $title_html;
-			}
-		} else {
-
-			// else if the dashboard etc.
-			if ( is_admin() ) {
-				return $title;
-			} else {
-				return $simple_title_html;
-			}
-		}
 	}
 
 	/**
