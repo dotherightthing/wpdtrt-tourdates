@@ -12,7 +12,7 @@
  *
  * @since   1.0.0
  */
-class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_5_3\Plugin {
+class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_5_5\Plugin {
 
 	/**
 	 * Supplement plugin initialisation.
@@ -626,12 +626,12 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 */
 	public function post_has_required_terms( $post_id ) {
 
-		$taxonomy   = $this->get_the_taxonomy();
-		$post_terms = wp_get_post_terms( $post_id, $taxonomy );
+		$taxonomy        = $this->get_the_taxonomy();
+		$post_terms      = wp_get_post_terms( $post_id, $taxonomy );
 		$post_term_types = array();
 
 		foreach ( $post_terms as $term ) {
-			$term_type = $this->get_meta_term_type( $term->term_id );
+			$term_type                     = $this->get_meta_term_type( $term->term_id );
 			$post_term_types[ $term_type ] = true;
 		}
 
@@ -650,7 +650,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * Create a custom field when a post is saved, updated, or updated via Quick Edit
 	 * which can be queried by the next/previous_post_link_plus plugin
 	 * and used in the Yoast page title via %%cf_wpdtrt_tourdates_daynumber%%,
-	 * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth)
+	 * and used in the permalink slug 'tourdiaries/%tours%/%wpdtrt_tourdates_cf_daynumber%' (wpdtrt-dbth/library/register_post_type_tourdiaries.php)
 	 *
 	 * Use the Query Monitor plugin to view the Post type
 	 *

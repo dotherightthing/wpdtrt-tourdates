@@ -421,7 +421,7 @@ function wpdtrt_tourdates_shortcode_tourlengthdays_init() {
  */
 
 /**
- * Register Taxonomy
+ * Register the 'tours' taxonomy
  *
  * @return object Taxonomy/
  */
