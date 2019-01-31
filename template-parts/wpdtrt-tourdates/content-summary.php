@@ -84,6 +84,7 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 	</div>
 	<?php if ( 'east-asia' === $tour_slug ) : ?>
 		<p>There's a lot to write-up! Please follow <a href="http://www.facebook.com/dontbelievethehypenz">my Facebook page</a> or subscribe to the <a href="/feed/?post_type=tourdiaries">Tour Diary RSS feed</a>, to be notified of new entries as they are added.</p>
+		<p>Or, for information on my current tour across India, check out <a href="https://trackmytour.com/qTz19">my current location in India</a>, or <a href="https://vimeo.com/album/5687259">my India video page</a>.</p>
 	<?php endif; ?>
 </div>
 
