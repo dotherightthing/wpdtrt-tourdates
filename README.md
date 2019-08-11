@@ -17,7 +17,7 @@ Please prefix the WordPress block in your `.htaccess` file with the following:
 ```
 # wpdtrt-tourdates content partials
 RewriteEngine On
-RewriteRule "^(content-)+.*" "/tours/asia/east-asia/" [L,R=301]
+RewriteRule "^(content-)+.*" "/" [L,R=301]
 ```
 
 ## WordPress Installation and Usage
