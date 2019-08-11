@@ -50,7 +50,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$this->tour_term_id = $this->mock_tour_term( array(
 			'name'         => 'East Asia (2015-2016)',
 			'slug'         => 'east-asia',
-			'description'  => 'Russia - Mongolia - China - Hong Kong -Japan - New Zealand (298 days)',
+			'description'  => 'Russia - Mongolia - China - Hong Kong - Japan - New Zealand (298 days)',
 			'term_type'    => 'tour',
 			'start_date'   => '2015-9-2',
 			'end_date'     => '2016-6-25',
@@ -786,7 +786,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals(
-			get_term_meta( $this->tour_term_id, 'thumbnail_id', true ),
+			get_term_meta( $this->tour_thumbnail_id, 'thumbnail_id', true ),
 			'',
 			'tour has the wrong thumbnail_id, when queried directly'
 		);

@@ -58,7 +58,7 @@ if ( 'tour' === $term_type ) {
 } elseif ( 'tour_leg' === $term_type ) {
 
 	if ( shortcode_exists( 'wpdtrt_tourdates_shortcode_tourlengthdays' ) ) {
-		$tour_length_days = do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $term_id . '" text_before="This tour leg lasted " text_after=" days"]' );
+		$tour_length_days = do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays term_id="' . $term_id . '" text_before="This leg of the tour lasted " text_after=" days"]' );
 	}
 
 	$tour_leg_count = '';
