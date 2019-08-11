@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "wpdtrt-tourdates",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Display the relative position of content within an assigned date-range",
   "main": "wpdtrt-tourdates.php",
   "person": {
