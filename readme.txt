@@ -63,6 +63,7 @@ A day number is assigned to each post as it is (re)published.
 
 = 1.1.4 =
 * Added a Content ID field to tour admin pages, to allow a source content page to be specified
+* Redirected `/content-foo` pages to `/` (via `.htaccess`)
 * Housekeeping and minor text fixes
 * Update NPM dependencies
 
