@@ -56,6 +56,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'end_date'     => '2016-6-25',
 			'leg_count'    => '6',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 		));
 
 		// create legs in alphabetical order so we can test resorting into date order.
@@ -69,6 +70,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => 926,
+			'content_id'   => 123,
 			'disabled'     => '', // 0.
 		));
 
@@ -82,6 +84,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => '', // 0.
 			'leg_count'    => '',
 			'thumbnail_id' => 926,
+			'content_id'   => 123,
 			'disabled'     => 1,
 		));
 
@@ -95,6 +98,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 			'disabled'     => 1,
 		));
 
@@ -108,6 +112,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 			'disabled'     => 1,
 		));
 
@@ -121,6 +126,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 			'disabled'     => 1,
 		));
 
@@ -134,6 +140,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 			'disabled'     => 1,
 		));
 
@@ -147,6 +154,7 @@ class TourdatesTest extends WP_UnitTestCase {
 			'first_visit'  => 1,
 			'leg_count'    => '',
 			'thumbnail_id' => '',
+			'content_id'   => '',
 			'disabled'     => '', // 0
 		));
 
@@ -346,6 +354,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$first_visit  = null;
 		$leg_count    = null;
 		$thumbnail_id = null;
+		$content_id   = null;
 
 		extract( $options, EXTR_IF_EXISTS );
 
@@ -378,6 +387,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$first_visit  = null;
 		$leg_count    = null;
 		$thumbnail_id = null;
+		$content_id   = null;
 
 		extract( $options, EXTR_IF_EXISTS );
 
@@ -395,6 +405,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		update_term_meta( $term_id, 'first_visit', $first_visit );
 		update_term_meta( $term_id, 'leg_count', $leg_count );
 		update_term_meta( $term_id, 'thumbnail_id', $thumbnail_id );
+		update_term_meta( $term_id, 'content_id', $content_id );
 
 		return $term_id;
 	}
@@ -416,6 +427,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		$first_visit  = null;
 		$leg_count    = null;
 		$thumbnail_id = null;
+		$content_id   = null;
 		$disabled     = null;
 
 		extract( $options, EXTR_IF_EXISTS );
@@ -434,6 +446,7 @@ class TourdatesTest extends WP_UnitTestCase {
 		update_term_meta( $term_id, 'first_visit', $first_visit );
 		update_term_meta( $term_id, 'leg_count', $leg_count );
 		update_term_meta( $term_id, 'thumbnail_id', $thumbnail_id );
+		update_term_meta( $term_id, 'content_id', $content_id );
 		update_term_meta( $term_id, 'disabled', $disabled );
 
 		return $term_id;
@@ -778,6 +791,12 @@ class TourdatesTest extends WP_UnitTestCase {
 			'tour has the wrong thumbnail_id, when queried directly'
 		);
 
+		$this->assertEquals(
+			get_term_meta( $this->tour_content_id, 'content_id', true ),
+			'',
+			'tour has the wrong content_id, when queried directly'
+		);
+
 		// term meta, queried via plugin.
 		$this->assertEquals(
 			$this->plugin->get_meta_term_type( $this->tour_term_id ),
@@ -807,6 +826,12 @@ class TourdatesTest extends WP_UnitTestCase {
 			$this->plugin->get_meta_thumbnail_id( $this->tour_term_id ),
 			'',
 			'tour has the wrong thumbnail_id, when queried by plugin'
+		);
+
+		$this->assertEquals(
+			$this->plugin->get_meta_content_id( $this->tour_term_id ),
+			'',
+			'tour has the wrong content_id, when queried by plugin'
 		);
 
 		// plugin calculations.
@@ -945,6 +970,13 @@ class TourdatesTest extends WP_UnitTestCase {
 				'tour_leg has wrong thumbnail_id'
 			);
 
+			// todo this shouldn't exist yet.
+			$this->assertEquals(
+				get_term_meta( $tour_leg_id, 'content_id', true ),
+				123,
+				'tour_leg has wrong content_id'
+			);
+
 			// term meta, queried via plugin.
 			$this->assertEquals(
 				$this->plugin->get_meta_term_type( $tour_leg_id ),
@@ -963,6 +995,13 @@ class TourdatesTest extends WP_UnitTestCase {
 				$this->plugin->get_meta_thumbnail_id( $tour_leg_id ),
 				926,
 				'tour_leg has wrong thumbnail_id'
+			);
+
+			// todo this shouldn't exist yet.
+			$this->assertEquals(
+				$this->plugin->get_meta_content_id( $tour_leg_id ),
+				123,
+				'tour_leg has wrong content_id'
 			);
 
 			// plugin calculations.

@@ -36,8 +36,10 @@ echo $before_widget;
 echo $before_title . $title . $after_title;
 
 // Logic.
-$taxonomy = $plugin->get_the_taxonomy( $term_id );
-$summary  = '';
+$taxonomy   = $plugin->get_the_taxonomy( $term_id );
+$summary    = '';
+$content_id = $plugin->get_meta_content_id( $term_id );
+$content    = '';
 
 // Get the term with the passed ID, rather than the parent page term.
 $term             = get_term_by( 'id', $term_id, $taxonomy );
@@ -73,6 +75,11 @@ if ( isset( $tour_description, $tour_length_days, $tour_leg_count ) ) {
 if ( isset( $tour_length_days, $tour_leg_count ) ) {
 	$summary .= ( $tour_length_days . $tour_leg_count . '.' );
 }
+
+if ( isset( $content_id ) ) {
+	$post    = get_post( $content_id );
+	$content = apply_filters( 'the_content', $post->post_content );
+}
 ?>
 
 <div class="entry-summary-wrapper">
@@ -82,10 +89,7 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 			<?php echo $summary; ?>
 		</p>
 	</div>
-	<?php if ( 'east-asia' === $tour_slug ) : ?>
-		<p>There's a lot to write-up! Please follow <a href="http://www.facebook.com/dontbelievethehypenz">my Facebook page</a> or subscribe to the <a href="/feed/?post_type=tourdiaries">Tour Diary RSS feed</a>, to be notified of new entries as they are added.</p>
-		<p>Or, for information on my current tour across India, check out <a href="https://trackmytour.com/qTz19">my current location in India</a>, or <a href="https://vimeo.com/album/5687259">my India video page</a>.</p>
-	<?php endif; ?>
+	<?php echo $content; ?>
 </div>
 
 <?php

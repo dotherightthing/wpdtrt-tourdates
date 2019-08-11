@@ -10,6 +10,16 @@ Organise bike touring content by tour dates.
 
 Please read [DTRT WordPress Plugin Boilerplate: Workflows](https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Workflows).
 
+### .htaccess
+
+Please prefix the WordPress block in your `.htaccess` file with the following:
+
+```
+# wpdtrt-tourdates content partials
+RewriteEngine On
+RewriteRule "^(content-)+.*" "/tours/asia/east-asia/" [L,R=301]
+```
+
 ## WordPress Installation and Usage
 
 Please read the [WordPress readme.txt](readme.txt).

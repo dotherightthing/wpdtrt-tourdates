@@ -499,6 +499,14 @@ function wpdtrt_tourdates_taxonomy_init() {
 					'tip'               => 'Media &gt; Library',
 					'todo_condition'    => 'term_type == "tour"',
 				),
+				'content_id'   => array(
+					'type'              => 'number',
+					'label'             => esc_html__( 'Content ID', 'wpdtrt-tourdates' ),
+					'admin_table'       => false,
+					'admin_table_label' => esc_html__( 'Content', 'wpdtrt-tourdates' ),
+					'admin_table_sort'  => false,
+					'tip'               => 'Displayed below description on tour page',
+				),
 				'disabled'     => array(
 					'type'              => 'checkbox',
 					'label'             => esc_html__( 'Disabled', 'wpdtrt-tourdates' ),

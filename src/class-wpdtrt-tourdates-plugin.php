@@ -215,6 +215,22 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	}
 
 	/**
+	 * Get the value of the content_id metadata/field attached to a particular term/tour
+	 *
+	 * @param number $term_id The Term ID.
+	 * @return string $term_content_id The content ID
+	 * @version 1.0.0
+	 * @since 1.1.4
+	 * @see TourdatesTest
+	 */
+	public function get_meta_content_id( $term_id ) {
+
+		$content_id = get_term_meta( $term_id, 'content_id', true );
+
+		return $content_id;
+	}
+
+	/**
 	 * Get the value of the leg_count metadata/field attached to a particular term/tour
 	 *
 	 * @param number $term_id The Term ID.
