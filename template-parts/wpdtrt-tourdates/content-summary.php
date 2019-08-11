@@ -76,7 +76,7 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 	$summary .= ( $tour_length_days . $tour_leg_count . '.' );
 }
 
-if ( isset( $content_id ) ) {
+if ( isset( $content_id ) && ( '' !== $content_id ) ) {
 	$post    = get_post( $content_id );
 	$content = apply_filters( 'the_content', $post->post_content );
 }
