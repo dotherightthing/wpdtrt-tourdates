@@ -62,10 +62,13 @@ A day number is assigned to each post as it is (re)published.
 == Changelog ==
 
 = 1.1.4 =
-* Added a Content ID field to tour admin pages, to allow a source content page to be specified
-* Redirected `/content-foo` pages to `/` (via `.htaccess`)
+* Add a Content ID field to tour admin pages, to embed a content page below the description
+* Redirect `/content-foo` pages to `/` (via `.htaccess`)
+* Update Composer and NPM dependencies
+* Fix casing of Composer dependency
+* Travis: Update Node version to match local dev
+* Travis: start MySQL as this no longer happens automatically
 * Housekeeping and minor text fixes
-* Update NPM dependencies
 
 = 1.1.3 =
 * Add links to India tour pages.
