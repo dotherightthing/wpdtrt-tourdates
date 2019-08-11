@@ -505,7 +505,7 @@ function wpdtrt_tourdates_taxonomy_init() {
 					'admin_table'       => false,
 					'admin_table_label' => esc_html__( 'Content', 'wpdtrt-tourdates' ),
 					'admin_table_sort'  => false,
-					'tip'               => 'Displayed below description on tour page',
+					'tip'               => 'Inserts the content page with this ID below the description on the tour page (note: to support redirects, the page slug must begin with \'content-\')',
 				),
 				'disabled'     => array(
 					'type'              => 'checkbox',
