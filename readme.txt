@@ -65,7 +65,7 @@ A day number is assigned to each post as it is (re)published.
 * Don't use Content ID if it is an empty string
 
 = 1.1.5 =
-Documentation
+* Documentation
 
 = 1.1.4 =
 * Add a Content ID field to tour admin pages, to embed a content page below the description
@@ -73,7 +73,7 @@ Documentation
 * Update Composer and NPM dependencies
 * Fix casing of Composer dependency
 * Travis: Update Node version to match local dev
-* Travis: start MySQL as this no longer happens automatically
+* Travis: Start MySQL as this no longer happens automatically
 * Housekeeping and minor text fixes
 
 = 1.1.3 =
