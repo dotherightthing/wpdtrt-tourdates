@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.1.6
+Stable tag: 1.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,10 @@ A day number is assigned to each post as it is (re)published.
 
 == Changelog ==
 
+= 1.1.7 =
+* Update wpdtrt-plugin-boilerplate from 1.5.5 to 1.5.6
+* Sync with generator-wpdtrt-plugin-boilerplate (0.8.2 to 0.8.3)
+
 = 1.1.6 =
 * Don't use Content ID if it is an empty string
 
@@ -83,20 +87,20 @@ A day number is assigned to each post as it is (re)published.
 * Nest SCSS, add support for Title: Subtitle, adjust title padding
 * Add location to page H1 after day number, adjust padding
 * Relocate H1 title manipulations to wpdtrt-dbth
-* Update wpdtrt-plugin-boilerplate to 1.5.3
+* Update wpdtrt-plugin-boilerplate from 1.5.3 to 1.5.5
 * Update other dependencies
 * Documentation
 
 = 1.1.1 =
-* Update wpdtrt-plugin-boilerplate to 1.5.3
+* Update wpdtrt-plugin-boilerplate from 1.5.0 to 1.5.3
 * Sync with generator-wpdtrt-plugin-boilerplate 0.8.2
 
 = 1.1.0 =
-* Update wpdtrt-plugin-boilerplate to 1.5.0
+* Update wpdtrt-plugin-boilerplate to 1.4.39 to 1.5.0
 * Sync with generator-wpdtrt-plugin-boilerplate 0.8.0
 
 = 1.0.16 =
-* Update wpdtrt-plugin-boilerplate to 1.4.39
+* Update wpdtrt-plugin-boilerplate from 1.4.38 to 1.4.39
 * Sync with generator-wpdtrt-plugin-boilerplate 0.7.27
 
 = 1.0.15 =
