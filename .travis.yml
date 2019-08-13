@@ -1,7 +1,6 @@
 # Configuration file for Travis CI builds,
 # which are automatically run when code is pushed to Github.
 # To skip a build, add [ci skip] to the commit message.
-# This file has been linted using: http://lint.travis-ci.org/
 
 # Use PHP, to use Composer, WordPress and PHPUnit
 language: php
