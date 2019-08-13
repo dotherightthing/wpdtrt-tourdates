@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7079d9189478ddf3ef5ef7d61d81e25",
+    "content-hash": "d02109d0b26c0b7f2cc2f93bbc2327a0",
     "packages": [
         {
             "name": "dotherightthing/wpdtrt-debug",
@@ -54,16 +54,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin-boilerplate",
-            "version": "1.5.5",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate.git",
-                "reference": "8579f1d8eaefcd678e50b34c85110e97a773b18b"
+                "reference": "61501036441489feef36a4d0c11f4b5f369deaef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/8579f1d8eaefcd678e50b34c85110e97a773b18b",
-                "reference": "8579f1d8eaefcd678e50b34c85110e97a773b18b",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/61501036441489feef36a4d0c11f4b5f369deaef",
+                "reference": "61501036441489feef36a4d0c11f4b5f369deaef",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_5_5\\": "src"
+                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_5_6\\": "src"
                 }
             },
             "license": [
@@ -105,9 +105,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.5.5"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.5.6"
             },
-            "time": "2018-12-16T22:34:11+00:00"
+            "time": "2019-08-13T08:27:50+00:00"
         },
         {
             "name": "gamajo/template-loader",
@@ -470,16 +470,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+                "reference": "141b272484481432cda342727a427dc1e206bfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+                "reference": "141b272484481432cda342727a427dc1e206bfa0",
                 "shasum": ""
             },
             "require": {
@@ -535,6 +535,7 @@
                 "RadPHP",
                 "SMF",
                 "Thelia",
+                "Whmcs",
                 "WolfCMS",
                 "agl",
                 "aimeos",
@@ -557,6 +558,7 @@
                 "installer",
                 "itop",
                 "joomla",
+                "known",
                 "kohana",
                 "laravel",
                 "lavalite",
@@ -586,7 +588,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2018-08-27T06:10:37+00:00"
+            "time": "2019-08-12T15:00:31+00:00"
         },
         {
             "name": "composer/semver",
