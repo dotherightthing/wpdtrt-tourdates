@@ -4,35 +4,27 @@
  *     Front-end scripting for public pages
  *     PHP variables are provided in `wpdtrt_tourdates_config`.
  * @version 0.0.1
- * @since   0.7.0 DTRT WordPress Plugin Boilerplate Generator
+ * @since   0.7.0
  */
 
-/* eslint-env browser */
-/* global document, jQuery, wpdtrt_tourdates_config */
-/* eslint-disable no-unused-vars */
+/* global jQuery */
+/* eslint-disable func-names, camelcase */
 
 /**
- * @namespace wpdtrt_tourdates_ui
+ * @namespace wpdtrtTourdatesUi
  */
-const wpdtrt_tourdates_ui = {
+const wpdtrtTourdatesUi = {
 
     /**
-     * Initialise front-end scripting
+     * @summary Initialise front-end scripting
      * @since 0.0.1
      */
     init: () => {
-        "use strict";
-
-        console.log("wpdtrt_tourdates_ui.init");
+        console.log('wpdtrtTourdatesUi.init'); // eslint-disable-line no-console
     }
-}
+};
 
-jQuery(document).ready( ($) => {
-
-    "use strict";
-
-    const config = wpdtrt_tourdates_config;
-    wpdtrt_tourdates_ui.init();
+jQuery(document).ready(() => {
+    // const config = wpdtrt_tourdates_config;
+    wpdtrtTourdatesUi.init();
 });
-
-/* eslint-enable no-unused-vars */
