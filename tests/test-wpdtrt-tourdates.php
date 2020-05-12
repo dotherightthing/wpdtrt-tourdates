@@ -698,13 +698,6 @@ class TourdatesTest extends WP_UnitTestCase {
 			$this->tour_leg_term_id_2,
 			'Wrong term_id returned, for tour_leg assigned to post ' . $this->post_id_2
 		);
-
-		// todo.
-		$this->assertEquals(
-			$this->plugin->filter_post_title_add_day( 'Post title', $this->post_id_2 ),
-			'Post title',
-			'Post title filter does not add day to title of post ' . $this->post_id_2
-		);
 	}
 
 	/**
