@@ -94,7 +94,7 @@ if ( isset( $content_id ) && ( '' !== $content_id ) ) {
 <div class="entry-summary-wrapper">
 	<div class="entry-summary">
 		<p>
-			<?php echo $summary; ?>
+			<?php echo str_replace( '<br/>', '', $summary ); ?>
 		</p>
 	</div>
 	<?php echo $content; ?>
