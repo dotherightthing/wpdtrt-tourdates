@@ -2,7 +2,10 @@
     "name": "dotherightthing/wpdtrt-tourdates",
     "description": "Display the relative position of content within an assigned date-range",
     "type": "library",
-    "keywords": ["cycle-touring", "travel"],
+    "keywords": [
+        "cycle-touring",
+        "travel"
+    ],
     "license": "ISC",
     "authors": [
         {
@@ -20,15 +23,14 @@
         "dotherightthing/wpdtrt-plugin-boilerplate": "^1.5.6"
     },
     "require-dev": {
-        "phpdocumentor/phpdocumentor": "2.9.0",
-        "phpunit/phpunit": "^5.7",
-        "psy/psysh" : "~0.6",
-        "wp-cli/wp-cli" : "~0.22",
         "wp-coding-standards/wpcs": "^0.14.1",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "phpunit/phpunit": "^7.5.14",
+        "psy/psysh" : "~0.6",
+        "wp-cli/wp-cli": "^2.3",
         "wpackagist-plugin/ambrosite-nextprevious-post-link-plus": "2.4.*"
     },
-    "extras": {
+    "extra": {
         "require-wp": [
             {
                 "name": "Ambrosite Next/Previous Post Link Plus",
