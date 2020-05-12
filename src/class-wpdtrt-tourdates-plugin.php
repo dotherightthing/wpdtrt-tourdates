@@ -21,7 +21,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * @since     1.0.0
 	 * @version   1.1.0
 	 */
-	public function __construct( $options ) {
+	public function __construct( $options ) { // phpcs:ignore
 
 		// edit here.
 		parent::__construct( $options );
@@ -322,7 +322,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		// then this is a tour leg
 		// and we are getting the tour leg date range
 		// term_exists( $term, $taxonomy, $parent ).
-		if ( term_exists( $id, $taxonomy ) ) {
+		if ( term_exists( $id, $taxonomy ) ) { // phpcs:ignore
 
 			$term_term_type = $this->get_meta_term_type( $id );
 
@@ -749,7 +749,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		$config = array(
 			'order_by'    => 'meta_key',
 			'post_type'   => '"' . $posttype . '"',
-			'meta_key'    => 'wpdtrt_tourdates_cf_daynumber',
+			'meta_key'    => 'wpdtrt_tourdates_cf_daynumber', // phpcs:ignore
 			'loop'        => false,
 			'max_length'  => 9999,
 			'format'      => '%link',
@@ -863,7 +863,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		// usort: Sort an array with a user-defined comparison function
 		// uasort: and maintain index association (not reqd & fails comparison unit test as keys are shuffled)
 		// @usort: suppress PHP Warning: usort(): Array was modified by the user comparison function.
-		@usort( $tour_term_ids, function( $term_a_id, $term_b_id ) {
+		@usort( $tour_term_ids, function( $term_a_id, $term_b_id ) { // phpcs:ignore
 
 			$term_type_a       = $this->get_meta_term_type( $term_a_id );
 			$term_type_b       = $this->get_meta_term_type( $term_b_id );
@@ -900,7 +900,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		// usort: Sort an array with a user-defined comparison function
 		// uasort: and maintain index association (not reqd & fails comparison unit test as keys are shuffled)
 		// @usort: suppress PHP Warning: usort(): Array was modified by the user comparison function.
-		@usort( $tour_term, function( $term_a, $term_b ) {
+		@usort( $tour_term, function( $term_a, $term_b ) { // phpcs:ignore
 
 			$term_a_parent = $term_a->parent;
 			$term_b_parent = $term_b->parent;
