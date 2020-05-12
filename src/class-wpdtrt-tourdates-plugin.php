@@ -753,7 +753,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 			'loop'        => false,
 			'max_length'  => 9999,
 			'format'      => '%link',
-			'link'        => '<span class="stack--navigation--text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
+			'link'        => '<span class="stack--navigation__text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
 			'tooltip'     => $tooltip_prefix . ': Day DAY_NUMBER.',
 			'in_same_tax' => $taxonomy,
 			'echo'        => false,
@@ -819,8 +819,8 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 			$title_text .= ': ' . $attachment_title;
 		}
 
-		$day_html   = '<span class="wpdtrt-tourdates-day theme-text_secondary"><span class="wpdtrt-tourdates-day--day">Day </span><span class="wpdtrt-tourdates-day--number">' . $parent_day . ': ' . $parent_title . '</span><span class="wpdtrt-tourdates-day--period">. </span></span>';
-		$title_html = '<span class="wpdtrt-tourdates-day--title">' . $title_text . '</span>';
+		$day_html   = '<span class="wpdtrt-tourdates-day"><span class="wpdtrt-tourdates-day__day">Day </span><span class="wpdtrt-tourdates-day__number">' . $parent_day . ': ' . $parent_title . '</span><span class="wpdtrt-tourdates-day__period">. </span></span>';
+		$title_html = '<span class="wpdtrt-tourdates-day__title">' . $title_text . '</span>';
 
 		return $day_html . $title_html;
 	}
@@ -834,9 +834,9 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 */
 	public function filter_attachment_title_remove_day( $attachment_title = '', $fallback = '' ) {
 
-		$regex    = '/<span class="wpdtrt-tourdates-day theme-text_secondary">.*<\/span><span class="wpdtrt-tourdates-day--title">/';
-		$output   = preg_replace( $regex, '<span class="wpdtrt-tourdates-day--title">', $attachment_title );
-		$html_len = strlen( '<span class="wpdtrt-tourdates-day--title"></span>' );
+		$regex    = '/<span class="wpdtrt-tourdates-day">.*<\/span><span class="wpdtrt-tourdates-day__title">/';
+		$output   = preg_replace( $regex, '<span class="wpdtrt-tourdates-day__title">', $attachment_title );
+		$html_len = strlen( '<span class="wpdtrt-tourdates-day__title"></span>' );
 		$output   = trim( $output );
 
 		if ( ( strlen( $output ) - $html_len ) === 0 ) {
