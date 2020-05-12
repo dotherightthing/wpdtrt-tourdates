@@ -5,29 +5,18 @@
 // TEMPLATE: template-parts/wpdtrt-tourdates-navigation
 //
 
-.site-header-main {
-    .wpdtrt-tourdates-navigation {
-        font-family: 'Helvetica Neue', sans-serif;
-    }
-}
-
-.wpdtrt-tourdates-navigation--current {
-    font-size: 1.7em;
-}
-
-.wpdtrt-tourdates-navigation--text {
-    display: inline-block;
-    font-family: 'Helvetica Neue', sans-serif;
-    line-height: 1.5;
-}
-
 .wpdtrt-tourdates-navigation {
-    clear: both;
     font-size: .9em;
     text-align: center;
 
-    .site-header & {
-        padding: 1em 0;
+    &__current {
+        font-size: 1.7em;
+    }
+
+    &__text {
+        display: inline-block;
+        font-family: 'Helvetica Neue', sans-serif;
+        line-height: 1.5;
     }
 
     ul {
@@ -53,7 +42,7 @@
     }
 
     .a {
-        color: rgba(0, 0, 0, .1);
+        color: var(--wpdtrt-tourdates-link-color-disabled);
     }
 
     a {
@@ -67,33 +56,10 @@
 
         &:hover,
         &:focus {
-            color: #000;
+            color: var(--wpdtrt-tourdates-link-color-hover);
 
             &::after {
-                border-color: #333;
-            }
-        }
-
-        .entry-content & {
-            box-shadow: 0 0 0 0 currentColor;
-        }
-    }
-}
-
-//
-// 14.1 - >= 710px
-// At this BP the 3 column layout is applied.
-//
-
-@media screen and (min-width: 44.375em) {
-
-    .stack_banner {
-        .wpdtrt-tourdates-navigation {
-            &::after {
-                content: '';
-                display: table;
-                clear: both;
-                width: 100%;
+                border-color: var(--wpdtrt-tourdates-link-underline-color-hover);
             }
         }
     }

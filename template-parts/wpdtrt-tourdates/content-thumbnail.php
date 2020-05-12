@@ -47,7 +47,7 @@ if ( isset( $featured_image_src ) ) :
 	?>
 
 	<style id="style-post-<?php echo $term_id ? $term_id : ''; ?>">
-		#post-<?php echo $term_id; ?> .stack--wrapper {
+		#post-<?php echo $term_id; ?> .stack__liner {
 			background-image: url(<?php echo $featured_image_src[0]; ?> );
 		}
 	</style>
