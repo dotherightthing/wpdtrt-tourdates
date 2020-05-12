@@ -66,6 +66,15 @@ if ( 'tour' === $term_type ) {
 
 if ( isset( $tour_description ) ) {
 	$summary .= $tour_description;
+
+	// if the description doesn't end in appropriate punctuation
+	// end it with a fullstop and a space.
+	$last_letter = substr( trim( $tour_description ), -1 );
+	preg_match( '/[.!;]/', $last_letter, $matches );
+
+	if ( count( $matches ) < 1 ) {
+		$summary .= '. ';
+	}
 }
 
 if ( isset( $tour_description, $tour_length_days, $tour_leg_count ) ) {
