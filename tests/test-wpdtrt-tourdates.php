@@ -585,14 +585,14 @@ class TourdatesTest extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals(
-			trim( $this->plugin->render_navigation_link( 'previous', 'tourdiaries' ) ),
 			'<a href="http://example.org/?tourdiaries=the-first-tour-day" rel="prev" title="Previous: Day 20."><span class="stack--navigation__text says">Previous: Day 20</span> <span class="icon-arrow-left stack--navigation--icon"></span></a>',
+			trim( $this->plugin->render_navigation_link( 'previous', 'tourdiaries' ) ),
 			'Previous rendered navigation link not correct'
 		);
 
 		$this->assertEquals(
-			trim( $this->plugin->render_navigation_link( 'next', 'tourdiaries' ) ),
 			'<a href="http://example.org/?tourdiaries=the-third-tour-day" rel="next" title="Next: Day 22."><span class="stack--navigation__text says">Next: Day 22</span> <span class="icon-arrow-right stack--navigation--icon"></span></a>',
+			trim( $this->plugin->render_navigation_link( 'next', 'tourdiaries' ) ),
 			'Next rendered navigation link not correct'
 		);
 	}
