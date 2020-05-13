@@ -89,7 +89,10 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 
 if ( isset( $content_id ) && ( '' !== $content_id ) ) {
 	$post    = get_post( $content_id );
-	$content = apply_filters( 'the_content', $post->post_content );
+	// remove_filter( 'the_content', 'filter_content_galleries' );
+	// $content = apply_filters( 'the_content', $post->post_content );
+	$content = $post->post_content;
+	// add_filter( 'the_content', 'filter_content_galleries' );
 }
 ?>
 
@@ -99,7 +102,11 @@ if ( isset( $content_id ) && ( '' !== $content_id ) ) {
 			<?php echo str_replace( '<br/>', '', $summary ); ?>
 		</p>
 	</div>
-	<?php echo $content; ?>
+	<div class="entry-summary-content">
+		<p>
+			<?php echo $content; ?>
+		</p>
+	</div>
 </div>
 
 <?php
