@@ -205,21 +205,25 @@ function wpdtrt_tourdates_plugin_init() {
 	 */
 	$instance_options = array(
 		'term_id'     => array(
-			'type'  => 'number',
-			'label' => esc_html__( 'Term ID', 'wpdtrt-tourdates' ),
+			'type'    => 'number',
+			'label'   => esc_html__( 'Term ID', 'wpdtrt-tourdates' ),
+			'default' => 1,
 		),
 		'text_before' => array(
-			'type'  => 'text',
-			'label' => esc_html__( 'Text before', 'wpdtrt-tourdates' ),
+			'type'    => 'text',
+			'label'   => esc_html__( 'Text before', 'wpdtrt-tourdates' ),
+			'default' => '',
 		),
 		'text_after'  => array(
-			'type'  => 'text',
-			'label' => esc_html__( 'Text after', 'wpdtrt-tourdates' ),
+			'type'    => 'text',
+			'label'   => esc_html__( 'Text after', 'wpdtrt-tourdates' ),
+			'default' => '',
 		),
 		'posttype'    => array(
-			'type'  => 'text',
-			'label' => esc_html__( 'Custom Post Type', 'wpdtrt-tourdates' ),
-			'tip'   => esc_html__( 'Used for the previous/next navigation bar', 'wpdtrt-tourdates' ),
+			'type'    => 'text',
+			'label'   => esc_html__( 'Custom Post Type', 'wpdtrt-tourdates' ),
+			'default' => '',
+			'tip'     => esc_html__( 'Used for the previous/next navigation bar', 'wpdtrt-tourdates' ),
 		),
 
 		/*
