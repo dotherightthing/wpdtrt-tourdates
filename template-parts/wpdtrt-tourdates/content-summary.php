@@ -69,11 +69,13 @@ if ( isset( $tour_description ) ) {
 
 	// if the description doesn't end in appropriate punctuation
 	// end it with a fullstop and a space.
-	$last_letter = substr( trim( $tour_description ), -1 );
-	preg_match( '/[.!;]/', $last_letter, $matches );
+	if ( strlen( trim( $summary ) ) > 1 ) {
+		$last_letter = substr( trim( $tour_description ), -1 );
+		preg_match( '/[.!;]/', $last_letter, $matches );
 
-	if ( count( $matches ) < 1 ) {
-		$summary .= '. ';
+		if ( count( $matches ) < 1 ) {
+			$summary .= '. ';
+		}
 	}
 }
 
