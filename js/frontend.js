@@ -25,6 +25,6 @@ const wpdtrtTourdatesUi = {
 };
 
 jQuery(document).ready(() => {
-    // const config = wpdtrt_tourdates_config;
+    const config = wpdtrt_tourdates_config; // eslint-disable-line
     wpdtrtTourdatesUi.init();
 });
