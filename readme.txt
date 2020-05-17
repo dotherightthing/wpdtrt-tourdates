@@ -24,35 +24,9 @@ Organise bike touring content by tour dates.
 
 A day number is assigned to each post as it is (re)published.
 
-== Features ==
+== Frequently Asked Questions ==
 
-1. Assign inclusive **Date Range** (start & end dates) to a category (the hierarchical Tour taxonomy) (e.g. `01.01.2017 - 10.04.2017`)
-2. Display **Current/Elapsed Day** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `#32`).
-3. Display **Total Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `100`)
-4. Display **Relative Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `32%`)
-5. Display **Relative Day Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `Days #1-#32`)
-6. Display **Relative Date Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `January to February 2017`)
-
-= Notes =
-
-1. This is relative to the Total Duration, not the published duration. This prevents mangling of the stats when content is being published retrospectively.
-
-== Shortcodes & Template Tags ==
-
-= previous/next arrow navigation =
-
-* Shortcode: `[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]' );`
-
-= the elapsed day number =
-
-* Shortcode: `[wpdtrt_tourdates_daynumber]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_daynumber]' );`
-
-= the total number of days in a period =
-
-* Shortcode: `[wpdtrt_tourdates_daytotal]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_daytotal]' );`
+See [WordPress Usage](README.md#wordpress-usage).
 
 == Screenshots ==
 
@@ -60,6 +34,23 @@ A day number is assigned to each post as it is (re)published.
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.1.8 =
+* Disable content filters in entry-summary portion derived from page content, to prevent injection of wpdtrt-gallery__section (https://github.com/dotherightthing/wpdtrt-gallery/issues/96)
+* Add defaults for instance options (https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/43)
+* Log and comment out failing tests
+* Fix assert argument order
+* filter_post_title_add_day has been replaced by wpdtrt_dbth_filter_post_title_add_day
+* Update wpdtrt-plugin-boilerplate to 1.7.0
+* Remove line breaks from summary
+* Use BEM, remove redundant selectors and elements
+* Fix/ignore linting errors
+* Update Composer dependencies
+* Use BEM, CSS variables, move theme-specific styling to wpdtrt-dbth
+* Optimise breakpoints
+* Replace Gulp build scripts with wpdtrt-npm-scripts
+* If the tour description doesn't end in appropriate punctuation, end it with a fullstop and a space.
+* Replace Travis with Github Actions
 
 = 1.1.7 =
 * Update wpdtrt-plugin-boilerplate from 1.5.5 to 1.5.6

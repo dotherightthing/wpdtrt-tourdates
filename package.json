@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "wpdtrt-tourdates",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Display the relative position of content within an assigned date-range",
   "main": "wpdtrt-tourdates.php",
   "person": {
@@ -29,11 +29,11 @@
     "wpdtrt_npm_scripts": "./node_modules/wpdtrt-npm-scripts"
   },
   "scripts": {
+    "changelog": "npm run changelog --prefix $npm_package_config_wpdtrt_npm_scripts",
     "compile": "npm run compile --prefix $npm_package_config_wpdtrt_npm_scripts",
     "docs": "npm run docs --prefix $npm_package_config_wpdtrt_npm_scripts",
     "lint": "npm run lint --prefix $npm_package_config_wpdtrt_npm_scripts",
     "release": "npm run release --prefix $npm_package_config_wpdtrt_npm_scripts",
-    "scrape:wordpress_maintenance_page": "npm run scrape:wordpress_maintenance_page --prefix $npm_package_config_wpdtrt_npm_scripts -- $npm_package_config_wpdtrt_base_url_local",
     "test": "npm run test --prefix $npm_package_config_wpdtrt_npm_scripts",
     "version": "npm run version --prefix $npm_package_config_wpdtrt_npm_scripts",
     "watch": "nodemon"
@@ -46,6 +46,6 @@
   "homepage": "https://github.com/dotherightthing/wpdtrt-tourdates",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates",
   "devDependencies": {
-    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts"
+    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:0.3.*"
   }
 }
