@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 4.8.2
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 1.1.7
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ See [WordPress Usage](README.md#wordpress-usage).
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.2.0 =
+* Bump version
 
 = 1.1.8 =
 * Disable content filters in entry-summary portion derived from page content, to prevent injection of wpdtrt-gallery__section (https://github.com/dotherightthing/wpdtrt-gallery/issues/96)
