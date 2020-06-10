@@ -204,39 +204,33 @@ function wpdtrt_tourdates_plugin_init() {
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-shortcode-or-widget-options Options: Adding shortcode or widget options
 	 */
 	$instance_options = array(
-		'term_id'     => array(
+		'term_id'       => array(
 			'type'    => 'number',
 			'label'   => esc_html__( 'Term ID', 'wpdtrt-tourdates' ),
 			'default' => 1,
 		),
-		'text_before' => array(
+		'text_before'   => array(
 			'type'    => 'text',
 			'label'   => esc_html__( 'Text before', 'wpdtrt-tourdates' ),
 			'default' => '',
 		),
-		'text_after'  => array(
+		'text_after'    => array(
 			'type'    => 'text',
 			'label'   => esc_html__( 'Text after', 'wpdtrt-tourdates' ),
 			'default' => '',
 		),
-		'posttype'    => array(
+		'page_position' => array(
+			'type'    => 'text',
+			'label'   => esc_html__( 'Page position', 'wpdtrt-tourdates' ),
+			'default' => '',
+			'tip'     => esc_html__( 'Used to differentiate different instances to assistive technologies', 'wpdtrt-tourdates' ),
+		),
+		'posttype'      => array(
 			'type'    => 'text',
 			'label'   => esc_html__( 'Custom Post Type', 'wpdtrt-tourdates' ),
 			'default' => '',
 			'tip'     => esc_html__( 'Used for the previous/next navigation bar', 'wpdtrt-tourdates' ),
 		),
-
-		/*
-		'posttype' => array(
-			'type'  => 'text',
-			'label' => esc_html__('Post type', 'wpdtrt-tourdates'),
-		),
-		'taxonomy' => array(
-			'type'  => 'text',
-			'label' => esc_html__('Taxonomy', 'wpdtrt-tourdates'),
-			'tip'   => 'tours'
-		)
-		*/
 	);
 
 	/**
@@ -355,6 +349,7 @@ function wpdtrt_tourdates_shortcode_navigation_init() {
 			'plugin'                    => $wpdtrt_tourdates_plugin,
 			'template'                  => 'navigation',
 			'selected_instance_options' => array(
+				'page_position',
 				'posttype',
 			),
 		)

@@ -19,6 +19,7 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // Shortcode options.
+$page_position = null;
 $posttype = null;
 
 // Access to plugin.
@@ -39,13 +40,22 @@ $previous  = $plugin->render_navigation_link( 'previous', $posttype );
 $next      = $plugin->render_navigation_link( 'next', $posttype );
 $daynumber = $plugin->get_post_daynumber( $post_id );
 
+$page_position_id     = '';
+$page_position_string = '';
+
+if ( $page_position ) {
+	$page_position_id     = '-' . $page_position;
+	$page_position_string = ' (' . $page_position . ')';
+}
+
 // WordPress widget options (widget, not shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
 ?>
 
 <div class="wpdtrt-tourdates-navigation">
-	<nav>
+	<nav aria-labelledby="wpdtrt-tourdates-navigation__title<?php echo $page_position_id; ?>">
+		<h2 class="says" id="wpdtrt-tourdates-navigation__title<?php echo $page_position_id; ?>">Tour diary menu<?php echo $page_position_string; ?></h2>
 		<ul>
 			<li class="wpdtrt-tourdates-navigation--previous">
 				<?php echo $previous; ?>
