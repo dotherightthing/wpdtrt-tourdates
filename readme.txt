@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ See [WordPress Usage](README.md#wordpress-usage).
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.2.1 =
+* Accessibly label navigation bar
+* Update required WP and PHP versions
 
 = 1.2.0 =
 * Bump version
