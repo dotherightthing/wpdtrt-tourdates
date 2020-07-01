@@ -55,3 +55,9 @@ Please read the [WordPress readme.txt](readme.txt).
 
 * Shortcode: `[wpdtrt_tourdates_daytotal]`
 * Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_daytotal]' );`
+
+### Styling
+
+Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
+
+See `scss/_variables.scss`.
