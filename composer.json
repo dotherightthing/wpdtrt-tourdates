@@ -20,7 +20,7 @@
         "issues": "https://github.com/dotherightthing/wpdtrt-tourdates/issues"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.7.3"
+        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.7.5"
     },
     "require-dev": {
         "wp-coding-standards/wpcs": "^0.14.1",
