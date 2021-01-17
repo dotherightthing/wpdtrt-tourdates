@@ -1,1 +1,1 @@
-* [4c04a4e] Update dependencies, incl wpdtrt-plugin-boilerplate from 1.7.7 to 1.7.8 (fixes #33)
+* [9e24a19] Update dependencies, incl wpdtrt-plugin-boilerplate from 1.7.8 to 1.7.9 (fixes #33)
