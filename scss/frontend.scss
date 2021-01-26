@@ -5,17 +5,30 @@
 // @since       1.0.0
 //
 
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/variables';
-@import 'vendor/dotherightthing/wpdtrt-plugin-boilerplate/scss/extends';
+// -------------------------------------------------------------------
+// Variables
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/variables/scss';
 @import 'variables/scss';
+
+// -------------------------------------------------------------------
+// Mixins
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/mixins';
+
+// -------------------------------------------------------------------
+// Extends
+// -------------------------------------------------------------------
+
+@import '../node_modules/wpdtrt-scss/scss/extends';
 @import 'extends';
-@import 'navigation';
-@import '../icons/icomoon/style.css';
 
 // -------------------------------------------------------------------
 // Styles
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-// Media Queries
-// -------------------------------------------------------------------
+@import 'navigation';
+@import '../icons/icomoon/style.css';
+@import '../node_modules/wpdtrt-scss/scss/_frontend';
