@@ -20,7 +20,7 @@ $after_widget  = null; // register_sidebar.
 
 // Shortcode options.
 $page_position = null;
-$posttype = null;
+$posttype      = null;
 
 // Access to plugin.
 $plugin = null;
