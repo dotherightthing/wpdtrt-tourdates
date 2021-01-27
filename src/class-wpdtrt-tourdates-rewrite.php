@@ -14,7 +14,7 @@
  * @since   1.0.0
  * @version 1.0.0
  */
-class WPDTRT_Tourdates_Rewrite extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_9\Rewrite {
+class WPDTRT_Tourdates_Rewrite extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_12\Rewrite {
 
 	/**
 	 * Supplement plugin initialisation.
