@@ -238,8 +238,8 @@ function wpdtrt_tourdates_plugin_init() {
 	 */
 	$ui_messages = array(
 		'demo_data_description'       => __( 'This demo was generated from the following data', 'wpdtrt-tourdates' ),
-		'demo_data_displayed_length'  => __( 'results displayed', 'wpdtrt-tourdates' ),
-		'demo_data_length'            => __( 'results', 'wpdtrt-tourdates' ),
+		'demo_data_displayed_length'  => __( '# results displayed', 'wpdtrt-tourdates' ),
+		'demo_data_length'            => __( '# results', 'wpdtrt-tourdates' ),
 		'demo_data_title'             => __( 'Demo data', 'wpdtrt-tourdates' ),
 		'demo_date_last_updated'      => __( 'Data last updated', 'wpdtrt-tourdates' ),
 		'demo_sample_title'           => __( 'Demo sample', 'wpdtrt-tourdates' ),
