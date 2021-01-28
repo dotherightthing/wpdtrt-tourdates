@@ -60,4 +60,4 @@ Please read the [WordPress readme.txt](readme.txt).
 
 Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
 
-See `scss/_variables.scss`.
+See `scss/variables/_css.scss`.
