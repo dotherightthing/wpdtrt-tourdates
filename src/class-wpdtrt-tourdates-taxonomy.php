@@ -14,7 +14,7 @@
  * @since   1.0.0
  * @version 1.0.0
  */
-class WPDTRT_Tourdates_Taxonomy extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Taxonomy {
+class WPDTRT_Tourdates_Taxonomy extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_16\Taxonomy {
 
 	/**
 	 * Supplement taxonomy initialisation.
