@@ -283,22 +283,6 @@ function wpdtrt_tourdates_plugin_init() {
 }
 
 /**
- * ===== Rewrite config =====
- */
-
-/**
- * Register Rewrite
- */
-function wpdtrt_tourdates_rewrite_init() {
-
-	global $wpdtrt_tourdates_plugin;
-
-	$wpdtrt_tourdates_rewrite = new WPDTRT_Tourdates_Rewrite(
-		array()
-	);
-}
-
-/**
  * ===== Shortcode config =====
  */
 
