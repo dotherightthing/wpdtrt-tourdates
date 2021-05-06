@@ -259,7 +259,6 @@ function wpdtrt_tourdates_plugin_init() {
 	 *
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Settings-page:-Adding-a-demo-shortcode Settings page: Adding a demo shortcode
 	 */
-	$demo_shortcode_params = array();
 
 	/**
 	 * Plugin configuration
