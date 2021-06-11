@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,12 @@ See [WordPress Usage](README.md#wordpress-usage).
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.2.9 =
+* [d6337d4] Update dependencies, update wpdtrt-plugin-boilerplate from 1.7.16 to 1.7.17
+* [33f7292] Add missing variable to resolve error
+* [72d8d20] Sync comment with plugin generator
+* [3d41808] Remove redundant demo_shortcode_params (dotherightthing/wpdtrt-plugin-boilerplate#192)
 
 = 1.2.8 =
 * [520d3e1] Update wpdtrt-plugin-boilerplate from 1.7.15 to 1.7.16
