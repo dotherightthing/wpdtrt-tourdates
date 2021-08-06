@@ -5,7 +5,7 @@ Tags: cycle-touring, travel
 Requires at least: 5.3.3
 Tested up to: 5.3.3
 Requires PHP: 7.2.15
-Stable tag: 1.2.10
+Stable tag: 1.2.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ See [WordPress Usage](README.md#wordpress-usage).
 2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 1.2.11 =
+* [8461677] Don't load generic wpdtrt-scss styles in plugins (dotherightthing/wpdtrt-scss#1)
 
 = 1.2.10 =
 * [8b0ec24] Update wpdtrt-scss to 0.1.17
