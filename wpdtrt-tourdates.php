@@ -324,7 +324,7 @@ function wpdtrt_tourdates_shortcode_daytotal_init() {
 }
 
 /**
- * Register Shortcode for Navigation
+ * Register Shortcode for Sequential Navigation
  */
 function wpdtrt_tourdates_shortcode_navigation_init() {
 

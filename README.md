@@ -28,33 +28,114 @@ Please read the [WordPress readme.txt](readme.txt).
 
 ### Features
 
-1. Assign inclusive **Date Range** (start & end dates) to a category (the hierarchical Tour taxonomy) (e.g. `01.01.2017 - 10.04.2017`)
-2. Display **Current/Elapsed Day** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `#32`).
-3. Display **Total Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `100`)
-4. Display **Relative Duration** on a post, when it is assigned to the tour and its publish date is within the Date Range (e.g. `32%`)
-5. Display **Relative Day Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `Days #1-#32`)
-6. Display **Relative Date Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `January to February 2017`)
+#### Tour taxonomy
 
-### Notes
+`wpdtrt_tourdates_taxonomy_tour`
 
-1. This is relative to the Total Duration, not the published duration. This prevents mangling of the stats when content is being published retrospectively.
+* Options (Term type):
+   * `region` (e.g. *Asia*)
+   * `tour` (e.g. *East Asia (2015)*)
+   * `tour_leg` (e.g. *Japan*)
+* `start_date` (e.g. *2015-09-02*)
+* `end_date` (e.g. *2016-06-25*)
+* `first_visit` (if `tour_leg` - Used in country traversal counts)
+* `leg_count` (if `tour_leg` - Used in country traversal counts)
+* `thumbnail_id` (if `tour`)
+* `content_id` (Inserts the content page with this ID below the description on the tour page)
+* `disabled` (if `tour_leg` - Disables terms which have no posts yet)
 
-### Shortcodes & Template Tags
+### Shortcodes, Template Tags and public functions
 
-#### previous/next arrow navigation
+#### Day number (elapsed day number)
 
-* Shortcode: `[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_navigation posttype="tourdiaries" taxonomy="tours"]' );`
+When a post is assigned to the tour and its publish date is within the Date Range:
 
-#### the elapsed day number
+* display **Current/Elapsed Day** on day maps and in daily statistics (e.g. `#32`).
+* display **Relative Duration** on a post (e.g. `32%`).
 
-* Shortcode: `[wpdtrt_tourdates_daynumber]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_daynumber]' );`
+Note: Day number is relative to the Total Duration, not the published duration. This prevents mangling of the stats when content is being published retrospectively.
 
-#### the total number of days in a period
+Usage:
 
-* Shortcode: `[wpdtrt_tourdates_daytotal]`
-* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_daytotal]' );`
+* Shortcode: `[wpdtrt_tourdates_shortcode_daynumber]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_daynumber]' );`
+
+The public function is used when generating links and titles:
+
+* `$wpdtrt_tourdates_plugin->get_post_daynumber()`
+
+#### Day total (total number of days in a period)
+
+When a post is assigned to the tour and its publish date is within the Date Range:
+
+* display **Total Duration** in daily statistics (e.g. `100`)
+* display **Relative Duration** on a post (in conjunction with Day Number) (e.g. `32%`)
+
+Usage:
+
+* Shortcode: `[wpdtrt_tourdates_shortcode_daytotal]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_daytotal]' );`
+
+#### Navigation
+
+Navigate previous/next post via arrow icons.
+
+* Shortcode: `[wpdtrt_tourdates_shortcode_navigation posttype="tourdiaries" taxonomy="tours"]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_navigation posttype="tourdiaries" taxonomy="tours"]' );`
+
+#### Start and end month
+
+Display **Relative Date Duration** on a sub-category in a hierarchical archive page (Tour taxonomy) (e.g. `January to February 2017`)
+
+The public function is used when generating `tour` summaries:
+
+* `$wpdtrt_tourdates_plugin->get_term_start_month()`
+* `$wpdtrt_tourdates_plugin->get_term_end_month()`
+
+#### Summary
+
+* Shortcode: `[wpdtrt_tourdates_shortcode_summary]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_summary]' );`
+
+#### Term IDs sorted by start date
+
+The public function is used on sitemaps and tour landing pages:
+
+* `$wpdtrt_tourdates_plugin->helper_order_tour_terms_by_date()`
+
+#### Terms sorted by hierarchical order
+
+Not used.
+
+* `$wpdtrt_tourdates_plugin->helper_order_tour_terms_by_hierarchy()`
+
+#### Term type
+
+* `$wpdtrt_tourdates_plugin->get_meta_term_type()`
+
+#### Thumbnail
+
+Display a custom image on `region`, `tour` and `tour_leg` landing pages.
+
+* Shortcode: `[wpdtrt_tourdates_shortcode_thumbnail]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_thumbnail]' );`
+
+The public function is used to get the custom image ID in order to generate different sizes:
+
+* `$wpdtrt_tourdates_plugin->get_meta_thumbnail_id()`
+
+#### Tour disabled state
+
+The public function is used to determine whether the tour should be shown as active or disabled:
+
+* `$wpdtrt_tourdates_plugin->get_meta_term_disabled()`
+
+#### Tour length in days
+
+Display **Relative Day Duration** on a sub-category in a hierarchical archive page (e.g. `tour_leg`) (e.g. `Days #1-#32`)
+
+* Shortcode: `[wpdtrt_tourdates_shortcode_tourlengthdays]`
+* Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_tourlengthdays]' );`
 
 ### Styling
 
