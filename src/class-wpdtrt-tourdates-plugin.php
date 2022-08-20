@@ -420,11 +420,12 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 *
 	 * @param number $term_id The term ID.
 	 * @return string $tour_leg_end_month The month when the tour ended (Month YYYY)
+	 * @param string $date_format PHP date format.
 	 * @see TourdatesTest
 	 */
-	public function get_term_end_month( $term_id ) {
+	public function get_term_end_month( $term_id, $date_format ) {
 		$term_type          = $this->get_meta_term_type( $term_id );
-		$tour_leg_end_month = $this->get_term_end_date( $term_id, $term_type, 'F Y' );
+		$tour_leg_end_month = $this->get_term_end_date( $term_id, $term_type, $date_format );
 
 		return $tour_leg_end_month;
 	}
@@ -559,14 +560,15 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * Get the start month & year in a tour
 	 *
 	 * @param number $term_id The term ID.
+	 * @param string $date_format PHP date format.
 	 * @return string $tour_leg_start_month The month when the tour started (Month YYYY)
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 * @see TourdatesTest
 	 */
-	public function get_term_start_month( $term_id ) {
+	public function get_term_start_month( $term_id, $date_format ) {
 		$term_type            = $this->get_meta_term_type( $term_id );
-		$tour_leg_start_month = $this->get_term_start_date( $term_id, $term_type, 'F Y' );
+		$tour_leg_start_month = $this->get_term_start_date( $term_id, $term_type, $date_format );
 
 		return $tour_leg_start_month;
 	}
