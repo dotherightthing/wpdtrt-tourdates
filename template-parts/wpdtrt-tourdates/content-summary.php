@@ -88,11 +88,11 @@ if ( isset( $tour_length_days, $tour_leg_count ) ) {
 }
 
 if ( isset( $content_id ) && ( '' !== $content_id ) ) {
-	$post    = get_post( $content_id );
+	$post = get_post( $content_id );
 	// remove_filter( 'the_content', 'filter_content_galleries' );
-	// $content = apply_filters( 'the_content', $post->post_content );
+	// $content = apply_filters( 'the_content', $post->post_content );.
 	$content = $post->post_content;
-	// add_filter( 'the_content', 'filter_content_galleries' );
+	// add_filter( 'the_content', 'filter_content_galleries' );.
 }
 ?>
 
