@@ -23,6 +23,7 @@ $after_title   = null; // register_sidebar.
 $after_widget  = null; // register_sidebar.
 
 // Shortcode options.
+$post_id = null;
 $term_id = null;
 
 // Access to plugin.
@@ -40,21 +41,19 @@ echo $before_widget;
 echo $before_title . $title . $after_title;
 
 // Logic.
-$thumbnail_id       = $plugin->get_meta_thumbnail_id( $term_id );
+$thumbnail_id       = $plugin->get_meta_thumbnail_id( $term_id, $post_id );
 $featured_image_src = wp_get_attachment_image_src( $thumbnail_id, 'thumbnail', true, '' );
 
 if ( isset( $featured_image_src ) ) :
-	?>
+	$stack_background = '#post-' . ( $term_id ? $term_id : $post_id ) . ' .stack__liner {
+		background-image: url(' . $featured_image_src[0] . ' );
+	}';
 
-	<style id="style-post-<?php echo $term_id ? $term_id : ''; ?>">
-		#post-<?php echo $term_id; ?> .stack__liner {
-			background-image: url(<?php echo $featured_image_src[0]; ?> );
-		}
-	</style>
-
-	<?php
+	// https://www.cssigniter.com/late-enqueue-inline-css-wordpress/.
+	wp_register_style( 'wpdtrt-tourdates-stack-bg', false );
+	wp_enqueue_style( 'wpdtrt-tourdates-stack-bg' );
+	wp_add_inline_style( 'wpdtrt-tourdates-stack-bg', $stack_background );
 endif;
 
 // Output widget customisations (not output with shortcode).
 echo $after_widget;
-?>

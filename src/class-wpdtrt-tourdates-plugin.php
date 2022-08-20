@@ -200,16 +200,20 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	/**
 	 * Get the value of the thumbnail_id metadata/field attached to a particular term/tour
 	 *
-	 * @param number $term_id The Term ID.
+	 * @param number|null $term_id The Term ID.
+	 * @param number|null $post_id The Post ID.
 	 * @return string $term_thumbnail_id The thumbnail ID
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 * @see TourdatesTest
 	 * @todo Add a media library button
 	 */
-	public function get_meta_thumbnail_id( $term_id ) {
-
-		$thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
+	public function get_meta_thumbnail_id( $term_id = null, $post_id = null ) {
+		if ( $term_id && $term_id > 0 ) {
+			$thumbnail_id = get_term_meta( $term_id, 'thumbnail_id', true );
+		} elseif ( $post_id && $post_id > 0 ) {
+			$thumbnail_id = get_post_thumbnail_id( $post_id );
+		}
 
 		return $thumbnail_id;
 	}

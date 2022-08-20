@@ -204,10 +204,15 @@ function wpdtrt_tourdates_plugin_init() {
 	 * @see https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-shortcode-or-widget-options Options: Adding shortcode or widget options
 	 */
 	$instance_options = array(
+		'post_id'       => array(
+			'type'    => 'number',
+			'label'   => esc_html__( 'Post ID', 'wpdtrt-tourdates' ),
+			'default' => 0,
+		),
 		'term_id'       => array(
 			'type'    => 'number',
 			'label'   => esc_html__( 'Term ID', 'wpdtrt-tourdates' ),
-			'default' => 1,
+			'default' => 0,
 		),
 		'text_before'   => array(
 			'type'    => 'text',
@@ -375,6 +380,7 @@ function wpdtrt_tourdates_shortcode_thumbnail_init() {
 			'plugin'                    => $wpdtrt_tourdates_plugin,
 			'template'                  => 'thumbnail',
 			'selected_instance_options' => array(
+				'post_id',
 				'term_id',
 			),
 		)
