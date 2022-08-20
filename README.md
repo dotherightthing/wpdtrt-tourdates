@@ -115,7 +115,7 @@ Not used.
 
 #### Thumbnail
 
-Display a custom image on `region`, `tour` and `tour_leg` landing pages.
+Display a custom CSS background image on `region`, `tour` and `tour_leg` landing pages.
 
 * Shortcode: `[wpdtrt_tourdates_shortcode_thumbnail]`
 * Template Tag: `echo do_shortcode( '[wpdtrt_tourdates_shortcode_thumbnail]' );`
