@@ -185,7 +185,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * Used to calculate date offsets.
 	 *
 	 * @param number $term_id The ID of the term.
-	 * @return string $term_type Term type (tour|tour_leg)
+	 * @return string $term_type Term type (region|tour|tour_leg)
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 * @see TourdatesTest
