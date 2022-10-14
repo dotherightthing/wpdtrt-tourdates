@@ -5,4 +5,9 @@
 // @package     wpdtrt_tourdates
 // @since       1.2.2
 
-@import 'variables/css';
+// -------------------------------------------------------------------
+// Imports
+// -------------------------------------------------------------------
+
+// Import local variables
+@use 'variables/css' as *;
