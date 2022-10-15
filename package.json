@@ -44,10 +44,10 @@
   "license": "ISC",
   "homepage": "https://github.com/dotherightthing/wpdtrt-tourdates",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-tourdates",
-  "dependencies": {
-    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:*"
-  },
   "devDependencies": {
     "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:*"
+  },
+  "dependencies": {
+    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss"
   }
 }

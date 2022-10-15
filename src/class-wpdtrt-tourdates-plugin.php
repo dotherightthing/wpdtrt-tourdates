@@ -191,6 +191,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 	 * @see TourdatesTest
 	 */
 	public function get_meta_term_type( $term_id ) {
+		// TODO upgrade to do the $taxonomy_index logic.
 
 		$term_type = get_term_meta( $term_id, 'term_type', true );
 
