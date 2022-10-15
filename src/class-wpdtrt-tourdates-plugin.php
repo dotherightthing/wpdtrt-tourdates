@@ -760,7 +760,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 			'loop'        => false,
 			'max_length'  => 9999,
 			'format'      => '%link',
-			'link'        => '<span class="stack--navigation__text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
+			'link'        => '<span class="stack--navigation__text says">' . $tooltip_prefix . ': Day DAY_NUMBER</span> <span class="wpdtrt-tourdates-icon-arrow-' . $icon . ' stack--navigation--icon"></span>',
 			'tooltip'     => $tooltip_prefix . ': Day DAY_NUMBER.',
 			'in_same_tax' => $taxonomy,
 			'echo'        => false,
@@ -789,7 +789,7 @@ class WPDTRT_Tourdates_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\
 		}
 
 		if ( ! $the_link ) {
-			$the_link = '<span class="a"><span class="icon-arrow-' . $icon . ' stack--navigation--icon"></span></span>';
+			$the_link = '<span class="a"><span class="wpdtrt-tourdates-icon-arrow-' . $icon . ' stack--navigation--icon"></span></span>';
 		}
 
 		return $the_link;

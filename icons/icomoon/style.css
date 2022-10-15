@@ -1,18 +1,18 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?nsbodr');
-  src:  url('fonts/icomoon.eot?nsbodr#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?nsbodr') format('truetype'),
-    url('fonts/icomoon.woff?nsbodr') format('woff'),
-    url('fonts/icomoon.svg?nsbodr#icomoon') format('svg');
+  font-family: 'wpdtrt-tourdates';
+  src:
+    url('fonts/wpdtrt-tourdates.ttf?mprjs5') format('truetype'),
+    url('fonts/wpdtrt-tourdates.woff?mprjs5') format('woff'),
+    url('fonts/wpdtrt-tourdates.svg?mprjs5#wpdtrt-tourdates') format('svg');
   font-weight: normal;
   font-style: normal;
+  font-display: block;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="wpdtrt-tourdates-icon-"], [class*=" wpdtrt-tourdates-icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
+  font-family: 'wpdtrt-tourdates' !important;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -24,12 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-directions_bike:before {
+.wpdtrt-tourdates-icon-directions_bike:before {
   content: "\e904";
 }
-.icon-arrow-right:before {
+.wpdtrt-tourdates-icon-arrow-right:before {
   content: "\ea34";
 }
-.icon-arrow-left:before {
+.wpdtrt-tourdates-icon-arrow-left:before {
   content: "\ea38";
 }

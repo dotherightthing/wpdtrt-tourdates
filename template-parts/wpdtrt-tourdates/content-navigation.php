@@ -63,7 +63,7 @@ echo $before_title . $title . $after_title;
 			<li class="wpdtrt-tourdates-navigation__current">
 				<strong class="wpdtrt-tourdates-navigation__text">
 					<span class="says">Current page: Day <?php echo $daynumber; ?></span>
-					<span class="icon-directions_bike"></span>
+					<span class="wpdtrt-tourdates-icon-directions_bike"></span>
 				</strong>
 			</li>
 			<li class="wpdtrt-tourdates-navigation--next">
